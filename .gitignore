@@ -172,3 +172,9 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+
+# Dapper.FluentMap custom
+
+src/Dapper.FluentMap.TestConsole
+*.sln
+!Dapper.FluentMap.sln
