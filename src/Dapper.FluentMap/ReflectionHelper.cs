@@ -1,0 +1,42 @@
+﻿using System.Linq.Expressions;
+using System.Reflection;
+
+namespace Dapper.FluentMap
+{
+    /// <summary>
+    /// Provides helper methods for reflection operations.
+    /// </summary>
+    public static class ReflectionHelper
+    {
+        /// <summary>
+        /// Returns the MemberInfo for the specified lamba expression.
+        /// </summary>
+        /// <param name="lambda">A lamba expression containing a MemberExpression.</param>
+        /// <returns>A MemberInfo object for the member in the specified lambda expression.</returns>
+        public static MemberInfo GetMemberInfo(LambdaExpression lambda)
+        {
+            Expression expr = lambda;
+            while (true)
+            {
+                switch (expr.NodeType)
+                {
+                    case ExpressionType.Lambda:
+                        expr = ((LambdaExpression)expr).Body;
+                        break;
+
+                    case ExpressionType.Convert:
+                        expr = ((UnaryExpression)expr).Operand;
+                        break;
+
+                    case ExpressionType.MemberAccess:
+                        var memberExpression = (MemberExpression)expr;
+                        MemberInfo mi = memberExpression.Member;
+                        return mi;
+
+                    default:
+                        return null;
+                }
+            }
+        }
+    }
+}
