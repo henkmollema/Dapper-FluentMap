@@ -25,3 +25,5 @@ FluentMapper.Intialize(config =>
 						   config.AddEntityMap(new ProductMap());
 					   });
 ```
+
+That's it. When quering the database using Dapper, the product name from column `strName` will be mapped to the `Name` proeprty of the `Product` entity.
