@@ -6,34 +6,45 @@ using System.Reflection;
 namespace Dapper.FluentMap
 {
     /// <summary>
-    /// Represents an entity mapping class.
+    /// Represents a non-typed mapping of an entity.
+    /// This class supports the internal infrastructure and should not be used directly in code.
     /// </summary>
-    /// <typeparam name="TEntity">The type of the entity to configure the mapping for.</typeparam>
-    public abstract class EntityMap<TEntity>
-        where TEntity : class
+    public abstract class EntityMap
     {
-        protected EntityMap()
+        /// <remarks>
+        /// The constructor is internal so classes outside this assembly can't derive from it.
+        /// </remarks>
+        internal EntityMap()
         {
-            Properties = new List<IPropertyMap>();
+            PropertyMaps = new List<IPropertyMap>();
         }
 
         /// <summary>
-        /// Gets the collection of mapper properties on <typeparamref name="TEntity"/>.
+        /// Gets the collection of mapped properties.
         /// </summary>
-        public IList<IPropertyMap> Properties { get; private set; }
+        public IList<IPropertyMap> PropertyMaps { get; private set; }
+    }
 
+    /// <summary>
+    /// Represents a typed mapping of an entity.
+    /// </summary>
+    /// <typeparam name="TEntity">The type of the entity to configure the mapping for.</typeparam>
+    public abstract class EntityMap<TEntity> : EntityMap
+        where TEntity : class
+    {
         /// <summary>
-        /// Maps a specific property of <typeparamref name="TEntity"/> to a column name in the datastore.
+        /// Returns an instance of <see cref="T:Dapper.FluentMap.IPropertyMap"/> which can perform custom mapping
+        /// for the specified property on <typeparamref name="TEntity"/>.
         /// </summary>
         /// <param name="expression">Expression to the property on <typeparamref name="TEntity"/>.</param>
-        /// <returns>The same instance of <see cref="T:Dapper.FluentMap.PropertyMap"/>. This enabled a fluent API.</returns>
+        /// <returns>The created <see cref="T:Dapper.FluentMap.IPropertyMap"/> instance. This enables a fluent API.</returns>
         protected IPropertyMap Map(Expression<Func<TEntity, object>> expression)
         {
             var info = (PropertyInfo)ReflectionHelper.GetMemberInfo(expression);
 
             // todo: validate duplicate mappings.
             IPropertyMap propertyMap = new PropertyMap(info);
-            Properties.Add(propertyMap);
+            PropertyMaps.Add(propertyMap);
             return propertyMap;
         }
     }

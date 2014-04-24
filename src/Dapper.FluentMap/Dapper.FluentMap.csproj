@@ -46,7 +46,7 @@
     <Compile Include="FluentMapConfiguration.cs" />
     <Compile Include="FluentMapper.cs" />
     <Compile Include="FluentMapTypeMapper.cs" />
-    <Compile Include="FallbackTypeMapper.cs" />
+    <Compile Include="MultiTypeMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyMap.cs" />
     <Compile Include="ReflectionHelper.cs" />

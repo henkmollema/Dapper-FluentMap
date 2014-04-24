@@ -17,7 +17,7 @@
     {
         public void AddEntityMap<TEntity>(EntityMap<TEntity> mapper) where TEntity : class
         {
-            FluentMapper.Mappers.Add(mapper);
+            FluentMapper.EntityMappers.Add(typeof (TEntity), mapper);
             FluentMapper.AddTypeMap<TEntity>();
         }
     }

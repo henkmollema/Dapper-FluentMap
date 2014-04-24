@@ -3,7 +3,7 @@
 namespace Dapper.FluentMap
 {
     /// <summary>
-    /// Provides a mapper for a specific entity.
+    /// Represents a mapping of a property of an entity.
     /// </summary>
     public interface IPropertyMap
     {

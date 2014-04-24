@@ -1,18 +1,23 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
 namespace Dapper.FluentMap
 {
-    public class FluentMapTypeMapper<T> : FallbackTypeMapper
+    /// <summary>
+    /// Represents a Dapper type mapping strategy which first tries to map the type using a <see cref="T:Dapper.CustomPropertyTypeMap"/>, 
+    /// if that fails, the <see cref="T:Dapper.DefaultTypeMap"/> is used as mapping strategy.
+    /// </summary>
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
+    public class FluentMapTypeMapper<TEntity> : MultiTypeMapper
     {
+        /// <summary>
+        /// Intializes a new instance of the <see cref="T:Dapper.FluentMap.FluentMapTypeMapper"/> class 
+        /// which uses the <see cref="T:Dapper.CustomPropertyTypeMap"/> and <see cref="T:Dapper.DefaultTypeMap"/>
+        /// as mapping strategies.
+        /// </summary>
         public FluentMapTypeMapper()
-            : base(new SqlMapper.ITypeMap[]
-                       {
-                           new CustomPropertyTypeMap(typeof (T), GetPropertyInfo),
-                           new DefaultTypeMap(typeof (T))
-                       })
+            : base(new CustomPropertyTypeMap(typeof (TEntity), GetPropertyInfo), new DefaultTypeMap(typeof (TEntity)))
         {
         }
 
@@ -26,21 +31,21 @@ namespace Dapper.FluentMap
                 return info;
             }
 
-            // Find an instance of the EntityMap<T> based on the type.
-            dynamic instance = FluentMapper.Mappers.Single(mapper => mapper.GetType().IsSubclassOf(typeof (EntityMap<>).MakeGenericType(type)));
-
-            // Get the value of the 'Properties' property which contains the mappings.
-            var propertyMaps = (IList<IPropertyMap>)instance.GetType().GetProperty("Properties").GetValue(instance);
-
-            // Find the mapping for the column name.
-            var propertyMap = propertyMaps.FirstOrDefault(m => m.ColumnName == columnName);
-
-            if (propertyMap != null)
+            EntityMap entityMap;
+            if (FluentMapper.EntityMappers.TryGetValue(type, out entityMap))
             {
-                if (!propertyMap.Ignored)
+                var propertyMaps = entityMap.PropertyMaps;
+
+                // Find the mapping for the column name.
+                var propertyMap = propertyMaps.FirstOrDefault(m => m.ColumnName == columnName);
+
+                if (propertyMap != null)
                 {
-                    _typePropertyMapCache.Add(cacheKey, propertyMap.PropertyInfo);
-                    return propertyMap.PropertyInfo;
+                    if (!propertyMap.Ignored)
+                    {
+                        _typePropertyMapCache.Add(cacheKey, propertyMap.PropertyInfo);
+                        return propertyMap.PropertyInfo;
+                    }
                 }
             }
 

@@ -8,7 +8,12 @@ namespace Dapper.FluentMap
     /// </summary>
     public static class FluentMapper
     {
-        internal static readonly IList<dynamic> Mappers = new List<dynamic>();
+        private static readonly IFluentMapConfiguration _configuration = new FluentMapConfiguration();
+
+        /// <summary>
+        /// Gets the dictionary containing the entity mapping per entity type.
+        /// </summary>
+        internal static readonly IDictionary<Type, EntityMap> EntityMappers = new Dictionary<Type, EntityMap>();
 
         /// <summary>
         /// Initializes Dapper.FluentMap with the specified configuration. 
@@ -17,7 +22,7 @@ namespace Dapper.FluentMap
         /// <param name="configure">A callback containing the configuration of Dapper.FluentMap.</param>
         public static void Intialize(Action<IFluentMapConfiguration> configure)
         {
-            configure(new FluentMapConfiguration());
+            configure(_configuration);
         }
 
         /// <summary>
