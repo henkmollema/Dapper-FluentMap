@@ -31,7 +31,7 @@ namespace Dapper.FluentMap
         /// <typeparam name="TEntity">The type of the entity.</typeparam>
         internal static void AddTypeMap<TEntity>()
         {
-            SqlMapper.SetTypeMap(typeof (TEntity), new FluentMapTypeMapper<TEntity>());
+            SqlMapper.SetTypeMap(typeof (TEntity), new FluentMapTypeMap<TEntity>());
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Dapper.FluentMap
         /// <param name="entityType">The type of the entity.</param>
         internal static void AddTypeMap(Type entityType)
         {
-            var instance = (SqlMapper.ITypeMap)Activator.CreateInstance(typeof (FluentMapTypeMapper<>).MakeGenericType(entityType));
+            var instance = (SqlMapper.ITypeMap)Activator.CreateInstance(typeof (FluentMapTypeMap<>).MakeGenericType(entityType));
             SqlMapper.SetTypeMap(entityType, instance);
         }
     }

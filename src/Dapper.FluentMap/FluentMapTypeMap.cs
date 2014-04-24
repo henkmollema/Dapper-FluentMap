@@ -9,14 +9,14 @@ namespace Dapper.FluentMap
     /// if that fails, the <see cref="T:Dapper.DefaultTypeMap"/> is used as mapping strategy.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    public class FluentMapTypeMapper<TEntity> : MultiTypeMapper
+    public class FluentMapTypeMap<TEntity> : MultiTypeMap
     {
         /// <summary>
         /// Intializes a new instance of the <see cref="T:Dapper.FluentMap.FluentMapTypeMapper"/> class 
         /// which uses the <see cref="T:Dapper.CustomPropertyTypeMap"/> and <see cref="T:Dapper.DefaultTypeMap"/>
         /// as mapping strategies.
         /// </summary>
-        public FluentMapTypeMapper()
+        public FluentMapTypeMap()
             : base(new CustomPropertyTypeMap(typeof (TEntity), GetPropertyInfo), new DefaultTypeMap(typeof (TEntity)))
         {
         }
