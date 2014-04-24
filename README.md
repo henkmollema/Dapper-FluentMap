@@ -1,7 +1,7 @@
 Dapper-FluentMap
 ================
 
-This API allows you to fluently map your POCO properties to database columns when using [Dapper](https://github.com/SamSaffron/dapper-dot-net/).
+This API allows you to fluently map your POCO properties to database columns when using [Dapper](https://github.com/SamSaffron/dapper-dot-net/). This allows you to keep your POCO's clean of (Dapper specific) mapping attributes. The functionality is similar to [Entity Framework Fluent API](http://msdn.microsoft.com/nl-nl/data/jj591617.aspx).
 
 Usage
 ========
