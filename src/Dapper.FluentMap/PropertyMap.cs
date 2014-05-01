@@ -2,46 +2,7 @@
 
 namespace Dapper.FluentMap
 {
-    /// <summary>
-    /// Represents a mapping of a property of an entity.
-    /// </summary>
-    public interface IPropertyMap
-    {
-        /// <summary>
-        /// Gets the name of the property.
-        /// </summary>
-        string Name { get; }
-
-        /// <summary>
-        /// Gets the name of the column in the data store.
-        /// </summary>
-        string ColumnName { get; }
-
-        /// <summary>
-        /// Gets a value indicating wether the property should be ignored when mapping.
-        /// </summary>
-        bool Ignored { get; }
-
-        /// <summary>
-        /// Gets the <see cref="T:System.Reflecion.PropertyInfo"/> object for the current property.
-        /// </summary>
-        PropertyInfo PropertyInfo { get; }
-
-        /// <summary>
-        /// Maps the current property to the specified column name.
-        /// </summary>
-        /// <param name="columnName">The name of the column in the data store.</param>
-        /// <returns>The current <see cref="T:Dapper.FluentMap.IPropertyMap"/> instance. This enables a fluent API.</returns>
-        IPropertyMap ToColumn(string columnName);
-
-        /// <summary>
-        /// Marks the current property as ignored, resulting in the property not being mapped by Dapper.
-        /// </summary>
-        /// <returns>The current <see cref="T:Dapper.FluentMap.PropertyMap"/> instance. This enables a fluent API.</returns>
-        IPropertyMap Ignore();
-    }
-
-    public class PropertyMap : IPropertyMap
+    public class PropertyMap
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.PropertyMap"/> using 
@@ -54,29 +15,37 @@ namespace Dapper.FluentMap
             ColumnName = info.Name;
         }
 
-        public string Name
-        {
-            get
-            {
-                return PropertyInfo.Name;
-            }
-        }
+        /// <summary>
+        /// Gets the name of the column in the data store.
+        /// </summary>
+        internal string ColumnName { get; private set; }
 
-        public string ColumnName { get; private set; }
+        /// <summary>
+        /// Gets a value indicating wether the property should be ignored when mapping.
+        /// </summary>
+        internal bool Ignored { get; private set; }
 
-        public bool Ignored { get; private set; }
+        /// <summary>
+        /// Gets the <see cref="T:System.Reflecion.PropertyInfo"/> object for the current property.
+        /// </summary>
+        internal PropertyInfo PropertyInfo { get; private set; }
 
-        public bool IsReadOnly { get; private set; }
-
-        public PropertyInfo PropertyInfo { get; private set; }
-
-        public IPropertyMap ToColumn(string columnName)
+        /// <summary>
+        /// Maps the current property to the specified column name.
+        /// </summary>
+        /// <param name="columnName">The name of the column in the data store.</param>
+        /// <returns>The current <see cref="T:Dapper.FluentMap.PropertyMap"/> instance. This enables a fluent API.</returns>
+        public PropertyMap ToColumn(string columnName)
         {
             ColumnName = columnName;
             return this;
         }
 
-        public IPropertyMap Ignore()
+        /// <summary>
+        /// Marks the current property as ignored, resulting in the property not being mapped by Dapper.
+        /// </summary>
+        /// <returns>The current <see cref="T:Dapper.FluentMap.PropertyMap"/> instance. This enables a fluent API.</returns>
+        public PropertyMap Ignore()
         {
             Ignored = true;
             return this;

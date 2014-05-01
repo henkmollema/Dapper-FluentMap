@@ -16,13 +16,13 @@ namespace Dapper.FluentMap
         /// </remarks>
         internal EntityMap()
         {
-            PropertyMaps = new List<IPropertyMap>();
+            PropertyMaps = new List<PropertyMap>();
         }
 
         /// <summary>
         /// Gets the collection of mapped properties.
         /// </summary>
-        public IList<IPropertyMap> PropertyMaps { get; private set; }
+        public IList<PropertyMap> PropertyMaps { get; private set; }
     }
 
     /// <summary>
@@ -38,12 +38,12 @@ namespace Dapper.FluentMap
         /// </summary>
         /// <param name="expression">Expression to the property on <typeparamref name="TEntity"/>.</param>
         /// <returns>The created <see cref="T:Dapper.FluentMap.IPropertyMap"/> instance. This enables a fluent API.</returns>
-        protected IPropertyMap Map(Expression<Func<TEntity, object>> expression)
+        protected PropertyMap Map(Expression<Func<TEntity, object>> expression)
         {
             var info = (PropertyInfo)ReflectionHelper.GetMemberInfo(expression);
 
             // todo: validate duplicate mappings.
-            IPropertyMap propertyMap = new PropertyMap(info);
+            var propertyMap = new PropertyMap(info);
             PropertyMaps.Add(propertyMap);
             return propertyMap;
         }
