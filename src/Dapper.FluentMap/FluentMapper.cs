@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Dapper.FluentMap
 {
     /// <summary>
-    /// Main entry point for Dapper.FluentMap for initialization.
+    /// Main entry point for Dapper.FluentMap configuration.
     /// </summary>
     public static class FluentMapper
     {

@@ -29,6 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Dapper.FluentMap.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dapper, Version=1.12.1.1, Culture=neutral, processorArchitecture=MSIL">

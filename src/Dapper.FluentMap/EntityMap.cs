@@ -22,7 +22,7 @@ namespace Dapper.FluentMap
         /// <summary>
         /// Gets the collection of mapped properties.
         /// </summary>
-        public IList<PropertyMap> PropertyMaps { get; private set; }
+        internal IList<PropertyMap> PropertyMaps { get; private set; }
     }
 
     /// <summary>
