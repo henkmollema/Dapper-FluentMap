@@ -1,10 +1,17 @@
 Dapper.FluentMap
 ================
 
+### Introduction
 This [Dapper](https://github.com/SamSaffron/dapper-dot-net/) extension allows you to fluently congfigure the mapping between POCO properties and database columns. This keeps your POCO's clean of mapping attributes. The functionality is similar to [Entity Framework Fluent API](http://msdn.microsoft.com/nl-nl/data/jj591617.aspx).
 
-Usage
-========
+<hr>
+
+### Installation
+![Install-Package Dapper.FluentMap](http://i.imgur.com/Rs483do.png "Install Dapper.FluentMap")
+
+<hr>
+
+### Usage
 Mapping properties:
 ```
 public class ProductMap : EntityMap<Product>
