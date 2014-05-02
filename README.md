@@ -6,10 +6,8 @@ This [Dapper](https://github.com/SamSaffron/dapper-dot-net/) extension allows yo
 
 <hr>
 
-### Installation
-[Package on NuGet](https://www.nuget.org/packages/Dapper.FluentMap)
-
-![Install-Package Dapper.FluentMap](http://i.imgur.com/Rs483do.png "Install Dapper.FluentMap")
+### Download
+[![Download Dapper.FluentMap on NuGet](http://i.imgur.com/Rs483do.png "Download Dapper.FluentMap on NuGet")](https://www.nuget.org/packages/Dapper.FluentMap)
 
 <hr>
 
