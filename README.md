@@ -1,4 +1,4 @@
-Dapper.FluentMap
+[Dapper.FluentMap](http://henkmollema.github.io/Dapper-FluentMap)
 ================
 
 ### Introduction
