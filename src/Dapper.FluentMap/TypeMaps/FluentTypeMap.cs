@@ -10,14 +10,14 @@ namespace Dapper.FluentMap.TypeMaps
     /// if that fails, the <see cref="T:Dapper.DefaultTypeMap"/> is used as mapping strategy.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    public class FluentMapTypeMap<TEntity> : MultiTypeMap
+    internal class FluentMapTypeMap<TEntity> : MultiTypeMap
     {
         /// <summary>
         /// Intializes a new instance of the <see cref="T:Dapper.FluentMap.FluentMapTypeMapper"/> class 
         /// which uses the <see cref="T:Dapper.CustomPropertyTypeMap"/> and <see cref="T:Dapper.DefaultTypeMap"/>
         /// as mapping strategies.
         /// </summary>
-        public FluentMapTypeMap()
+        internal FluentMapTypeMap()
             : base(new CustomPropertyTypeMap(typeof (TEntity), GetPropertyInfo), new DefaultTypeMap(typeof (TEntity)))
         {
         }
@@ -27,7 +27,7 @@ namespace Dapper.FluentMap.TypeMaps
             string cacheKey = string.Format("{0};{1}", type.FullName, columnName);
 
             PropertyInfo info;
-            if (_typePropertyMapCache.TryGetValue(cacheKey, out info))
+            if (TypePropertyMapCache.TryGetValue(cacheKey, out info))
             {
                 return info;
             }
@@ -44,14 +44,14 @@ namespace Dapper.FluentMap.TypeMaps
                 {
                     if (!propertyMap.Ignored)
                     {
-                        _typePropertyMapCache.Add(cacheKey, propertyMap.PropertyInfo);
+                        TypePropertyMapCache.Add(cacheKey, propertyMap.PropertyInfo);
                         return propertyMap.PropertyInfo;
                     }
                 }
             }
 
             // If we get here, the property was not mapped.
-            _typePropertyMapCache.Add(cacheKey, null);
+            TypePropertyMapCache.Add(cacheKey, null);
             return null;
         }
     }

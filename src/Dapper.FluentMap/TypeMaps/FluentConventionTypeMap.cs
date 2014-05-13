@@ -6,10 +6,20 @@ using Dapper.FluentMap.Conventions;
 
 namespace Dapper.FluentMap.TypeMaps
 {
-    public class FluentConventionTypeMap<T> : MultiTypeMap
+    /// <summary>
+    /// Represents a Dapper type mapping strategy which first tries to map the type using a <see cref="T:Dapper.CustomPropertyTypeMap"/>
+    /// with the configured conventions. <see cref="T:Dapper.DefaultTypeMap"/> is used as fallback mapping strategy.
+    /// </summary>
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
+    internal class FluentConventionTypeMap<TEntity> : MultiTypeMap
     {
-        public FluentConventionTypeMap()
-            : base(new CustomPropertyTypeMap(typeof (T), GetPropertyInfo))
+        /// <summary>
+        /// Intializes a new instance of the <see cref="T:Dapper.FluentMap.FluentMapTypeMapper"/> class 
+        /// which uses the <see cref="T:Dapper.CustomPropertyTypeMap"/> and <see cref="T:Dapper.DefaultTypeMap"/>
+        /// as mapping strategies.
+        /// </summary>
+        internal FluentConventionTypeMap()
+            : base(new CustomPropertyTypeMap(typeof (TEntity), GetPropertyInfo), new DefaultTypeMap(typeof (TEntity)))
         {
         }
 
@@ -18,7 +28,7 @@ namespace Dapper.FluentMap.TypeMaps
             string cacheKey = string.Format("{0};{1}", type.FullName, columnName);
 
             PropertyInfo info;
-            if (_typePropertyMapCache.TryGetValue(cacheKey, out info))
+            if (TypePropertyMapCache.TryGetValue(cacheKey, out info))
             {
                 return info;
             }
@@ -42,13 +52,13 @@ namespace Dapper.FluentMap.TypeMaps
                     }
 
                     info = maps[0].PropertyInfo;
-                    _typePropertyMapCache.Add(cacheKey, info);
+                    TypePropertyMapCache.Add(cacheKey, info);
                     return info;
                 }
             }
 
             // If we get here, the property was not mapped.
-            _typePropertyMapCache.Add(cacheKey, null);
+            TypePropertyMapCache.Add(cacheKey, null);
             return null;
         }
     }

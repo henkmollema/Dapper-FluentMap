@@ -9,7 +9,7 @@ namespace Dapper.FluentMap.Mapping
         /// the specified <see cref="T:System.Reflecion.PropertyInfo"/> object representing the property to map.
         /// </summary>
         /// <param name="info">The <see cref="T:System.Reflection.PropertyInfo"/> object representing to the property to map.</param>
-        public PropertyMap(PropertyInfo info)
+        internal PropertyMap(PropertyInfo info)
         {
             PropertyInfo = info;
             ColumnName = info.Name;
@@ -22,7 +22,7 @@ namespace Dapper.FluentMap.Mapping
         /// </summary>
         /// <param name="info">The <see cref="T:System.Reflection.PropertyInfo"/> object representing to the property to map.</param>
         /// <param name="columnName">The column name in the database to map the property to.</param>
-        public PropertyMap(PropertyInfo info, string columnName)
+        internal PropertyMap(PropertyInfo info, string columnName)
         {
             PropertyInfo = info;
             ColumnName = columnName;

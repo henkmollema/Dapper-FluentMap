@@ -23,7 +23,7 @@ namespace Dapper.FluentMap.Conventions
         public FluentMapConventionConfiguration ForEntity<T>()
         {
             Type type = typeof (T);
-            MapPropertyConvention(type);
+            MapProperties(type);
 
             FluentMapper.TypeConventions.AddOrUpdate(type, _convention);
             FluentMapper.AddConventionTypeMap<T>();
@@ -41,7 +41,7 @@ namespace Dapper.FluentMap.Conventions
                                          .GetExportedTypes()
                                          .Where(type => namespaces.Length == 0 || namespaces.Any(n => type.Namespace == n)))
             {
-                MapPropertyConvention(type);
+                MapProperties(type);
                 FluentMapper.TypeConventions.AddOrUpdate(type, _convention);
                 FluentMapper.AddConventionTypeMap(type);
             }
@@ -59,7 +59,7 @@ namespace Dapper.FluentMap.Conventions
         {
             foreach (var type in assembly.GetExportedTypes().Where(t => namespaces.Any(n => n.Contains(t.Namespace))))
             {
-                MapPropertyConvention(type);
+                MapProperties(type);
                 FluentMapper.TypeConventions.AddOrUpdate(type, _convention);
                 FluentMapper.AddConventionTypeMap(type);
             }
@@ -67,12 +67,13 @@ namespace Dapper.FluentMap.Conventions
             return this;
         }
 
-        private void MapPropertyConvention(Type type)
+        private void MapProperties(Type type)
         {
             var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
             foreach (var property in properties)
             {
+                // Find the convention configurations for the convetion with either none or matching property predicates.
                 foreach (var config in _convention.ConventionConfigurations
                                                   .Where(c => c.PropertyPredicates.Count <= 0 ||
                                                               c.PropertyPredicates.All(e => e(property))))

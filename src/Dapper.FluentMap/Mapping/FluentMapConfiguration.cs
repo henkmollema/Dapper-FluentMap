@@ -25,7 +25,7 @@ namespace Dapper.FluentMap.Mapping
         FluentMapConventionConfiguration AddConvention(Convention convention);
     }
 
-    public class FluentMapConfiguration : IFluentMapConfiguration
+    internal class FluentMapConfiguration : IFluentMapConfiguration
     {
         public void AddMap<TEntity>(EntityMap<TEntity> mapper) where TEntity : class
         {
