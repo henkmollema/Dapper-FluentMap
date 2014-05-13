@@ -1,4 +1,6 @@
-﻿using Dapper.FluentMap.Conventions;
+﻿using System;
+using System.ComponentModel;
+using Dapper.FluentMap.Conventions;
 using Dapper.FluentMap.Mapping;
 
 namespace Dapper.FluentMap.Configuration
@@ -31,5 +33,35 @@ namespace Dapper.FluentMap.Configuration
         {
             return new FluentConventionConfiguration(convention);
         }
+
+        #region EditorBrowsableStates
+        /// <inheritdoc/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
+        /// <inheritdoc/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        /// <inheritdoc/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        /// <inheritdoc/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public new Type GetType()
+        {
+            return base.GetType();
+        }
+        #endregion
     }
 }

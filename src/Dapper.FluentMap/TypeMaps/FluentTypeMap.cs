@@ -17,7 +17,7 @@ namespace Dapper.FluentMap.TypeMaps
         /// which uses the <see cref="T:Dapper.CustomPropertyTypeMap"/> and <see cref="T:Dapper.DefaultTypeMap"/>
         /// as mapping strategies.
         /// </summary>
-        internal FluentMapTypeMap()
+        public FluentMapTypeMap()
             : base(new CustomPropertyTypeMap(typeof (TEntity), GetPropertyInfo), new DefaultTypeMap(typeof (TEntity)))
         {
         }

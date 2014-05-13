@@ -1,4 +1,7 @@
-﻿namespace Dapper.FluentMap.Conventions
+﻿using System;
+using System.ComponentModel;
+
+namespace Dapper.FluentMap.Conventions
 {
     /// <summary>
     /// Represents configuration of a property via conventions.
@@ -30,5 +33,35 @@
             Prefix = prefix;
             return this;
         }
+        
+        #region EditorBrowsableStates
+        /// <inheritdoc/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override string ToString()
+        {
+            return base.ToString();
+        }
+
+        /// <inheritdoc/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        /// <inheritdoc/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        /// <inheritdoc/>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public new Type GetType()
+        {
+            return base.GetType();
+        }
+        #endregion
     }
 }
