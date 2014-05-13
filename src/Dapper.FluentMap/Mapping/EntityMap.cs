@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
+using Dapper.FluentMap.Utils;
 
-namespace Dapper.FluentMap
+namespace Dapper.FluentMap.Mapping
 {
     /// <summary>
     /// Represents a non-typed mapping of an entity.

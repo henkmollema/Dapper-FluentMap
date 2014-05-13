@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Dapper.FluentMap
+namespace Dapper.FluentMap.Mapping
 {
     public class PropertyMap
     {
@@ -8,11 +8,24 @@ namespace Dapper.FluentMap
         /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.PropertyMap"/> using 
         /// the specified <see cref="T:System.Reflecion.PropertyInfo"/> object representing the property to map.
         /// </summary>
-        /// <param name="info"></param>
+        /// <param name="info">The <see cref="T:System.Reflection.PropertyInfo"/> object representing to the property to map.</param>
         public PropertyMap(PropertyInfo info)
         {
             PropertyInfo = info;
             ColumnName = info.Name;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.PropertyMap"/> using 
+        /// the specified <see cref="T:System.Reflecion.PropertyInfo"/> object representing the property to map 
+        /// and column name to map the property to.
+        /// </summary>
+        /// <param name="info">The <see cref="T:System.Reflection.PropertyInfo"/> object representing to the property to map.</param>
+        /// <param name="columnName">The column name in the database to map the property to.</param>
+        public PropertyMap(PropertyInfo info, string columnName)
+        {
+            PropertyInfo = info;
+            ColumnName = columnName;
         }
 
         /// <summary>
@@ -34,7 +47,7 @@ namespace Dapper.FluentMap
         /// Maps the current property to the specified column name.
         /// </summary>
         /// <param name="columnName">The name of the column in the data store.</param>
-        /// <returns>The current <see cref="T:Dapper.FluentMap.PropertyMap"/> instance. This enables a fluent API.</returns>
+        /// <returns>The current <see cref="T:Dapper.FluentMap.Mapping.PropertyMap"/> instance. This enables a fluent API.</returns>
         public PropertyMap ToColumn(string columnName)
         {
             ColumnName = columnName;
@@ -44,7 +57,7 @@ namespace Dapper.FluentMap
         /// <summary>
         /// Marks the current property as ignored, resulting in the property not being mapped by Dapper.
         /// </summary>
-        /// <returns>The current <see cref="T:Dapper.FluentMap.PropertyMap"/> instance. This enables a fluent API.</returns>
+        /// <returns>The current <see cref="T:Dapper.FluentMap.Mapping.PropertyMap"/> instance. This enables a fluent API.</returns>
         public PropertyMap Ignore()
         {
             Ignored = true;

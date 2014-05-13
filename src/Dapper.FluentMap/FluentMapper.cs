@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dapper.FluentMap.Conventions;
+using Dapper.FluentMap.Mapping;
+using Dapper.FluentMap.TypeMaps;
 
 namespace Dapper.FluentMap
 {
@@ -14,6 +17,10 @@ namespace Dapper.FluentMap
         /// Gets the dictionary containing the entity mapping per entity type.
         /// </summary>
         internal static readonly IDictionary<Type, EntityMap> EntityMappers = new Dictionary<Type, EntityMap>();
+
+        internal static readonly IDictionary<Type, IList<Convention>> TypeConventions = new Dictionary<Type, IList<Convention>>();
+
+        //internal static readonly Dictionary<Convention, List<PropertyMap>> ConventionPropertyMaps = new Dictionary<Convention, List<PropertyMap>>();
 
         /// <summary>
         /// Initializes Dapper.FluentMap with the specified configuration. 
@@ -41,6 +48,17 @@ namespace Dapper.FluentMap
         internal static void AddTypeMap(Type entityType)
         {
             var instance = (SqlMapper.ITypeMap)Activator.CreateInstance(typeof (FluentMapTypeMap<>).MakeGenericType(entityType));
+            SqlMapper.SetTypeMap(entityType, instance);
+        }
+
+        internal static void AddConventionTypeMap<TEntity>()
+        {
+            SqlMapper.SetTypeMap(typeof (TEntity), new FluentConventionTypeMap<TEntity>());
+        }
+
+        internal static void AddConventionTypeMap(Type entityType)
+        {
+            var instance = (SqlMapper.ITypeMap)Activator.CreateInstance(typeof (FluentConventionTypeMap<>).MakeGenericType(entityType));
             SqlMapper.SetTypeMap(entityType, instance);
         }
     }

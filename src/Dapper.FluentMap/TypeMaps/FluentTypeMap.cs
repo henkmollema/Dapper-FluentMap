@@ -1,8 +1,9 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using Dapper.FluentMap.Mapping;
 
-namespace Dapper.FluentMap
+namespace Dapper.FluentMap.TypeMaps
 {
     /// <summary>
     /// Represents a Dapper type mapping strategy which first tries to map the type using a <see cref="T:Dapper.CustomPropertyTypeMap"/>, 

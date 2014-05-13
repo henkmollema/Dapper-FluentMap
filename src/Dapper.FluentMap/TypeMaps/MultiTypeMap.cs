@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Dapper.FluentMap
+namespace Dapper.FluentMap.TypeMaps
 {
     /// <summary>
     /// Represents a Dapper type mapping strategy which consists of multiple strategies.
