@@ -48,9 +48,9 @@
     <Compile Include="Conventions\Convention.cs" />
     <Compile Include="Conventions\ConventionPropertyConfiguration.cs" />
     <Compile Include="Conventions\PropertyConventionConfiguration.cs" />
-    <Compile Include="Conventions\FluentMapConventionConfiguration.cs" />
+    <Compile Include="Configuration\FluentConventionConfiguration.cs" />
     <Compile Include="Mapping\EntityMap.cs" />
-    <Compile Include="Mapping\FluentMapConfiguration.cs" />
+    <Compile Include="Configuration\FluentMapConfiguration.cs" />
     <Compile Include="FluentMapper.cs" />
     <Compile Include="TypeMaps\FluentConventionTypeMap.cs" />
     <Compile Include="TypeMaps\FluentTypeMap.cs" />

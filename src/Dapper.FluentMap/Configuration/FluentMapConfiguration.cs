@@ -1,18 +1,23 @@
 ﻿using Dapper.FluentMap.Conventions;
+using Dapper.FluentMap.Mapping;
 
-namespace Dapper.FluentMap.Mapping
+namespace Dapper.FluentMap.Configuration
 {
     /// <summary>
     /// Defines methods for configuring Dapper.FluentMap.
     /// </summary>
-    public interface IFluentMapConfiguration
+    public class FluentMapConfiguration
     {
         /// <summary>
         /// Adds the specified <see cref="T:Dapper.FluentMap.Mapping.EntityMap"/> to the configuration of Dapper.FluentMap.
         /// </summary>
         /// <typeparam name="TEntity">The type argument of the entity.</typeparam>
         /// <param name="mapper">An instance of the EntityMap classs containing the entity mapping configuration.</param>
-        void AddMap<TEntity>(EntityMap<TEntity> mapper) where TEntity : class;
+        public void AddMap<TEntity>(EntityMap<TEntity> mapper) where TEntity : class
+        {
+            FluentMapper.EntityMappers.Add(typeof (TEntity), mapper);
+            FluentMapper.AddTypeMap<TEntity>();
+        }
 
         /// <summary>
         /// Adds the specified <see cref="T:Dapper.FluentMap.Conventions.Convention"/> to the configuration of Dapper.FluentMap.
@@ -22,20 +27,9 @@ namespace Dapper.FluentMap.Mapping
         /// An instance of <see cref="T:Dapper.FluentMap.Conventions.FluentMapConventionConfiguration"/> 
         /// which allows configuration of the convention.
         /// </returns>
-        FluentMapConventionConfiguration AddConvention(Convention convention);
-    }
-
-    internal class FluentMapConfiguration : IFluentMapConfiguration
-    {
-        public void AddMap<TEntity>(EntityMap<TEntity> mapper) where TEntity : class
+        public FluentConventionConfiguration AddConvention(Convention convention)
         {
-            FluentMapper.EntityMappers.Add(typeof (TEntity), mapper);
-            FluentMapper.AddTypeMap<TEntity>();
-        }
-
-        public FluentMapConventionConfiguration AddConvention(Convention convention)
-        {
-            return new FluentMapConventionConfiguration(convention);
+            return new FluentConventionConfiguration(convention);
         }
     }
 }

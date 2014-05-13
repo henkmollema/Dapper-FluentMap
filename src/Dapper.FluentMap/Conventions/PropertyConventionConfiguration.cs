@@ -5,8 +5,15 @@ using System.Reflection;
 
 namespace Dapper.FluentMap.Conventions
 {
+    /// <summary>
+    /// Represents the configuration for a convention.
+    /// </summary>
     public class PropertyConventionConfiguration
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PropertyConventionConfiguration"/> class, 
+        /// allowing configuration for a convention.
+        /// </summary>
         public PropertyConventionConfiguration()
         {
             PropertyPredicates = new List<Func<PropertyInfo, bool>>();
@@ -16,12 +23,21 @@ namespace Dapper.FluentMap.Conventions
 
         internal ConventionPropertyConfiguration Config { get; private set; }
 
+        /// <summary>
+        /// Filters the properties that this convention applies to based on a predicate.
+        /// </summary>
+        /// <param name="predicate">A function to test each property for a condition.</param>
+        /// <returns>The same instance of <see cref="T:Dapper.FluentMap.Conventions.PropertyConventionConfiguration"/>.</returns>
         public PropertyConventionConfiguration Where(Func<PropertyInfo, bool> predicate)
         {
             PropertyPredicates.Add(predicate);
             return this;
         }
 
+        /// <summary>
+        /// Configures the properties that this convention applies to.
+        /// </summary>
+        /// <param name="configure">An action that performs configuration against <see cref="T:Dapper.FluentMap.Conventions.ConventionPropertyConfiguration"/>.</param>
         public void Configure(Action<ConventionPropertyConfiguration> configure)
         {
             var config = new ConventionPropertyConfiguration();

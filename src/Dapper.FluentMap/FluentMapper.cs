@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dapper.FluentMap.Configuration;
 using Dapper.FluentMap.Conventions;
 using Dapper.FluentMap.Mapping;
 using Dapper.FluentMap.TypeMaps;
@@ -11,7 +12,7 @@ namespace Dapper.FluentMap
     /// </summary>
     public static class FluentMapper
     {
-        private static readonly IFluentMapConfiguration _configuration = new FluentMapConfiguration();
+        private static readonly FluentMapConfiguration _configuration = new FluentMapConfiguration();
 
         /// <summary>
         /// Gets the dictionary containing the entity mapping per entity type.
@@ -28,7 +29,7 @@ namespace Dapper.FluentMap
         /// This is method should be called when the application starts or when the first mapping is needed.
         /// </summary>
         /// <param name="configure">A callback containing the configuration of Dapper.FluentMap.</param>
-        public static void Intialize(Action<IFluentMapConfiguration> configure)
+        public static void Intialize(Action<FluentMapConfiguration> configure)
         {
             configure(_configuration);
         }
