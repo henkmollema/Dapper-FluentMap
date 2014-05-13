@@ -13,7 +13,7 @@ This [Dapper](https://github.com/SamSaffron/dapper-dot-net/) extension allows yo
 
 ### Usage
 #### Mapping properties using `EntityMap<TEntity>`
-```
+```csharp
 public class ProductMap : EntityMap<Product>
 {
 	public ProductMap()
@@ -28,7 +28,7 @@ public class ProductMap : EntityMap<Product>
 ```
 
 Initialization: 
-```
+```csharp
 FluentMapper.Intialize(config =>
 					   {
 						   config.AddMap(new ProductMap());
@@ -38,7 +38,7 @@ FluentMapper.Intialize(config =>
 #### Mapping properties using conventions
 
 You can create a convention by creating a class which derives from the `Convention` class. In the contructor you can configure the property conventions:
-```
+```csharp
 public class TypePrefixConvention : Convention
 {
     public TypePrefixConvention()
@@ -61,7 +61,7 @@ public class TypePrefixConvention : Convention
 
 When initializing Dapper.FluentMap with conventions, the entities on which a convention applies must be configured. You can choose to either configure the entities explicitly or scan a specified, or the current assembly.
 
-```
+```csharp
 FluentMapper.Intialize(config =>
                         {
                             // Configure entities explicitly.
