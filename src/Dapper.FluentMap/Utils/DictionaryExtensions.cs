@@ -2,9 +2,9 @@
 
 namespace Dapper.FluentMap.Utils
 {
-    public static class DictionairyExtensions
+    internal static class DictionaryExtensions
     {
-        public static void AddOrUpdate<TKey, TValue>(this IDictionary<TKey, IList<TValue>> dict, TKey key, TValue value)
+        internal static void AddOrUpdate<TKey, TValue>(this IDictionary<TKey, IList<TValue>> dict, TKey key, TValue value)
         {
             if (dict.ContainsKey(key))
             {

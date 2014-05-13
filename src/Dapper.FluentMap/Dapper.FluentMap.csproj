@@ -57,7 +57,7 @@
     <Compile Include="TypeMaps\MultiTypeMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Mapping\PropertyMap.cs" />
-    <Compile Include="Utils\DictionairyExtensions.cs" />
+    <Compile Include="Utils\DictionaryExtensions.cs" />
     <Compile Include="Utils\ReflectionHelper.cs" />
   </ItemGroup>
   <ItemGroup>
