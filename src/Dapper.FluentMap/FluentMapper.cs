@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Dapper.FluentMap.Configuration;
+using Dapper.FluentMap.Conventions;
+using Dapper.FluentMap.Mapping;
+using Dapper.FluentMap.TypeMaps;
 
 namespace Dapper.FluentMap
 {
@@ -8,7 +12,7 @@ namespace Dapper.FluentMap
     /// </summary>
     public static class FluentMapper
     {
-        private static readonly IFluentMapConfiguration _configuration = new FluentMapConfiguration();
+        private static readonly FluentMapConfiguration _configuration = new FluentMapConfiguration();
 
         /// <summary>
         /// Gets the dictionary containing the entity mapping per entity type.
@@ -16,17 +20,22 @@ namespace Dapper.FluentMap
         internal static readonly IDictionary<Type, EntityMap> EntityMappers = new Dictionary<Type, EntityMap>();
 
         /// <summary>
+        /// Gets the dictionairy containing the conventions per entity type.
+        /// </summary>
+        internal static readonly IDictionary<Type, IList<Convention>> TypeConventions = new Dictionary<Type, IList<Convention>>();
+
+        /// <summary>
         /// Initializes Dapper.FluentMap with the specified configuration. 
         /// This is method should be called when the application starts or when the first mapping is needed.
         /// </summary>
         /// <param name="configure">A callback containing the configuration of Dapper.FluentMap.</param>
-        public static void Intialize(Action<IFluentMapConfiguration> configure)
+        public static void Intialize(Action<FluentMapConfiguration> configure)
         {
             configure(_configuration);
         }
 
         /// <summary>
-        /// Registers a Dapper type map for the specified <typeparamref name="TEntity"/>.
+        /// Registers a Dapper type map using fluent mapping for the specified <typeparamref name="TEntity"/>.
         /// </summary>
         /// <typeparam name="TEntity">The type of the entity.</typeparam>
         internal static void AddTypeMap<TEntity>()
@@ -35,12 +44,31 @@ namespace Dapper.FluentMap
         }
 
         /// <summary>
-        /// Registers a Dapper type map for the specified <paramref name="entityType"/>.
+        /// Registers a Dapper type map using fluent mapping for the specified <paramref name="entityType"/>.
         /// </summary>
         /// <param name="entityType">The type of the entity.</param>
         internal static void AddTypeMap(Type entityType)
         {
             var instance = (SqlMapper.ITypeMap)Activator.CreateInstance(typeof (FluentMapTypeMap<>).MakeGenericType(entityType));
+            SqlMapper.SetTypeMap(entityType, instance);
+        }
+
+        /// <summary>
+        /// Registers a Dapper type map using conventions for the specified <typeparamref name="TEntity"/>.
+        /// </summary>
+        /// <typeparam name="TEntity">The type of the entity.</typeparam>
+        internal static void AddConventionTypeMap<TEntity>()
+        {
+            SqlMapper.SetTypeMap(typeof (TEntity), new FluentConventionTypeMap<TEntity>());
+        }
+
+        /// <summary>
+        /// Registers a Dapper type map using conventions for the specified <paramref name="entityType"/>.
+        /// </summary>
+        /// <param name="entityType">The type of the entity.</param>
+        internal static void AddConventionTypeMap(Type entityType)
+        {
+            var instance = (SqlMapper.ITypeMap)Activator.CreateInstance(typeof (FluentConventionTypeMap<>).MakeGenericType(entityType));
             SqlMapper.SetTypeMap(entityType, instance);
         }
     }

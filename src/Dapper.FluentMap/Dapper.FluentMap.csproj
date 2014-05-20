@@ -45,14 +45,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EntityMap.cs" />
-    <Compile Include="FluentMapConfiguration.cs" />
+    <Compile Include="Conventions\Convention.cs" />
+    <Compile Include="Conventions\ConventionPropertyConfiguration.cs" />
+    <Compile Include="Conventions\PropertyConventionConfiguration.cs" />
+    <Compile Include="Configuration\FluentConventionConfiguration.cs" />
+    <Compile Include="Mapping\EntityMap.cs" />
+    <Compile Include="Configuration\FluentMapConfiguration.cs" />
     <Compile Include="FluentMapper.cs" />
-    <Compile Include="FluentMapTypeMap.cs" />
-    <Compile Include="MultiTypeMap.cs" />
+    <Compile Include="TypeMaps\FluentConventionTypeMap.cs" />
+    <Compile Include="TypeMaps\FluentTypeMap.cs" />
+    <Compile Include="TypeMaps\MultiTypeMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyMap.cs" />
-    <Compile Include="ReflectionHelper.cs" />
+    <Compile Include="Mapping\PropertyMap.cs" />
+    <Compile Include="Utils\DictionaryExtensions.cs" />
+    <Compile Include="Utils\ReflectionHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
