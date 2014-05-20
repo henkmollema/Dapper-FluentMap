@@ -12,8 +12,8 @@ This [Dapper](https://github.com/SamSaffron/dapper-dot-net/) extension allows yo
 <hr>
 
 ### Usage
-Mapping properties:
-```
+#### Mapping properties using `EntityMap<TEntity>`
+```csharp
 public class ProductMap : EntityMap<Product>
 {
 	public ProductMap()
@@ -27,13 +27,54 @@ public class ProductMap : EntityMap<Product>
 }
 ```
 
-Initializing Dapper.FluentMap:
-
-```
+Initialization: 
+```csharp
 FluentMapper.Intialize(config =>
 					   {
-						   config.AddEntityMap(new ProductMap());
+						   config.AddMap(new ProductMap());
 					   });
 ```
 
-That's it. When querying the database using Dapper, the product name from column `strName` will be mapped to the `Name` property of the `Product` entity. `LastModifed` won't be mapped since we marked it as 'ignored'.
+#### Mapping properties using conventions
+
+You can create a convention by creating a class which derives from the `Convention` class. In the contructor you can configure the property conventions:
+```csharp
+public class TypePrefixConvention : Convention
+{
+    public TypePrefixConvention()
+    {
+        // Map all properties of type int and with the name 'id' to column 'autID'.
+        Properties<int>()
+            .Where(c => c.Name.ToLower() == "id")
+            .Configure(c => c.HasColumnName("autID"));
+
+        // Prefix all properties of type string with 'str' when mapping to column names.
+        Properties<string>()
+            .Configure(c => c.HasPrefix("str"));
+
+        // Prefix all properties of type int with 'int' when mapping to column names.
+        Properties<int>()
+            .Configure(c => c.HasPrefix("int"));
+    }
+}
+```
+
+When initializing Dapper.FluentMap with conventions, the entities on which a convention applies must be configured. You can choose to either configure the entities explicitly or scan a specified, or the current assembly.
+
+```csharp
+FluentMapper.Intialize(config =>
+	{
+		// Configure entities explicitly.
+		config.AddConvention(new TypePrefixConvention())
+				.ForEntity<Product>()
+				.ForEntity<Order>;
+
+		// Configure all entities in a certain assembly with an optional namespaces filter.
+		config.AddConvention(new TypePrefixConvention())
+				.ForEntitiesInAssembly(typeof (Product).Assembly, "App.Domain.Model");
+
+		// Configure all entities in the current assembly with an optional namespaces filter.
+		config.AddConvention(new TypePrefixConvention())
+				.ForEntitiesInCurrentAssembly("App.Domain.Model.Catalog", "App.Domain.Model.Order");
+	});
+```
