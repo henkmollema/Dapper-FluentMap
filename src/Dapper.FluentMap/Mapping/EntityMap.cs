@@ -34,11 +34,11 @@ namespace Dapper.FluentMap.Mapping
         where TEntity : class
     {
         /// <summary>
-        /// Returns an instance of <see cref="T:Dapper.FluentMap.IPropertyMap"/> which can perform custom mapping
+        /// Returns an instance of <see cref="T:Dapper.FluentMap.Mapping.PropertyMap"/> which can perform custom mapping
         /// for the specified property on <typeparamref name="TEntity"/>.
         /// </summary>
         /// <param name="expression">Expression to the property on <typeparamref name="TEntity"/>.</param>
-        /// <returns>The created <see cref="T:Dapper.FluentMap.IPropertyMap"/> instance. This enables a fluent API.</returns>
+        /// <returns>The created <see cref="T:Dapper.FluentMap.Mapping.PropertyMap"/> instance. This enables a fluent API.</returns>
         protected PropertyMap Map(Expression<Func<TEntity, object>> expression)
         {
             var info = (PropertyInfo)ReflectionHelper.GetMemberInfo(expression);
