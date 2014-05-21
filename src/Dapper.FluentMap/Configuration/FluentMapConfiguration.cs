@@ -24,14 +24,14 @@ namespace Dapper.FluentMap.Configuration
         /// <summary>
         /// Adds the specified <see cref="T:Dapper.FluentMap.Conventions.Convention"/> to the configuration of Dapper.FluentMap.
         /// </summary>
-        /// <param name="convention">An instance of the <see cref="T:Dapper.FluentMap.Conventions.Convention"/> class.</param>
+        /// <typeparam name="TConvention">The type of the convention.</typeparam>
         /// <returns>
         /// An instance of <see cref="T:Dapper.FluentMap.Conventions.FluentMapConventionConfiguration"/> 
         /// which allows configuration of the convention.
         /// </returns>
-        public FluentConventionConfiguration AddConvention(Convention convention)
+        public FluentConventionConfiguration AddConvention<TConvention>() where TConvention : Convention, new()
         {
-            return new FluentConventionConfiguration(convention);
+            return new FluentConventionConfiguration(new TConvention());
         }
 
         #region EditorBrowsableStates
