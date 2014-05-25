@@ -49,7 +49,7 @@ namespace Dapper.FluentMap.Configuration
         {
             foreach (var type in Assembly.GetCallingAssembly()
                                          .GetExportedTypes()
-                                         .Where(type => namespaces.Length == 0 || namespaces.Any(n => type.Namespace == n)))
+                                         .Where(type => namespaces.Any(n => type.Namespace == n)))
             {
                 MapProperties(type);
                 FluentMapper.TypeConventions.AddOrUpdate(type, _convention);
@@ -67,7 +67,8 @@ namespace Dapper.FluentMap.Configuration
         /// <returns>The current instance of <see cref="T:Dapper.FluentMap.Conventions.FluentMapConventionConfiguration"/>.</returns>
         public FluentConventionConfiguration ForEntitiesInAssembly(Assembly assembly, params string[] namespaces)
         {
-            foreach (var type in assembly.GetExportedTypes().Where(t => namespaces.Any(n => n.Contains(t.Namespace))))
+            foreach (var type in assembly.GetExportedTypes()
+                                         .Where(type => namespaces.Any(n => type.Namespace == n)))
             {
                 MapProperties(type);
                 FluentMapper.TypeConventions.AddOrUpdate(type, _convention);
