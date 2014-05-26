@@ -63,18 +63,18 @@ When initializing Dapper.FluentMap with conventions, the entities on which a con
 
 ```csharp
 FluentMapper.Intialize(config =>
-	{
-		// Configure entities explicitly.
-		config.AddConvention(new TypePrefixConvention())
-				.ForEntity<Product>()
-				.ForEntity<Order>;
+    {
+        // Configure entities explicitly.
+        config.AddConvention<TypePrefixConvention>()
+              .ForEntity<Product>()
+              .ForEntity<Order>;
 
-		// Configure all entities in a certain assembly with an optional namespaces filter.
-		config.AddConvention(new TypePrefixConvention())
-				.ForEntitiesInAssembly(typeof (Product).Assembly, "App.Domain.Model");
+        // Configure all entities in a certain assembly with an optional namespaces filter.
+        config.AddConvention<TypePrefixConvention>()
+              .ForEntitiesInAssembly(typeof(Product).Assembly, "App.Domain.Model");
 
-		// Configure all entities in the current assembly with an optional namespaces filter.
-		config.AddConvention(new TypePrefixConvention())
-				.ForEntitiesInCurrentAssembly("App.Domain.Model.Catalog", "App.Domain.Model.Order");
-	});
+        // Configure all entities in the current assembly with an optional namespaces filter.
+        config.AddConvention<TypePrefixConvention>()
+              .ForEntitiesInCurrentAssembly("App.Domain.Model.Catalog", "App.Domain.Model.Order");
+    });
 ```
