@@ -8,10 +8,6 @@ namespace Dapper.FluentMap.Conventions
     /// </summary>
     public class ConventionPropertyConfiguration
     {
-        internal string ColumnName { get; private set; }
-
-        internal string Prefix { get; private set; }
-
         /// <summary>
         /// Configures the name of the database column used to store the property.
         /// </summary>
@@ -33,7 +29,24 @@ namespace Dapper.FluentMap.Conventions
             Prefix = prefix;
             return this;
         }
-        
+
+        /// <summary>
+        /// Configures the function for transforming property names to database column names.
+        /// </summary>
+        /// <param name="transformer">A function which takes the property name and returns the database colum name.</param>
+        /// <returns>The same instance of <see cref="T:Dapper.FluentMap.Conventions.ConventionPropertyConfiguration"/>.</returns>
+        public ConventionPropertyConfiguration Transform(Func<string, string> transformer)
+        {
+            PropertyTransformer = transformer;
+            return this;
+        }
+
+        internal string ColumnName { get; private set; }
+
+        internal string Prefix { get; private set; }
+
+        internal Func<string, string> PropertyTransformer { get; private set; }
+
         #region EditorBrowsableStates
         /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]

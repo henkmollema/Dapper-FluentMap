@@ -21,7 +21,7 @@ namespace Dapper.FluentMap.Conventions
 
         internal IList<Func<PropertyInfo, bool>> PropertyPredicates { get; private set; }
 
-        internal ConventionPropertyConfiguration Config { get; private set; }
+        internal ConventionPropertyConfiguration PropertyConfiguration { get; private set; }
 
         /// <summary>
         /// Filters the properties that this convention applies to based on a predicate.
@@ -41,7 +41,7 @@ namespace Dapper.FluentMap.Conventions
         public void Configure(Action<ConventionPropertyConfiguration> configure)
         {
             var config = new ConventionPropertyConfiguration();
-            Config = config;
+            PropertyConfiguration = config;
             configure(config);
         }
 

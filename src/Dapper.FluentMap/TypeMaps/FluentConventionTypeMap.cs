@@ -52,7 +52,8 @@ namespace Dapper.FluentMap.TypeMaps
 
                     if (maps.Count == 0)
                     {
-                        return null;
+                        // This convention has no property maps, continue to next convention.
+                        continue;
                     }
 
                     info = maps[0].PropertyInfo;
