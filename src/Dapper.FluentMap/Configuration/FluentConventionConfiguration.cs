@@ -89,21 +89,21 @@ namespace Dapper.FluentMap.Configuration
                                                   .Where(c => c.PropertyPredicates.Count <= 0 ||
                                                               c.PropertyPredicates.All(e => e(property))))
                 {
-                    if (!string.IsNullOrEmpty(config.Config.ColumnName))
+                    if (!string.IsNullOrEmpty(config.PropertyConfiguration.ColumnName))
                     {
-                        AddConventionPropertyMap(property, config.Config.ColumnName);
+                        AddConventionPropertyMap(property, config.PropertyConfiguration.ColumnName);
                         break;
                     }
 
-                    if (!string.IsNullOrEmpty(config.Config.Prefix))
+                    if (!string.IsNullOrEmpty(config.PropertyConfiguration.Prefix))
                     {
-                        AddConventionPropertyMap(property, config.Config.Prefix + property.Name);
+                        AddConventionPropertyMap(property, config.PropertyConfiguration.Prefix + property.Name);
                         break;
                     }
 
-                    if (config.Config.PropertyTransformer != null)
+                    if (config.PropertyConfiguration.PropertyTransformer != null)
                     {
-                        AddConventionPropertyMap(property, config.Config.PropertyTransformer(property.Name));
+                        AddConventionPropertyMap(property, config.PropertyConfiguration.PropertyTransformer(property.Name));
                     }
                 }
             }
