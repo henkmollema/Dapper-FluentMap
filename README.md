@@ -80,3 +80,18 @@ FluentMapper.Intialize(config =>
               .ForEntitiesInCurrentAssembly("App.Domain.Model.Catalog", "App.Domain.Model.Order");
     });
 ```
+
+##### Transformations
+The convention API allows you to configure transformation of property names to database column names. An implementation would look like this:
+```csharp
+public class PropertyTransformConvention : Convention
+{
+    public PropertyTransformConvention()
+    {
+        Properties()
+            .Configure(c => c.Transform(s => Regex.Replace(input: s, pattern: "([A-Z])([A-Z][a-z])|([a-z0-9])([A-Z])", replacement: "$1$3_$2$4")));
+    }
+}
+```
+
+This configuration will map camel case property names to underscore sperated database column names (`UrlOptimizedName` -> `Url_Optimized_Name`).
