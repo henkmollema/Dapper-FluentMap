@@ -100,6 +100,11 @@ namespace Dapper.FluentMap.Configuration
                         AddConventionPropertyMap(property, config.Config.Prefix + property.Name);
                         break;
                     }
+
+                    if (config.Config.PropertyTransformer != null)
+                    {
+                        AddConventionPropertyMap(property, config.Config.PropertyTransformer(property.Name));
+                    }
                 }
             }
         }
