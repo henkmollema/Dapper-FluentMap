@@ -26,7 +26,7 @@ namespace Dapper.FluentMap.Configuration
         /// </summary>
         /// <typeparam name="TConvention">The type of the convention.</typeparam>
         /// <returns>
-        /// An instance of <see cref="T:Dapper.FluentMap.Conventions.FluentMapConventionConfiguration"/> 
+        /// An instance of <see cref="T:Dapper.FluentMap.Configuration.FluentConventionConfiguration"/> 
         /// which allows configuration of the convention.
         /// </returns>
         public FluentConventionConfiguration AddConvention<TConvention>() where TConvention : Convention, new()

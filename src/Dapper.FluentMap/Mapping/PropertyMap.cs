@@ -10,8 +10,8 @@ namespace Dapper.FluentMap.Mapping
     public class PropertyMap
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.PropertyMap"/> using 
-        /// the specified <see cref="T:System.Reflecion.PropertyInfo"/> object representing the property to map.
+        /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.Mapping.PropertyMap"/> using 
+        /// the specified <see cref="T:System.Reflection.PropertyInfo"/> object representing the property to map.
         /// </summary>
         /// <param name="info">The <see cref="T:System.Reflection.PropertyInfo"/> object representing to the property to map.</param>
         internal PropertyMap(PropertyInfo info)
@@ -21,8 +21,8 @@ namespace Dapper.FluentMap.Mapping
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.PropertyMap"/> using 
-        /// the specified <see cref="T:System.Reflecion.PropertyInfo"/> object representing the property to map 
+        /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.Mapping.PropertyMap"/> using 
+        /// the specified <see cref="T:System.Reflection.PropertyInfo"/> object representing the property to map 
         /// and column name to map the property to.
         /// </summary>
         /// <param name="info">The <see cref="T:System.Reflection.PropertyInfo"/> object representing to the property to map.</param>
@@ -44,7 +44,7 @@ namespace Dapper.FluentMap.Mapping
         internal bool Ignored { get; private set; }
 
         /// <summary>
-        /// Gets the <see cref="T:System.Reflecion.PropertyInfo"/> object for the current property.
+        /// Gets the <see cref="T:System.Reflection.PropertyInfo"/> object for the current property.
         /// </summary>
         internal PropertyInfo PropertyInfo { get; private set; }
 
@@ -68,7 +68,7 @@ namespace Dapper.FluentMap.Mapping
             Ignored = true;
             return this;
         }
-        
+
         #region EditorBrowsableStates
         /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]

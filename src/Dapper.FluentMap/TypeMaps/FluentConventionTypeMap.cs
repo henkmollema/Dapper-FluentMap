@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+
 using Dapper.FluentMap.Conventions;
+using Dapper.FluentMap.Mapping;
 
 namespace Dapper.FluentMap.TypeMaps
 {
@@ -14,12 +16,12 @@ namespace Dapper.FluentMap.TypeMaps
     internal class FluentConventionTypeMap<TEntity> : MultiTypeMap
     {
         /// <summary>
-        /// Intializes a new instance of the <see cref="T:Dapper.FluentMap.FluentMapTypeMapper"/> class 
+        /// Intializes a new instance of the <see cref="T:Dapper.FluentMap.TypeMaps.FluentConventionTypeMap"/> class 
         /// which uses the <see cref="T:Dapper.CustomPropertyTypeMap"/> and <see cref="T:Dapper.DefaultTypeMap"/>
         /// as mapping strategies.
         /// </summary>
         public FluentConventionTypeMap()
-            : base(new CustomPropertyTypeMap(typeof (TEntity), GetPropertyInfo), new DefaultTypeMap(typeof (TEntity)))
+            : base(new CustomPropertyTypeMap(typeof(TEntity), GetPropertyInfo), new DefaultTypeMap(typeof(TEntity)))
         {
         }
 
@@ -40,9 +42,9 @@ namespace Dapper.FluentMap.TypeMaps
                 {
                     // Find property map for current type and column name.
                     var maps = convention.PropertyMaps
-                                         .Where(c => c.PropertyInfo.DeclaringType == type &&
-                                                     c.ColumnName == columnName)
-                                         .ToList();
+                                                       .Where(c => c.PropertyInfo.DeclaringType == type &&
+                                                                   c.ColumnName == columnName)
+                                                       .ToList();
 
                     if (maps.Count > 1)
                     {
