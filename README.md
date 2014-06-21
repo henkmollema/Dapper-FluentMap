@@ -25,10 +25,6 @@ public class ProductMap : EntityMap<Product>
 		Map(p => p.Name)
 			.ToColumn("strName");
 			
-		// Map property 'Description' to 'strdescription', ignoring casing.
-		Map(p => p.Description)
-			.ToColumn("strdescription", caseSensitive: false);
-			
 		// Ignore the 'LastModified' property when mapping.
 		Map(p => p.LastModified)
 			.Ignore();
@@ -36,7 +32,9 @@ public class ProductMap : EntityMap<Product>
 }
 ```
 
-Initialization: 
+Column names are mapped case sensitive by default. You can change this by specifying the `caseSensitive` parameter in the `ToColumn()` method: `Map(p => p.Name).ToColumn("strName", caseSensitive: false)`.
+
+**Initialization:**
 ```csharp
 FluentMapper.Intialize(config =>
 					   {
