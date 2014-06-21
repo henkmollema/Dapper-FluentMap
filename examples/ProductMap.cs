@@ -5,21 +5,21 @@ namespace App.Data.Mapping
     /// <summary>
     /// Represents a manual mapping for the Product entity.
     /// </summary>
-    public class ProductMap : EntityMap<Product>
-    {
-        public ProductMap()
-        {
-            Map(m => m.Id)
-                .ToColumn("autID");
+	public class ProductMap : EntityMap<Product>
+	{
+		public ProductMap()
+		{
+			// Map property 'Name' to column 'strName'.
+			Map(p => p.Name)
+				.ToColumn("strName");
 
-            Map(m => m.Name)
-                .ToColumn("strName");
+			// Map property 'Description' to 'strdescription', ignoring casing.
+			Map(p => p.Description)
+				.ToColumn("strdescription", caseSensitive: false);
 
-            Map(p => p.SellerAccountRID)
-                .ToColumn("intSellerAccountRID");
-
-            Map(p => p.NameUrlOptimized)
-                .ToColumn("strNameUrlOptimized");
-        }
-    }
+			// Ignore the 'LastModified' property when mapping.
+			Map(p => p.LastModified)
+				.Ignore();
+		}
+	}
 }
