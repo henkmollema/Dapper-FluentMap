@@ -39,6 +39,11 @@ namespace Dapper.FluentMap.Mapping
         internal string ColumnName { get; private set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether column name mapping should be case sensitive.
+        /// </summary>
+        internal bool CaseSensitive { get; private set; }
+
+        /// <summary>
         /// Gets a value indicating wether the property should be ignored when mapping.
         /// </summary>
         internal bool Ignored { get; private set; }
@@ -52,10 +57,12 @@ namespace Dapper.FluentMap.Mapping
         /// Maps the current property to the specified column name.
         /// </summary>
         /// <param name="columnName">The name of the column in the data store.</param>
+        /// <param name="caseSensitive">A value indicating whether column name mapping should be case sensitive.</param>
         /// <returns>The current <see cref="T:Dapper.FluentMap.Mapping.PropertyMap"/> instance. This enables a fluent API.</returns>
-        public PropertyMap ToColumn(string columnName)
+        public PropertyMap ToColumn(string columnName, bool caseSensitive = true)
         {
             ColumnName = columnName;
+            CaseSensitive = caseSensitive;
             return this;
         }
 

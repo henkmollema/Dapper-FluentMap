@@ -40,7 +40,7 @@ namespace Dapper.FluentMap.TypeMaps
                 var propertyMaps = entityMap.PropertyMaps;
 
                 // Find the mapping for the column name.
-                var propertyMap = propertyMaps.FirstOrDefault(m => m.ColumnName == columnName);
+                var propertyMap = propertyMaps.FirstOrDefault(m => MatchColumnNames(m, columnName));
 
                 if (propertyMap != null)
                 {
@@ -55,6 +55,17 @@ namespace Dapper.FluentMap.TypeMaps
             // If we get here, the property was not mapped.
             TypePropertyMapCache.Add(cacheKey, null);
             return null;
+        }
+
+        private static bool MatchColumnNames(PropertyMap map, string columnName)
+        {
+            var comparison = StringComparison.Ordinal;
+            if (!map.CaseSensitive)
+            {
+                comparison = StringComparison.OrdinalIgnoreCase;
+            }
+
+            return string.Equals(map.ColumnName, columnName, comparison);
         }
     }
 }
