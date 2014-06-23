@@ -14,7 +14,7 @@ namespace Dapper.FluentMap.Mapping
         /// the specified <see cref="T:System.Reflection.PropertyInfo"/> object representing the property to map.
         /// </summary>
         /// <param name="info">The <see cref="T:System.Reflection.PropertyInfo"/> object representing to the property to map.</param>
-        internal PropertyMap(PropertyInfo info)
+        public PropertyMap(PropertyInfo info)
         {
             PropertyInfo = info;
             ColumnName = info.Name;

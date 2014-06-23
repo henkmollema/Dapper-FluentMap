@@ -6,14 +6,14 @@ namespace Dapper.FluentMap.Utils
     /// <summary>
     /// Provides helper methods for reflection operations.
     /// </summary>
-    internal static class ReflectionHelper
+    public static class ReflectionHelper
     {
         /// <summary>
         /// Returns the <see cref="T:System.Reflection.MemberInfo"/> for the specified lamba expression.
         /// </summary>
         /// <param name="lambda">A lamba expression containing a MemberExpression.</param>
         /// <returns>A MemberInfo object for the member in the specified lambda expression.</returns>
-        internal static MemberInfo GetMemberInfo(LambdaExpression lambda)
+        public static MemberInfo GetMemberInfo(LambdaExpression lambda)
         {
             Expression expr = lambda;
             while (true)

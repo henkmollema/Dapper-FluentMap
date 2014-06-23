@@ -16,7 +16,7 @@ namespace Dapper.FluentMap.Mapping
         /// <remarks>
         /// The constructor is internal so classes outside this assembly can't derive from it.
         /// </remarks>
-        internal EntityMap()
+        protected EntityMap()
         {
             PropertyMaps = new List<PropertyMap>();
         }
@@ -24,7 +24,7 @@ namespace Dapper.FluentMap.Mapping
         /// <summary>
         /// Gets the collection of mapped properties.
         /// </summary>
-        internal IList<PropertyMap> PropertyMaps { get; private set; }
+        public IList<PropertyMap> PropertyMaps { get; private set; }
     }
 
     /// <summary>

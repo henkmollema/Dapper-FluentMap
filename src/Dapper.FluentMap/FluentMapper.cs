@@ -17,12 +17,12 @@ namespace Dapper.FluentMap
         /// <summary>
         /// Gets the dictionary containing the entity mapping per entity type.
         /// </summary>
-        internal static readonly IDictionary<Type, EntityMap> EntityMappers = new Dictionary<Type, EntityMap>();
+        public static readonly IDictionary<Type, EntityMap> EntityMappers = new Dictionary<Type, EntityMap>();
 
         /// <summary>
         /// Gets the dictionairy containing the conventions per entity type.
         /// </summary>
-        internal static readonly IDictionary<Type, IList<Convention>> TypeConventions = new Dictionary<Type, IList<Convention>>();
+        public static readonly IDictionary<Type, IList<Convention>> TypeConventions = new Dictionary<Type, IList<Convention>>();
 
         /// <summary>
         /// Initializes Dapper.FluentMap with the specified configuration. 
