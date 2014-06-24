@@ -14,7 +14,7 @@ This [Dapper](https://github.com/SamSaffron/dapper-dot-net/) extension allows yo
 <hr>
 
 ### Usage
-#### Manually mapping properties
+#### Manual mapping
 You can map property names manually using the [`EntityMap<TEntity>`](https://github.com/HenkMollema/Dapper-FluentMap/blob/master/src/Dapper.FluentMap/Mapping/EntityMap.cs) class. When creating a derived class, the constructor gives you access to the `Map` method, allowing you to specify to which database column name a certain property of `TEntity` should map to.
 ```csharp
 public class ProductMap : EntityMap<Product>
@@ -42,8 +42,7 @@ FluentMapper.Intialize(config =>
 					   });
 ```
 
-#### Mapping properties using conventions
-
+#### Convention based mapping
 When you have a lot of entity types, creating manual mapping classes can become plumbing. If your column names adhere to some kind of naming convention, you might be better off by configuring a mapping convention.
 
 You can create a convention by creating a class which derives from the [`Convention`](https://github.com/HenkMollema/Dapper-FluentMap/blob/master/src/Dapper.FluentMap/Conventions/Convention.cs) class. In the contructor you can configure the property conventions:
