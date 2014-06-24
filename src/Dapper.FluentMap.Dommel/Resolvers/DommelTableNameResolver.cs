@@ -1,13 +1,16 @@
 ﻿using System;
+
 using Dapper.FluentMap.Dommel.Mapping;
+
+using DommelMapper = Dommel.Dommel;
 
 namespace Dapper.FluentMap.Dommel.Resolvers
 {
-    public class DommelTableNameResolver : global::Dommel.Dommel.ITableNameResolver
+    public class DommelTableNameResolver : DommelMapper.ITableNameResolver
     {
         public string ResolveTableName(Type type)
         {
-            var mapping = FluentMapper.EntityMappers[type] as DommelEntityMap;
+            DommelEntityMap mapping = FluentMapper.EntityMappers[type] as DommelEntityMap;
             if (mapping == null)
             {
                 // todo: exception, null, fallback resolver or type.Name?

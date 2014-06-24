@@ -36,7 +36,7 @@ namespace Dapper.FluentMap.Mapping
         /// <summary>
         /// Gets the name of the column in the data store.
         /// </summary>
-        internal string ColumnName { get; private set; }
+        public string ColumnName { get; private set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether column name mapping should be case sensitive.
@@ -51,7 +51,7 @@ namespace Dapper.FluentMap.Mapping
         /// <summary>
         /// Gets the <see cref="T:System.Reflection.PropertyInfo"/> object for the current property.
         /// </summary>
-        internal PropertyInfo PropertyInfo { get; private set; }
+        public PropertyInfo PropertyInfo { get; private set; }
 
         /// <summary>
         /// Maps the current property to the specified column name.
