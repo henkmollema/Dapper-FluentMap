@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -15,7 +14,7 @@ namespace Dapper.FluentMap.TypeMaps
     internal class FluentMapTypeMap<TEntity> : MultiTypeMap
     {
         /// <summary>
-        /// Intializes a new instance of the <see cref="T:Dapper.FluentMap.TypeMaps.FluentMapTypeMap"/> class 
+        /// Intializes a new instance of the <see cref="T:Dapper.FluentMap.TypeMaps.FluentTypeMap"/> class 
         /// which uses the <see cref="T:Dapper.CustomPropertyTypeMap"/> and <see cref="T:Dapper.DefaultTypeMap"/>
         /// as mapping strategies.
         /// </summary>
@@ -34,8 +33,8 @@ namespace Dapper.FluentMap.TypeMaps
                 return info;
             }
 
-            EntityMap entityMap;
-            if (FluentMapper.EntityMappers.TryGetValue(type, out entityMap))
+            IEntityMap entityMap;
+            if (FluentMapper.EntityMaps.TryGetValue(type, out entityMap))
             {
                 var propertyMaps = entityMap.PropertyMaps;
 

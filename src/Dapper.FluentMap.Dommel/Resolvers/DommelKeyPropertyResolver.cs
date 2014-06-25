@@ -12,7 +12,7 @@ namespace Dapper.FluentMap.Dommel.Resolvers
     {
         public PropertyInfo ResolveKeyProperty(Type type)
         {
-            var entityMap = FluentMapper.EntityMappers[type] as DommelEntityMap;
+            var entityMap = FluentMapper.EntityMaps[type] as DommelEntityMap;
             if (entityMap == null)
             {
                 // todo: exception, null, fallback resolver or type.Name?

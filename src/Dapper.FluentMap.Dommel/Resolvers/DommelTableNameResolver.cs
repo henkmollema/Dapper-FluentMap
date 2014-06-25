@@ -10,7 +10,8 @@ namespace Dapper.FluentMap.Dommel.Resolvers
     {
         public string ResolveTableName(Type type)
         {
-            DommelEntityMap mapping = FluentMapper.EntityMappers[type] as DommelEntityMap;
+            DommelEntityMap mapping = FluentMapper.EntityMaps[type] as DommelEntityMap;
+
             if (mapping == null)
             {
                 // todo: exception, null, fallback resolver or type.Name?

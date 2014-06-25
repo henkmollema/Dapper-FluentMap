@@ -14,10 +14,10 @@ namespace Dapper.FluentMap.Configuration
         /// Adds the specified <see cref="T:Dapper.FluentMap.Mapping.EntityMap"/> to the configuration of Dapper.FluentMap.
         /// </summary>
         /// <typeparam name="TEntity">The type argument of the entity.</typeparam>
-        /// <param name="mapper">An instance of the EntityMap classs containing the entity mapping configuration.</param>
-        public void AddMap<TEntity>(EntityMap<TEntity> mapper) where TEntity : class
+        /// <param name="mapper">An instance of the <see cref="T:Dapper.FluentMap.Mapping.IEntityMap"/> interface containing the entity mapping configuration.</param>
+        public void AddMap<TEntity>(IEntityMap<TEntity> mapper) where TEntity : class
         {
-            FluentMapper.EntityMappers.Add(typeof (TEntity), mapper);
+            FluentMapper.EntityMaps.Add(typeof (TEntity), mapper);
             FluentMapper.AddTypeMap<TEntity>();
         }
 

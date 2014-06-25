@@ -3,19 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+
 using Dapper.FluentMap.Utils;
 
 namespace Dapper.FluentMap.Mapping
 {
     /// <summary>
     /// Represents a non-typed mapping of an entity.
-    /// This class supports the internal infrastructure and should not be used directly in code.
     /// </summary>
-    public abstract class EntityMap
+    public interface IEntityMap
     {
-        /// <remarks>
-        /// The constructor is internal so classes outside this assembly can't derive from it.
-        /// </remarks>
+        IList<PropertyMap> PropertyMaps { get; }
+    }
+
+    /// <summary>
+    /// Represents a typed mapping of an entity.
+    /// </summary>
+    /// <typeparam name="TEntity">The type of the entity to configure the mapping for.</typeparam>
+    public interface IEntityMap<TEntity> : IEntityMap
+    {
+    }
+
+    /// <summary>
+    /// Represents a non-typed mapping of an entity.
+    /// </summary>
+    public abstract class EntityMap : IEntityMap
+    {
         protected EntityMap()
         {
             PropertyMaps = new List<PropertyMap>();
@@ -31,7 +44,7 @@ namespace Dapper.FluentMap.Mapping
     /// Represents a typed mapping of an entity.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity to configure the mapping for.</typeparam>
-    public abstract class EntityMap<TEntity> : EntityMap
+    public abstract class EntityMap<TEntity> : EntityMap, IEntityMap<TEntity>
         where TEntity : class
     {
         /// <summary>
@@ -43,9 +56,9 @@ namespace Dapper.FluentMap.Mapping
         /// <exception cref="T:System.Exception">when a duplicate mapping is provided.</exception>
         protected PropertyMap Map(Expression<Func<TEntity, object>> expression)
         {
-            var info = (PropertyInfo)ReflectionHelper.GetMemberInfo(expression);
+            PropertyInfo info = (PropertyInfo)ReflectionHelper.GetMemberInfo(expression);
 
-            var propertyMap = new PropertyMap(info);
+            PropertyMap propertyMap = new PropertyMap(info);
 
             ThrowIfDuplicateMapping(propertyMap);
 
