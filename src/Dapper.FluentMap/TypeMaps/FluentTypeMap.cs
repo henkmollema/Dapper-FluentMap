@@ -56,7 +56,7 @@ namespace Dapper.FluentMap.TypeMaps
             return null;
         }
 
-        private static bool MatchColumnNames(PropertyMap map, string columnName)
+        private static bool MatchColumnNames(IPropertyMap map, string columnName)
         {
             var comparison = StringComparison.Ordinal;
             if (!map.CaseSensitive)

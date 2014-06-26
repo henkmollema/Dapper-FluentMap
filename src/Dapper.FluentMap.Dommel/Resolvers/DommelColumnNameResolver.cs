@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-
 using Dapper.FluentMap.Dommel.Mapping;
-
+using Dommel;
 using DommelMapper = Dommel.Dommel;
 
 namespace Dapper.FluentMap.Dommel.Resolvers
 {
+    /// <summary>
+    /// Implements the <see cref="Dommel.IColumnNameResolver"/> interface by using the configured mapping.
+    /// </summary>
     public class DommelColumnNameResolver : DommelMapper.IColumnNameResolver
     {
         public string ResolveColumnName(PropertyInfo propertyInfo)
         {
-            var entityMap = FluentMapper.EntityMaps[propertyInfo.DeclaringType] as DommelEntityMap;
+            var entityMap = FluentMapper.EntityMaps[propertyInfo.DeclaringType] as IDommelEntityMap;
 
             if (entityMap == null)
             {

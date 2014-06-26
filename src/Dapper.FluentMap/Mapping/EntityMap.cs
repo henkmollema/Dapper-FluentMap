@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-
 using Dapper.FluentMap.Utils;
 
 namespace Dapper.FluentMap.Mapping
@@ -13,11 +12,15 @@ namespace Dapper.FluentMap.Mapping
     /// </summary>
     public interface IEntityMap
     {
-        IList<PropertyMap> PropertyMaps { get; }
+        /// <summary>
+        /// Gets the collection of mapped properties.
+        /// </summary>
+        IList<IPropertyMap> PropertyMaps { get; }
     }
 
     /// <summary>
-    /// Represents a typed mapping of an entity.
+    /// Represents a typed mapping of an entity. 
+    /// This serves as a marker interface for generic type inference.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity to configure the mapping for.</typeparam>
     public interface IEntityMap<TEntity> : IEntityMap
@@ -25,53 +28,68 @@ namespace Dapper.FluentMap.Mapping
     }
 
     /// <summary>
-    /// Represents a non-typed mapping of an entity.
+    /// Serves as the base class for all entity mapping implementations.
     /// </summary>
-    public abstract class EntityMap : IEntityMap
+    /// <typeparam name="TEntity">The type of the entity.</typeparam>
+    /// <typeparam name="TPropertyMap">The type of the property mapping.</typeparam>
+    public abstract class EntityMapBase<TEntity, TPropertyMap> : IEntityMap<TEntity>
+        where TPropertyMap : IPropertyMap
     {
-        protected EntityMap()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Dapper.FluentMap.Mapping.EntityMapBase"/> class.
+        /// </summary>
+        protected EntityMapBase()
         {
-            PropertyMaps = new List<PropertyMap>();
+            PropertyMaps = new List<IPropertyMap>();
         }
 
         /// <summary>
         /// Gets the collection of mapped properties.
         /// </summary>
-        public IList<PropertyMap> PropertyMaps { get; private set; }
+        public IList<IPropertyMap> PropertyMaps { get; private set; }
+
+        /// <summary>
+        /// Returns an instance of <typeparamref name="TPropertyMap"/> which can perform custom mapping
+        /// for the specified property on <typeparamref name="TEntity"/>.
+        /// </summary>
+        /// <param name="expression">Expression to the property on <typeparamref name="TEntity"/>.</param>
+        /// <returns>The created <see cref="T:Dapper.FluentMap.Mapping.PropertyMap"/> instance. This enables a fluent API.</returns>
+        /// <exception cref="T:System.Exception">when a duplicate mapping is provided.</exception>
+        protected TPropertyMap Map(Expression<Func<TEntity, object>> expression)
+        {
+            var info = (PropertyInfo)ReflectionHelper.GetMemberInfo(expression);
+            var propertyMap = GetPropertyMap(info);
+            ThrowIfDuplicateMapping(propertyMap);
+            PropertyMaps.Add(propertyMap);
+            return propertyMap;
+        }
+
+        /// <summary>
+        /// When overridden in a derived class, gets the property mapping for the specified property.
+        /// </summary>
+        /// <param name="info">The <see cref="PropertyInfo"/> for the property.</param>
+        /// <returns>An instance of <typeparamref name="TPropertyMap"/>.</returns>
+        protected abstract TPropertyMap GetPropertyMap(PropertyInfo info);
+
+        private void ThrowIfDuplicateMapping(IPropertyMap map)
+        {
+            if (PropertyMaps.Any(p => p.PropertyInfo.Name == map.PropertyInfo.Name))
+            {
+                throw new Exception(string.Format("Duplicate mapping detected. Property '{0}' is already mapped to column '{1}'.", map.PropertyInfo.Name, map.ColumnName));
+            }
+        }
     }
 
     /// <summary>
     /// Represents a typed mapping of an entity.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity to configure the mapping for.</typeparam>
-    public abstract class EntityMap<TEntity> : EntityMap, IEntityMap<TEntity>
+    public abstract class EntityMap<TEntity> : EntityMapBase<TEntity, PropertyMap>
         where TEntity : class
     {
-        /// <summary>
-        /// Returns an instance of <see cref="T:Dapper.FluentMap.Mapping.PropertyMap"/> which can perform custom mapping
-        /// for the specified property on <typeparamref name="TEntity"/>.
-        /// </summary>
-        /// <param name="expression">Expression to the property on <typeparamref name="TEntity"/>.</param>
-        /// <returns>The created <see cref="T:Dapper.FluentMap.Mapping.PropertyMap"/> instance. This enables a fluent API.</returns>
-        /// <exception cref="T:System.Exception">when a duplicate mapping is provided.</exception>
-        protected PropertyMap Map(Expression<Func<TEntity, object>> expression)
+        protected override PropertyMap GetPropertyMap(PropertyInfo info)
         {
-            PropertyInfo info = (PropertyInfo)ReflectionHelper.GetMemberInfo(expression);
-
-            PropertyMap propertyMap = new PropertyMap(info);
-
-            ThrowIfDuplicateMapping(propertyMap);
-
-            PropertyMaps.Add(propertyMap);
-            return propertyMap;
-        }
-
-        private void ThrowIfDuplicateMapping(PropertyMap map)
-        {
-            if (PropertyMaps.Any(p => p.PropertyInfo.Name == map.PropertyInfo.Name))
-            {
-                throw new Exception(string.Format("Duplicate mapping. Property '{0}' is already mapped to column '{1}'.", map.PropertyInfo.Name, map.ColumnName));
-            }
+            return new PropertyMap(info);
         }
     }
 }

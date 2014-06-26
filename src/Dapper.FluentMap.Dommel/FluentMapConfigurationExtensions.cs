@@ -5,8 +5,16 @@ using DommelMapper = Dommel.Dommel;
 
 namespace Dapper.FluentMap.Dommel
 {
+    /// <summary>
+    /// Defines methods for configured Dapper.FluentMap.Dommel.
+    /// </summary>
     public static class FluentMapConfigurationExtensions
     {
+        /// <summary>
+        /// Configures the specified configuration for Dapper.FluentMap.Dommel.
+        /// </summary>
+        /// <param name="config">The Dapper.FluentMap configuration.</param>
+        /// <returns>The Dapper.FluentMap configuration.</returns>
         public static FluentMapConfiguration ForDommel(this FluentMapConfiguration config)
         {
             DommelMapper.SetColumnNameResolver(new DommelColumnNameResolver());

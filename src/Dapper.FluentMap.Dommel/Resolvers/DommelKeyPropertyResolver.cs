@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-
 using Dapper.FluentMap.Dommel.Mapping;
-
+using Dommel;
 using DommelMapper = Dommel.Dommel;
 
 namespace Dapper.FluentMap.Dommel.Resolvers
 {
+    /// <summary>
+    /// Implements the <see cref="Dommel.IKeyPropertyResolver"/> interface by using the configured mapping.
+    /// </summary>
     public class DommelKeyPropertyResolver : DommelMapper.IKeyPropertyResolver
     {
         public PropertyInfo ResolveKeyProperty(Type type)
         {
-            var entityMap = FluentMapper.EntityMaps[type] as DommelEntityMap;
+            var entityMap = FluentMapper.EntityMaps[type] as IDommelEntityMap;
             if (entityMap == null)
             {
                 // todo: exception, null, fallback resolver or type.Name?
