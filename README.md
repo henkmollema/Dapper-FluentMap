@@ -102,3 +102,49 @@ public class PropertyTransformConvention : Convention
 ```
 
 This configuration will map camel case property names to underscore seperated database column names (`UrlOptimizedName` -> `Url_Optimized_Name`).
+
+<hr>
+
+### [Dommel](https://github.com/HenkMollema/Dommel])
+Dommel contains a set of extensions methods providing easy CRUD operations using Dapper. One of the goals was to provide extension points for resolving table and column names. [Dapper.FluentMap.Dommel](https://github.com/HenkMollema/Dapper-FluentMap/tree/master/src/Dapper.FluentMap.Dommel) implements certain interfaces of Dommel and uses the configured mapping. It also provides more mapping functionality.
+
+#### [> Download Dapper.FluentMap.Dommel NuGet package](https://www.nuget.org/packages/Dapper.FluentMap.Dommel)
+
+#### Usage
+##### `DommelEntityMap<TEntity>`
+This class derives from `EntityMap<TEntity>` and allows you to map an entity to a database table using the `ToTable()` method:
+
+```csharp
+public class ProductMap : DommelEntityMap<TEntity>
+{
+	public ProductMap()
+	{
+		ToTable("tblProduct");		
+		
+		// ...
+	}
+}
+```
+
+##### `DommelPropertyMap<TEntity>`
+This class derives `PropertyMap<TEntity>` and allows you to specify the key property of an entity using the `IsKey` method:
+
+```csharp
+public class ProductMap : DommelEntityMap<TEntity>
+{
+	public ProductMap()
+	{
+		Map(p => p.Id).IsKey();
+	}
+}
+```
+
+You can configure Dapper.FluentMap.Dommel in the `FluentMapper.Initialize()` method:
+
+```csharp
+FluentMapper.Intialize(config =>
+					   {
+						   config.AddMap(new ProductMap());
+						   config.ForDommel();
+					   });
+```
