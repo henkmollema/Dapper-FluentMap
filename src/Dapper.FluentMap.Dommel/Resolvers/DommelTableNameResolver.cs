@@ -1,12 +1,11 @@
 ﻿using System;
 using Dapper.FluentMap.Dommel.Mapping;
 using Dommel;
-using DommelMapper = Dommel.Dommel;
 
 namespace Dapper.FluentMap.Dommel.Resolvers
 {
     /// <summary>
-    /// Implements the <see cref="Dommel.ITableNameResolver"/> interface by using the configured mapping.
+    /// Implements the <see cref="DommelMapper.ITableNameResolver"/> interface by using the configured mapping.
     /// </summary>
     public class DommelTableNameResolver : DommelMapper.ITableNameResolver
     {

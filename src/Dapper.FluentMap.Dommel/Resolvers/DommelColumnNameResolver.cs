@@ -3,12 +3,11 @@ using System.Linq;
 using System.Reflection;
 using Dapper.FluentMap.Dommel.Mapping;
 using Dommel;
-using DommelMapper = Dommel.Dommel;
 
 namespace Dapper.FluentMap.Dommel.Resolvers
 {
     /// <summary>
-    /// Implements the <see cref="Dommel.IColumnNameResolver"/> interface by using the configured mapping.
+    /// Implements the <see cref="DommelMapper.IColumnNameResolver"/> interface by using the configured mapping.
     /// </summary>
     public class DommelColumnNameResolver : DommelMapper.IColumnNameResolver
     {
