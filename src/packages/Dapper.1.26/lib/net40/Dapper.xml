@@ -69,14 +69,9 @@
             Can async queries be pipelined?
             </summary>
         </member>
-        <member name="M:Dapper.CommandDefinition.#ctor(System.String,System.Object,System.Data.IDbTransaction,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType},Dapper.CommandFlags,System.Threading.CancellationToken)">
+        <member name="M:Dapper.CommandDefinition.#ctor(System.String,System.Object,System.Data.IDbTransaction,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType},Dapper.CommandFlags)">
             <summary>
             Initialize the command definition
-            </summary>
-        </member>
-        <member name="P:Dapper.CommandDefinition.CancellationToken">
-            <summary>
-            For asynchronous operations, the cancellation-token
             </summary>
         </member>
         <member name="T:Dapper.SqlMapper">
@@ -117,6 +112,45 @@
             </summary>
             <param name="command">The raw command prior to execution</param>
             <param name="name">Parameter name</param>
+        </member>
+        <member name="T:Dapper.SqlMapper.ITypeHandler">
+            <summary>
+            Implement this interface to perform custom type-based parameter handling and value parsing
+            </summary>
+        </member>
+        <member name="M:Dapper.SqlMapper.ITypeHandler.SetValue(System.Data.IDbDataParameter,System.Object)">
+            <summary>
+            Assign the value of a parameter before a command executes
+            </summary>
+            <param name="parameter">The parameter to configure</param>
+            <param name="value">Parameter value</param>
+        </member>
+        <member name="M:Dapper.SqlMapper.ITypeHandler.Parse(System.Type,System.Object)">
+            <summary>
+            Parse a database value back to a typed value
+            </summary>
+            <param name="value">The value from the database</param>
+            <param name="destinationType">The type to parse to</param>
+            <returns>The typed value</returns>
+        </member>
+        <member name="T:Dapper.SqlMapper.TypeHandler`1">
+            <summary>
+            Base-class for simple type-handlers
+            </summary>
+        </member>
+        <member name="M:Dapper.SqlMapper.TypeHandler`1.SetValue(System.Data.IDbDataParameter,`0)">
+            <summary>
+            Assign the value of a parameter before a command executes
+            </summary>
+            <param name="parameter">The parameter to configure</param>
+            <param name="value">Parameter value</param>
+        </member>
+        <member name="M:Dapper.SqlMapper.TypeHandler`1.Parse(System.Object)">
+            <summary>
+            Parse a database value back to a typed value
+            </summary>
+            <param name="value">The value from the database</param>
+            <returns>The typed value</returns>
         </member>
         <member name="T:Dapper.SqlMapper.ITypeMap">
             <summary>
@@ -215,6 +249,31 @@
         <member name="M:Dapper.SqlMapper.AddTypeMap(System.Type,System.Data.DbType)">
             <summary>
             Configire the specified type to be mapped to a given db-type
+            </summary>
+        </member>
+        <member name="M:Dapper.SqlMapper.AddTypeHandler(System.Type,Dapper.SqlMapper.ITypeHandler)">
+            <summary>
+            Configire the specified type to be processed by a custom handler
+            </summary>
+        </member>
+        <member name="M:Dapper.SqlMapper.AddTypeHandler``1(Dapper.SqlMapper.TypeHandler{``0})">
+            <summary>
+            Configire the specified type to be processed by a custom handler
+            </summary>
+        </member>
+        <member name="T:Dapper.SqlMapper.TypeHandlerCache`1">
+            <summary>
+            Not intended for direct usage
+            </summary>
+        </member>
+        <member name="M:Dapper.SqlMapper.TypeHandlerCache`1.Parse(System.Object)">
+            <summary>
+            Not intended for direct usage
+            </summary>
+        </member>
+        <member name="M:Dapper.SqlMapper.TypeHandlerCache`1.SetValue(System.Data.IDbDataParameter,System.Object)">
+            <summary>
+            Not intended for direct usage
             </summary>
         </member>
         <member name="T:Dapper.SqlMapper.Identity">
@@ -567,6 +626,11 @@
             <param name="index"></param>
             <param name="reader"></param>
         </member>
+        <member name="F:Dapper.SqlMapper.DataTableTypeNameKey">
+            <summary>
+            Key used to indicate the type name associated with a DataTable
+            </summary>
+        </member>
         <member name="P:Dapper.SqlMapper.ConnectionStringComparer">
             <summary>
             How should connection strings be compared for equivalence? Defaults to StringComparer.Ordinal.
@@ -625,195 +689,20 @@
             Dispose the grid, closing and disposing both the underlying reader and command.
             </summary>
         </member>
-        <member name="M:Dapper.SqlMapper.QueryAsync``1(System.Data.IDbConnection,System.String,System.Object,System.Data.IDbTransaction,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+        <member name="M:Dapper.SqlMapper.AsTableValuedParameter(System.Data.DataTable,System.String)">
             <summary>
-            Execute a query asynchronously using .NET 4.5 Task.
+            Used to pass a DataTable as a TableValuedParameter
             </summary>
         </member>
-        <member name="M:Dapper.SqlMapper.QueryAsync``1(System.Data.IDbConnection,Dapper.CommandDefinition)">
+        <member name="M:Dapper.SqlMapper.SetTypeName(System.Data.DataTable,System.String)">
             <summary>
-            Execute a query asynchronously using .NET 4.5 Task.
+            Associate a DataTable with a type name
             </summary>
         </member>
-        <member name="M:Dapper.SqlMapper.ExecuteAsync(System.Data.IDbConnection,System.String,System.Object,System.Data.IDbTransaction,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
+        <member name="M:Dapper.SqlMapper.GetTypeName(System.Data.DataTable)">
             <summary>
-            Execute a command asynchronously using .NET 4.5 Task.
+            Fetch the type name associated with a DataTable
             </summary>
-        </member>
-        <member name="M:Dapper.SqlMapper.ExecuteAsync(System.Data.IDbConnection,Dapper.CommandDefinition)">
-            <summary>
-            Execute a command asynchronously using .NET 4.5 Task.
-            </summary>
-        </member>
-        <member name="M:Dapper.SqlMapper.QueryAsync``3(System.Data.IDbConnection,System.String,System.Func{``0,``1,``2},System.Object,System.Data.IDbTransaction,System.Boolean,System.String,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
-            <summary>
-            Maps a query to objects
-            </summary>
-            <typeparam name="TFirst">The first type in the recordset</typeparam>
-            <typeparam name="TSecond">The second type in the recordset</typeparam>
-            <typeparam name="TReturn">The return type</typeparam>
-            <param name="cnn"></param>
-            <param name="sql"></param>
-            <param name="map"></param>
-            <param name="param"></param>
-            <param name="transaction"></param>
-            <param name="buffered"></param>
-            <param name="splitOn">The field we should split and read the second object from (default: id)</param>
-            <param name="commandTimeout">Number of seconds before command execution timeout</param>
-            <param name="commandType">Is it a stored proc or a batch?</param>
-            <returns></returns>
-        </member>
-        <member name="M:Dapper.SqlMapper.QueryAsync``3(System.Data.IDbConnection,Dapper.CommandDefinition,System.Func{``0,``1,``2},System.String)">
-            <summary>
-            Maps a query to objects
-            </summary>
-            <typeparam name="TFirst">The first type in the recordset</typeparam>
-            <typeparam name="TSecond">The second type in the recordset</typeparam>
-            <typeparam name="TReturn">The return type</typeparam>
-            <param name="cnn"></param>
-            <param name="splitOn">The field we should split and read the second object from (default: id)</param>
-            <param name="command">The command to execute</param>
-            <param name="map"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dapper.SqlMapper.QueryAsync``4(System.Data.IDbConnection,System.String,System.Func{``0,``1,``2,``3},System.Object,System.Data.IDbTransaction,System.Boolean,System.String,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
-            <summary>
-            Maps a query to objects
-            </summary>
-            <typeparam name="TFirst"></typeparam>
-            <typeparam name="TSecond"></typeparam>
-            <typeparam name="TThird"></typeparam>
-            <typeparam name="TReturn"></typeparam>
-            <param name="cnn"></param>
-            <param name="sql"></param>
-            <param name="map"></param>
-            <param name="param"></param>
-            <param name="transaction"></param>
-            <param name="buffered"></param>
-            <param name="splitOn">The Field we should split and read the second object from (default: id)</param>
-            <param name="commandTimeout">Number of seconds before command execution timeout</param>
-            <param name="commandType"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dapper.SqlMapper.QueryAsync``4(System.Data.IDbConnection,Dapper.CommandDefinition,System.Func{``0,``1,``2,``3},System.String)">
-            <summary>
-            Maps a query to objects
-            </summary>
-            <typeparam name="TFirst"></typeparam>
-            <typeparam name="TSecond"></typeparam>
-            <typeparam name="TThird"></typeparam>
-            <typeparam name="TReturn"></typeparam>
-            <param name="cnn"></param>
-            <param name="splitOn">The field we should split and read the second object from (default: id)</param>
-            <param name="command">The command to execute</param>
-            <param name="map"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dapper.SqlMapper.QueryAsync``5(System.Data.IDbConnection,System.String,System.Func{``0,``1,``2,``3,``4},System.Object,System.Data.IDbTransaction,System.Boolean,System.String,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
-            <summary>
-            Perform a multi mapping query with 4 input parameters
-            </summary>
-            <typeparam name="TFirst"></typeparam>
-            <typeparam name="TSecond"></typeparam>
-            <typeparam name="TThird"></typeparam>
-            <typeparam name="TFourth"></typeparam>
-            <typeparam name="TReturn"></typeparam>
-            <param name="cnn"></param>
-            <param name="sql"></param>
-            <param name="map"></param>
-            <param name="param"></param>
-            <param name="transaction"></param>
-            <param name="buffered"></param>
-            <param name="splitOn"></param>
-            <param name="commandTimeout"></param>
-            <param name="commandType"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dapper.SqlMapper.QueryAsync``5(System.Data.IDbConnection,Dapper.CommandDefinition,System.Func{``0,``1,``2,``3,``4},System.String)">
-            <summary>
-            Perform a multi mapping query with 4 input parameters
-            </summary>
-            <typeparam name="TFirst"></typeparam>
-            <typeparam name="TSecond"></typeparam>
-            <typeparam name="TThird"></typeparam>
-            <typeparam name="TFourth"></typeparam>
-            <typeparam name="TReturn"></typeparam>
-            <param name="cnn"></param>
-            <param name="splitOn">The field we should split and read the second object from (default: id)</param>
-            <param name="command">The command to execute</param>
-            <param name="map"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Dapper.SqlMapper.QueryAsync``6(System.Data.IDbConnection,System.String,System.Func{``0,``1,``2,``3,``4,``5},System.Object,System.Data.IDbTransaction,System.Boolean,System.String,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
-            <summary>
-            Perform a multi mapping query with 5 input parameters
-            </summary>
-        </member>
-        <member name="M:Dapper.SqlMapper.QueryAsync``6(System.Data.IDbConnection,Dapper.CommandDefinition,System.Func{``0,``1,``2,``3,``4,``5},System.String)">
-            <summary>
-            Perform a multi mapping query with 5 input parameters
-            </summary>
-        </member>
-        <member name="M:Dapper.SqlMapper.QueryAsync``7(System.Data.IDbConnection,System.String,System.Func{``0,``1,``2,``3,``4,``5,``6},System.Object,System.Data.IDbTransaction,System.Boolean,System.String,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
-            <summary>
-            Perform a multi mapping query with 6 input parameters
-            </summary>
-        </member>
-        <member name="M:Dapper.SqlMapper.QueryAsync``7(System.Data.IDbConnection,Dapper.CommandDefinition,System.Func{``0,``1,``2,``3,``4,``5,``6},System.String)">
-            <summary>
-            Perform a multi mapping query with 6 input parameters
-            </summary>
-        </member>
-        <member name="M:Dapper.SqlMapper.QueryAsync``8(System.Data.IDbConnection,System.String,System.Func{``0,``1,``2,``3,``4,``5,``6,``7},System.Object,System.Data.IDbTransaction,System.Boolean,System.String,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
-            <summary>
-            Perform a multi mapping query with 7 input parameters
-            </summary>
-        </member>
-        <member name="M:Dapper.SqlMapper.QueryAsync``8(System.Data.IDbConnection,Dapper.CommandDefinition,System.Func{``0,``1,``2,``3,``4,``5,``6,``7},System.String)">
-            <summary>
-            Perform a multi mapping query with 7 input parameters
-            </summary>
-        </member>
-        <member name="M:Dapper.SqlMapper.QueryMultipleAsync(System.Data.IDbConnection,System.String,System.Object,System.Data.IDbTransaction,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
-            <summary>
-            Execute a command that returns multiple result sets, and access each in turn
-            </summary>
-        </member>
-        <member name="M:Dapper.SqlMapper.QueryMultipleAsync(System.Data.IDbConnection,Dapper.CommandDefinition)">
-            <summary>
-            Execute a command that returns multiple result sets, and access each in turn
-            </summary>
-        </member>
-        <member name="M:Dapper.SqlMapper.ExecuteReaderAsync(System.Data.IDbConnection,System.String,System.Object,System.Data.IDbTransaction,System.Nullable{System.Int32},System.Nullable{System.Data.CommandType})">
-            <summary>
-            Execute parameterized SQL and return an <see cref="T:System.Data.IDataReader"/>
-            </summary>
-            <returns>An <see cref="T:System.Data.IDataReader"/> that can be used to iterate over the results of the SQL query.</returns>
-            <remarks>
-            This is typically used when the results of a query are not processed by Dapper, for example, used to fill a <see cref="T:System.Data.DataTable"/>
-            or <see cref="T:System.Data.DataSet"/>.
-            </remarks>
-            <example>
-            <code>
-            <![CDATA[
-            DataTable table = new DataTable("MyTable");
-            using (var reader = ExecuteReader(cnn, sql, param))
-            {
-                table.Load(reader);
-            }
-            ]]>
-            </code>
-            </example>
-        </member>
-        <member name="M:Dapper.SqlMapper.ExecuteReaderAsync(System.Data.IDbConnection,Dapper.CommandDefinition)">
-            <summary>
-            Execute parameterized SQL and return an <see cref="T:System.Data.IDataReader"/>
-            </summary>
-            <returns>An <see cref="T:System.Data.IDataReader"/> that can be used to iterate over the results of the SQL query.</returns>
-            <remarks>
-            This is typically used when the results of a query are not processed by Dapper, for example, used to fill a <see cref="T:System.Data.DataTable"/>
-            or <see cref="T:System.Data.DataSet"/>.
-            </remarks>
         </member>
         <member name="T:Dapper.DynamicParameters">
             <summary>
@@ -872,6 +761,21 @@
             <typeparam name="T"></typeparam>
             <param name="name"></param>
             <returns>The value, note DBNull.Value is not returned, instead the value is returned as null</returns>
+        </member>
+        <member name="T:Dapper.TableValuedParameter">
+            <summary>
+            Used to pass a DataTable as a TableValuedParameter
+            </summary>
+        </member>
+        <member name="M:Dapper.TableValuedParameter.#ctor(System.Data.DataTable)">
+            <summary>
+            Create a new instance of TableValuedParameter
+            </summary>
+        </member>
+        <member name="M:Dapper.TableValuedParameter.#ctor(System.Data.DataTable,System.String)">
+            <summary>
+            Create a new instance of TableValuedParameter
+            </summary>
         </member>
         <member name="T:Dapper.DbString">
             <summary>
