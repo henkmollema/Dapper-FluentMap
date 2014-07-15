@@ -2,9 +2,6 @@ using Dapper.FluentMap;
 
 namespace App
 {
-    /// <summary>
-    /// Represents a convention which adds type prefixes to database column names.
-    /// </summary>
     public class DapperFluentMapInitializer
     {
         public static void Init()
