@@ -108,7 +108,7 @@ This configuration will map camel case property names to underscore seperated da
 ### [Dommel](https://github.com/HenkMollema/Dommel)
 Dommel contains a set of extensions methods providing easy CRUD operations using Dapper. One of the goals was to provide extension points for resolving table and column names. [Dapper.FluentMap.Dommel](https://github.com/HenkMollema/Dapper-FluentMap/tree/master/src/Dapper.FluentMap.Dommel) implements certain interfaces of Dommel and uses the configured mapping. It also provides more mapping functionality.
 
-#### [`PM> Install Dapper.FluentMap.Dommel`](https://www.nuget.org/packages/Dapper.FluentMap.Dommel)
+#### [`PM> Install-Package Dapper.FluentMap.Dommel`](https://www.nuget.org/packages/Dapper.FluentMap.Dommel)
 
 #### Usage
 ##### `DommelEntityMap<TEntity>`
