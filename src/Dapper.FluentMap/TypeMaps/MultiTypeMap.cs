@@ -37,11 +37,33 @@ namespace Dapper.FluentMap.TypeMaps
                 }
                 catch (NotImplementedException)
                 {
-                    // the CustomPropertyTypeMap only supports a no-args
-                    // constructor and throws a not implemented exception.
-                    // to work around that, catch and ignore.
+                    // Ignore NotImplementedException's thrown by the CustomPropertyTypeMap
+                    // and continue to the next mapping strategy.
                 }
             }
+
+            return null;
+        }
+
+        public ConstructorInfo FindExplicitConstructor()
+        {
+            foreach (var mapper in _mappers)
+            {
+                try
+                {
+                    var result = mapper.FindExplicitConstructor();
+                    if (result != null)
+                    {
+                        return result;
+                    }
+                }
+                catch (NotImplementedException)
+                {
+                    // Ignore NotImplementedException's thrown by the CustomPropertyTypeMap
+                    // and continue to the next mapping strategy.
+                }
+            }
+
             return null;
         }
 
@@ -60,11 +82,11 @@ namespace Dapper.FluentMap.TypeMaps
                 }
                 catch (NotImplementedException)
                 {
-                    // the CustomPropertyTypeMap only supports a no-args
-                    // constructor and throws a not implemented exception.
-                    // to work around that, catch and ignore.
+                    // Ignore NotImplementedException's thrown by the CustomPropertyTypeMap
+                    // and continue to the next mapping strategy.
                 }
             }
+
             return null;
         }
 
@@ -82,11 +104,11 @@ namespace Dapper.FluentMap.TypeMaps
                 }
                 catch (NotImplementedException)
                 {
-                    // the CustomPropertyTypeMap only supports a no-args
-                    // constructor and throws a not implemented exception.
-                    // to work around that, catch and ignore.
+                    // Ignore NotImplementedException's thrown by the CustomPropertyTypeMap
+                    // and continue to the next mapping strategy.
                 }
             }
+
             return null;
         }
 
