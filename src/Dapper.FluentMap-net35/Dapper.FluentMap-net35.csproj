@@ -33,14 +33,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dapper">
-      <HintPath>..\packages\Dapper.1.27\lib\net35\Dapper.dll</HintPath>
+      <HintPath>..\packages\Dapper.1.38\lib\net35\Dapper.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Dapper.FluentMap\Configuration\FluentConventionConfiguration.cs">
@@ -85,6 +82,9 @@
     <Compile Include="..\Dapper.FluentMap\Utils\ReflectionHelper.cs">
       <Link>Utils\ReflectionHelper.cs</Link>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
