@@ -59,20 +59,6 @@
             <param name="entity">The entity to be deleted.</param>
             <returns>A value indicating whether the delete operation succeeded.</returns>
         </member>
-        <member name="M:Dommel.DommelMapper.GetTableName(System.Type)">
-            <summary>
-            Gets the name of the table in the database for the specified type using an <see cref="T:Dommel.DommelMapper.ITableNameResolver"/> implementation.
-            </summary>
-            <param name="type">The type of the entity.</param>
-            <returns>The name of the table in the database for the specified type.</returns>
-        </member>
-        <member name="M:Dommel.DommelMapper.GetColumnName(System.Reflection.PropertyInfo)">
-            <summary>
-            Gets the column name in the datbase for the specified property uing an <see cref="T:Dommel.DommelMapper.IColumnNameResolver"/> implementation.
-            </summary>
-            <param name="propertyInfo">The property of the entity.</param>
-            <returns>The name of the column in the database for the specified property.</returns>
-        </member>
         <member name="M:Dommel.DommelMapper.SetKeyPropertyResolver(Dommel.DommelMapper.IKeyPropertyResolver)">
             <summary>
             Sets the <see cref="T:Dommel.DommelMapper.IKeyPropertyResolver"/> implementation for resolving key properties of entities.
@@ -90,6 +76,17 @@
             Sets the <see cref="T:Dommel.IColumnNameResolver"/> implementation for resolving column names.
             </summary>
             <param name="resolver">An instance of <see cref="T:Dommel.IColumnNameResolver"/>.</param>
+        </member>
+        <member name="M:Dommel.DommelMapper.AddSqlBuilder(System.Type,Dommel.DommelMapper.ISqlBuilder)">
+            <summary>
+            Adds a custom implementation of <see cref="T:DommelMapper.ISqlBuilder"/> 
+            for the specified ADO.NET connection type.
+            </summary>
+            <param name="connectionType">
+            The ADO.NET conncetion type to use the <paramref name="builder"/> with. 
+            Example: <c>typeof(SqlConnection)</c>.
+            </param>
+            <param name="builder">An implementation of the <see cref="T:DommelMapper.ISqlBuilder interface"/>.</param>
         </member>
         <member name="T:Dommel.DommelMapper.IKeyPropertyResolver">
             <summary>
@@ -162,6 +159,22 @@
             <summary>
             Resolves the column name for the property. This is just the name of the property.
             </summary>
+        </member>
+        <member name="T:Dommel.DommelMapper.ISqlBuilder">
+            <summary>
+            Defines methods for building specialized SQL queries.
+            </summary>
+        </member>
+        <member name="M:Dommel.DommelMapper.ISqlBuilder.BuildInsert(System.String,System.String[],System.String[],System.Reflection.PropertyInfo)">
+            <summary>
+            Builds an insert query using the specified table name, column names and parameter names. 
+            A query to fetch the new id will be included as well.
+            </summary>
+            <param name="tableName">The name of the table to query.</param>
+            <param name="columnNames">The names of the columns in the table.</param>
+            <param name="paramNames">The names of the parameters in the database command.</param>
+            <param name="keyProperty">The key property. This can be used to query a specific column for the new id. This is optional.</param>
+            <returns>An insert query including a query to fetch the new id.</returns>
         </member>
     </members>
 </doc>
