@@ -18,7 +18,7 @@ namespace Dapper.FluentMap.Dommel.Mapping
         {
         }
 
-        internal bool Key { get; private set; }
+        public bool Key { get; private set; }
 
         /// <summary>
         /// Marks the current property as key for the entity.
