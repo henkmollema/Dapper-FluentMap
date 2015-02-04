@@ -50,7 +50,7 @@ namespace Dapper.FluentMap.Configuration
         {
             foreach (var type in Assembly.GetCallingAssembly()
                                           .GetExportedTypes()
-                                          .Where(type => namespaces.Any(n => type.Namespace == n)))
+                                          .Where(type => namespaces.Length == 0 || namespaces.Any(n => type.Namespace == n)))
             {
                 MapProperties(type);
                 FluentMapper.TypeConventions.AddOrUpdate(type, _convention);
