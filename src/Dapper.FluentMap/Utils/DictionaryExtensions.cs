@@ -12,7 +12,7 @@ namespace Dapper.FluentMap.Utils
             }
             else
             {
-                dict.Add(key, new[] { value });
+                dict.Add(key, new List<TValue> { value });
             }
         }
     }
