@@ -61,6 +61,21 @@ namespace Dapper.FluentMap.Mapping
             ColumnName = columnName;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.Mapping.PropertyMap"/> using 
+        /// the specified <see cref="T:System.Reflection.PropertyInfo"/> object representing the property to map, 
+        /// column name to map the property to and a value indicating whether the mapping should be case sensitive.
+        /// </summary>
+        /// <param name="info">The <see cref="T:System.Reflection.PropertyInfo"/> object representing to the property to map.</param>
+        /// <param name="columnName">The column name in the database to map the property to.</param>
+        /// <param name="caseSensitive">A value indicating whether the mappig should be case sensitive.</param>
+        internal PropertyMapBase(PropertyInfo info, string columnName, bool caseSensitive)
+        {
+            PropertyInfo = info;
+            ColumnName = columnName;
+            CaseSensitive = caseSensitive;
+        }
+
         public string ColumnName { get; private set; }
 
         public bool CaseSensitive { get; private set; }
@@ -142,6 +157,19 @@ namespace Dapper.FluentMap.Mapping
         /// <param name="columnName">The column name.</param>
         public PropertyMap(PropertyInfo info, string columnName)
             : base(info, columnName)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Dapper.FluentMap.Mapping.PropertyMap"/> class 
+        /// with the specified <see cref="System.Reflection.PropertyInfo"/> object, column name 
+        /// and a value indicating whether the mapping should be case sensitive.
+        /// </summary>
+        /// <param name="info">The information about the property.</param>
+        /// <param name="columnName">The column name.</param>
+        /// <param name="caseSensitive">A value indicating whether the mappig should be case sensitive.</param>
+        public PropertyMap(PropertyInfo info, string columnName, bool caseSensitive)
+            : base(info, columnName, caseSensitive)
         {
         }
     }

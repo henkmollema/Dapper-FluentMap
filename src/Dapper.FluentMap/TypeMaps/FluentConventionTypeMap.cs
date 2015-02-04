@@ -42,9 +42,9 @@ namespace Dapper.FluentMap.TypeMaps
                 {
                     // Find property map for current type and column name.
                     var maps = convention.PropertyMaps
-                                                       .Where(c => c.PropertyInfo.DeclaringType == type &&
-                                                                   c.ColumnName == columnName)
-                                                       .ToList();
+                                         .Where(map => map.PropertyInfo.DeclaringType == type &&
+                                                       MatchColumnNames(map, columnName))
+                                         .ToList();
 
                     if (maps.Count > 1)
                     {
@@ -67,6 +67,17 @@ namespace Dapper.FluentMap.TypeMaps
             // If we get here, the property was not mapped.
             TypePropertyMapCache.Add(cacheKey, null);
             return null;
+        }
+
+        private static bool MatchColumnNames(IPropertyMap map, string columnName)
+        {
+            var comparison = StringComparison.Ordinal;
+            if (!map.CaseSensitive)
+            {
+                comparison = StringComparison.OrdinalIgnoreCase;
+            }
+
+            return string.Equals(map.ColumnName, columnName, comparison);
         }
     }
 }

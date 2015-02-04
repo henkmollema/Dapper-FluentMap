@@ -49,8 +49,8 @@ namespace Dapper.FluentMap.Configuration
         public FluentConventionConfiguration ForEntitiesInCurrentAssembly(params string[] namespaces)
         {
             foreach (var type in Assembly.GetCallingAssembly()
-                                          .GetExportedTypes()
-                                          .Where(type => namespaces.Length == 0 || namespaces.Any(n => type.Namespace == n)))
+                                         .GetExportedTypes()
+                                         .Where(type => namespaces.Length == 0 || namespaces.Any(n => type.Namespace == n)))
             {
                 MapProperties(type);
                 FluentMapper.TypeConventions.AddOrUpdate(type, _convention);
@@ -69,7 +69,7 @@ namespace Dapper.FluentMap.Configuration
         public FluentConventionConfiguration ForEntitiesInAssembly(Assembly assembly, params string[] namespaces)
         {
             foreach (var type in assembly.GetExportedTypes()
-                                          .Where(type => namespaces.Any(n => type.Namespace == n)))
+                                         .Where(type => namespaces.Any(n => type.Namespace == n)))
             {
                 MapProperties(type);
                 FluentMapper.TypeConventions.AddOrUpdate(type, _convention);
@@ -87,32 +87,41 @@ namespace Dapper.FluentMap.Configuration
             {
                 // Find the convention configurations for the convetion with either none or matching property predicates.
                 foreach (var config in _convention.ConventionConfigurations
-                                                                              .Where(c => c.PropertyPredicates.Count <= 0 ||
-                                                                                          c.PropertyPredicates.All(e => e(property))))
+                                                  .Where(c => c.PropertyPredicates.Count <= 0 ||
+                                                              c.PropertyPredicates.All(e => e(property))))
                 {
                     if (!string.IsNullOrEmpty(config.PropertyConfiguration.ColumnName))
                     {
-                        AddConventionPropertyMap(property, config.PropertyConfiguration.ColumnName);
+                        AddConventionPropertyMap(
+                            property,
+                            config.PropertyConfiguration.ColumnName,
+                            config.PropertyConfiguration.CaseSensitive);
                         break;
                     }
 
                     if (!string.IsNullOrEmpty(config.PropertyConfiguration.Prefix))
                     {
-                        AddConventionPropertyMap(property, config.PropertyConfiguration.Prefix + property.Name);
+                        AddConventionPropertyMap(
+                            property,
+                            config.PropertyConfiguration.Prefix + property.Name,
+                            config.PropertyConfiguration.CaseSensitive);
                         break;
                     }
 
                     if (config.PropertyConfiguration.PropertyTransformer != null)
                     {
-                        AddConventionPropertyMap(property, config.PropertyConfiguration.PropertyTransformer(property.Name));
+                        AddConventionPropertyMap(
+                            property,
+                            config.PropertyConfiguration.PropertyTransformer(property.Name),
+                            config.PropertyConfiguration.CaseSensitive);
                     }
                 }
             }
         }
 
-        private void AddConventionPropertyMap(PropertyInfo property, string columnName)
+        private void AddConventionPropertyMap(PropertyInfo property, string columnName, bool caseSensitive)
         {
-            var map = new PropertyMap(property, columnName);
+            var map = new PropertyMap(property, columnName, caseSensitive);
             _convention.PropertyMaps.Add(map);
         }
 
