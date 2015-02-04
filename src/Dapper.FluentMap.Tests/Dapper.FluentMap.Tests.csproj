@@ -54,8 +54,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ConventionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ManualMappingTests.cs" />
+    <Compile Include="TestEntity.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dapper.FluentMap.Dommel\Dapper.FluentMap.Dommel.csproj">

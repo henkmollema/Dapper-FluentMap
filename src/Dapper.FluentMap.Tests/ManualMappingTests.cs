@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Dapper.FluentMap.Mapping;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -12,7 +9,7 @@ namespace Dapper.FluentMap.Tests
     public class ManualMappingTests
     {
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof (Exception))]
         public void Duplicate_Mapping_Should_Throw_Exception()
         {
             PreTest();
@@ -72,7 +69,7 @@ namespace Dapper.FluentMap.Tests
             Assert.IsTrue(FluentMapper.EntityMaps.Count == 1, "FluentMapper.EntityMaps contains less or more than 1 mapping.");
 
             var entityMap = FluentMapper.EntityMaps.Single();
-            Assert.IsTrue(entityMap.Key == typeof(TestEntity), "EntityMap entity type is not correct.");
+            Assert.IsTrue(entityMap.Key == typeof (TestEntity), "EntityMap entity type is not correct.");
             Assert.IsTrue(entityMap.Value is MapWithOnePropertyMap, "EntityMap type is not correct.");
         }
 
@@ -89,11 +86,6 @@ namespace Dapper.FluentMap.Tests
         {
             FluentMapper.EntityMaps.Clear();
             FluentMapper.TypeConventions.Clear();
-        }
-
-        private class TestEntity
-        {
-            public int Id { get; set; }
         }
 
         private class IgnoreMap : EntityMap<TestEntity>
