@@ -1,7 +1,9 @@
 [Dapper.FluentMap](http://henkmollema.github.io/Dapper-FluentMap)
 ================
 
-[![Build status](http://img.shields.io/appveyor/ci/henkmollema/dapper-fluentmap.svg?style=flat "AppVeyor build status")](https://ci.appveyor.com/project/henkmollema/dapper-fluentmap)   [![NuGet Version](http://img.shields.io/nuget/v/Dapper.FluentMap.svg?style=flat)](https://www.nuget.org/packages/Dapper.FluentMap/ "NuGet version")   [![NuGet Downloads](http://img.shields.io/nuget/dt/Dapper.FluentMap.svg?style=flat)](https://www.nuget.org/packages/Dapper.FluentMap/)
+[![Build status](https://ci.appveyor.com/api/projects/status/x6grw3cjuyud9c76?svg=true)](https://ci.appveyor.com/project/henkmollema/dapper-fluentmap)
+[![NuGet Version](http://img.shields.io/nuget/v/Dapper.FluentMap.svg?style=flat)](https://www.nuget.org/packages/Dapper.FluentMap/ "NuGet version")
+[![NuGet Downloads](http://img.shields.io/nuget/dt/Dapper.FluentMap.svg?style=flat)](https://www.nuget.org/packages/Dapper.FluentMap/)
 
 ### Introduction
 
