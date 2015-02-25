@@ -31,7 +31,11 @@ namespace Dapper.FluentMap.Utils
                     case ExpressionType.MemberAccess:
                         var memberExpression = (MemberExpression)expr;
                         MemberInfo mi = memberExpression.Member;
-                        return mi;
+                        // http://stackoverflow.com/a/6658781
+                        Type paramType = lambda.Parameters[0].Type;
+                        var memberInfo = paramType.GetMember(mi.Name)[0];
+
+                        return memberInfo;
 
                     default:
                         return null;
