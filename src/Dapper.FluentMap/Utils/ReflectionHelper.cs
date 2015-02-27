@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+using System;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Dapper.FluentMap.Utils
