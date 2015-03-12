@@ -11,7 +11,7 @@ namespace Dapper.FluentMap.Tests
         public void ShouldMapEntitiesInCurrentAssembly()
         {
             PreTest();
-            FluentMapper.Intialize(c => c.AddConvention<TestConvention>()
+            FluentMapper.Initialize(c => c.AddConvention<TestConvention>()
                                          .ForEntitiesInCurrentAssembly());
 
             Debug.Assert(FluentMapper.TypeConventions.ContainsKey(typeof (TestEntity)));

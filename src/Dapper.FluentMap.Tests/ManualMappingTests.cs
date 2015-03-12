@@ -65,7 +65,7 @@ namespace Dapper.FluentMap.Tests
         public void FluentMapper_Initialize_Should_Add_EntityMap()
         {
             PreTest();
-            FluentMapper.Intialize(c => c.AddMap(new MapWithOnePropertyMap()));
+            FluentMapper.Initialize(c => c.AddMap(new MapWithOnePropertyMap()));
             Assert.IsTrue(FluentMapper.EntityMaps.Count == 1, "FluentMapper.EntityMaps contains less or more than 1 mapping.");
 
             var entityMap = FluentMapper.EntityMaps.Single();
@@ -77,7 +77,7 @@ namespace Dapper.FluentMap.Tests
         public void FluentMapper_Initialize_Should_Add_Dapper_TypeMap()
         {
             PreTest();
-            FluentMapper.Intialize(c => c.AddMap(new MapWithOnePropertyMap()));
+            FluentMapper.Initialize(c => c.AddMap(new MapWithOnePropertyMap()));
             SqlMapper.ITypeMap typeMap = SqlMapper.GetTypeMap(typeof (TestEntity));
             Assert.IsNotNull(typeMap, "TypeMap is null.");
         }

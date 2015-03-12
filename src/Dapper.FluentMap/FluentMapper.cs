@@ -29,7 +29,7 @@ namespace Dapper.FluentMap
         /// This is method should be called when the application starts or when the first mapping is needed.
         /// </summary>
         /// <param name="configure">A callback containing the configuration of Dapper.FluentMap.</param>
-        public static void Intialize(Action<FluentMapConfiguration> configure)
+        public static void Initialize(Action<FluentMapConfiguration> configure)
         {
             configure(_configuration);
         }

@@ -16,7 +16,7 @@ namespace Dapper.FluentMap.TypeMaps
     internal class FluentConventionTypeMap<TEntity> : MultiTypeMap
     {
         /// <summary>
-        /// Intializes a new instance of the <see cref="T:Dapper.FluentMap.TypeMaps.FluentConventionTypeMap"/> class 
+        /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.TypeMaps.FluentConventionTypeMap"/> class 
         /// which uses the <see cref="T:Dapper.CustomPropertyTypeMap"/> and <see cref="T:Dapper.DefaultTypeMap"/>
         /// as mapping strategies.
         /// </summary>
