@@ -7,7 +7,7 @@
 
 ### Introduction
 
-This [Dapper](https://github.com/SamSaffron/dapper-dot-net/) extension allows you to fluently congfigure the mapping between POCO properties and database columns. This keeps your POCO's clean of mapping attributes. The functionality is similar to [Entity Framework Fluent API](http://msdn.microsoft.com/nl-nl/data/jj591617.aspx). If you have any questions, suggestions or bugs, please don't hesitate to [contact me](mailto:henkmollema@gmail.com) or create an issue.
+This [Dapper](https://github.com/StackExchange/dapper-dot-net) extension allows you to fluently congfigure the mapping between POCO properties and database columns. This keeps your POCO's clean of mapping attributes. The functionality is similar to [Entity Framework Fluent API](http://msdn.microsoft.com/nl-nl/data/jj591617.aspx). If you have any questions, suggestions or bugs, please don't hesitate to [contact me](mailto:henkmollema@gmail.com) or create an issue.
 
 <hr>
 
@@ -18,7 +18,7 @@ This [Dapper](https://github.com/SamSaffron/dapper-dot-net/) extension allows yo
 
 ### Usage
 #### Manual mapping
-You can map property names manually using the [`EntityMap<TEntity>`](https://github.com/HenkMollema/Dapper-FluentMap/blob/master/src/Dapper.FluentMap/Mapping/EntityMap.cs) class. When creating a derived class, the constructor gives you access to the `Map` method, allowing you to specify to which database column name a certain property of `TEntity` should map to.
+You can map property names manually using the [`EntityMap<TEntity>`](https://github.com/henkmollema/Dapper-FluentMap/blob/master/src/Dapper.FluentMap/Mapping/EntityMap.cs) class. When creating a derived class, the constructor gives you access to the `Map` method, allowing you to specify to which database column name a certain property of `TEntity` should map to.
 ```csharp
 public class ProductMap : EntityMap<Product>
 {
@@ -48,7 +48,7 @@ FluentMapper.Intialize(config =>
 #### Convention based mapping
 When you have a lot of entity types, creating manual mapping classes can become plumbing. If your column names adhere to some kind of naming convention, you might be better off by configuring a mapping convention.
 
-You can create a convention by creating a class which derives from the [`Convention`](https://github.com/HenkMollema/Dapper-FluentMap/blob/master/src/Dapper.FluentMap/Conventions/Convention.cs) class. In the contructor you can configure the property conventions:
+You can create a convention by creating a class which derives from the [`Convention`](https://github.com/henkmollema/Dapper-FluentMap/blob/master/src/Dapper.FluentMap/Conventions/Convention.cs) class. In the contructor you can configure the property conventions:
 ```csharp
 public class TypePrefixConvention : Convention
 {
@@ -107,8 +107,8 @@ This configuration will map camel case property names to underscore seperated da
 
 <hr>
 
-### [Dommel](https://github.com/HenkMollema/Dommel)
-Dommel contains a set of extensions methods providing easy CRUD operations using Dapper. One of the goals was to provide extension points for resolving table and column names. [Dapper.FluentMap.Dommel](https://github.com/HenkMollema/Dapper-FluentMap/tree/master/src/Dapper.FluentMap.Dommel) implements certain interfaces of Dommel and uses the configured mapping. It also provides more mapping functionality.
+### [Dommel](https://github.com/henkmollema/Dommel)
+Dommel contains a set of extensions methods providing easy CRUD operations using Dapper. One of the goals was to provide extension points for resolving table and column names. [Dapper.FluentMap.Dommel](https://github.com/henkmollema/Dapper-FluentMap/tree/master/src/Dapper.FluentMap.Dommel) implements certain interfaces of Dommel and uses the configured mapping. It also provides more mapping functionality.
 
 #### [`PM> Install-Package Dapper.FluentMap.Dommel`](https://www.nuget.org/packages/Dapper.FluentMap.Dommel)
 
