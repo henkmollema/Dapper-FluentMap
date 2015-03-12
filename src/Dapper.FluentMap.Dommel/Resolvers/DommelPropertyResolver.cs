@@ -2,24 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Dapper.FluentMap.Dommel.Mapping;
+using Dapper.FluentMap.Mapping;
 using Dommel;
 
 namespace Dapper.FluentMap.Dommel.Resolvers
 {
     public class DommelPropertyResolver : DommelMapper.PropertyResolverBase
     {
-        public override IEnumerable<PropertyInfo> ResolveProperties(Type type)
+        protected override IEnumerable<PropertyInfo> FilterComplexTypes(IEnumerable<PropertyInfo> properties)
         {
-            var entityMap = FluentMapper.EntityMaps[type] as IDommelEntityMap;
-            if (entityMap == null)
+            foreach (var propertyInfo in properties)
             {
-                foreach (var property in FilterComplexTypes(type.GetProperties()))
+                Type type = propertyInfo.PropertyType;
+                type = Nullable.GetUnderlyingType(type) ?? type;
+                if (type.IsPrimitive || type.IsEnum || PrimitiveTypes.Contains(type))
                 {
-                    yield return property;
+                    yield return propertyInfo;
                 }
             }
-            else
+        }
+
+        public override IEnumerable<PropertyInfo> ResolveProperties(Type type)
+        {
+            IEntityMap entityMap;
+            if (FluentMapper.EntityMaps.TryGetValue(type, out entityMap))
             {
                 foreach (var property in FilterComplexTypes(type.GetProperties()))
                 {
@@ -32,6 +38,13 @@ namespace Dapper.FluentMap.Dommel.Resolvers
                     {
                         yield return property;
                     }
+                }
+            }
+            else
+            {
+                foreach (var property in DommelMapper.Resolvers.Default.PropertyResolver.ResolveProperties(type))
+                {
+                    yield return property;
                 }
             }
         }
