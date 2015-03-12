@@ -1,0 +1,292 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dommel</name>
+    </assembly>
+    <members>
+        <member name="T:Dommel.DommelMapper">
+            <summary>
+            Simple CRUD operations for Dapper.
+            </summary>
+        </member>
+        <member name="M:Dommel.DommelMapper.Get``1(System.Data.IDbConnection,System.Object)">
+            <summary>
+            Retrieves the entity of type <typeparamref name="TEntity"/> with the specified id.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="connection">The connection to the database. This can either be open or closed.</param>
+            <param name="id">The id of the entity in the database.</param>
+            <returns>The entity with the corresponding id.</returns>
+        </member>
+        <member name="M:Dommel.DommelMapper.GetAll``1(System.Data.IDbConnection,System.Boolean)">
+            <summary>
+            Retrieves all the entities of type <typeparamref name="TEntity"/>.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="connection">The connection to the database. This can either be open or closed.</param>
+            <param name="buffered">
+            A value indicating whether the result of the query should be executed directly, 
+            or when the query is materialized (using <c>ToList()</c> for example). 
+            </param>
+            <returns>A collection of entities of type <typeparamref name="TEntity"/>.</returns>
+        </member>
+        <member name="M:Dommel.DommelMapper.Insert``1(System.Data.IDbConnection,``0,System.Data.IDbTransaction)">
+            <summary>
+            Inserts the specified entity into the database and returns the id.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="connection">The connection to the database. This can either be open or closed.</param>
+            <param name="entity">The entity to be inserted.</param>
+            <param name="transaction">Optional transaction for the command.</param>
+            <returns>The id of the inserted entity.</returns>
+        </member>
+        <member name="M:Dommel.DommelMapper.Update``1(System.Data.IDbConnection,``0,System.Data.IDbTransaction)">
+            <summary>
+            Updates the values of the specified entity in the database. 
+            The return value indicates whether the operation succeeded.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="connection">The connection to the database. This can either be open or closed.</param>
+            <param name="entity">The entity in the database.</param>
+            <param name="transaction">Optional transaction for the command.</param>
+            <returns>A value indicating whether the update operation succeeded.</returns>
+        </member>
+        <member name="M:Dommel.DommelMapper.Delete``1(System.Data.IDbConnection,``0,System.Data.IDbTransaction)">
+            <summary>
+            Deletes the specified entity from the database. 
+            Returns a value indicating whether the operation succeeded.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <param name="connection">The connection to the database. This can either be open or closed.</param>
+            <param name="entity">The entity to be deleted.</param>
+            <param name="transaction">Optional transaction for the command.</param>
+            <returns>A value indicating whether the delete operation succeeded.</returns>
+        </member>
+        <member name="M:Dommel.DommelMapper.SetPropertyResolver(Dommel.DommelMapper.IPropertyResolver)">
+            <summary>
+            Sets the <see cref="T:Dommel.DommelMapper.IPropertyResolver"/> implementation for resolving key of entities.
+            </summary>
+            <param name="propertyResolver">An instance of <see cref="T:Dommel.DommelMapper.IPropertyResolver"/>.</param>
+        </member>
+        <member name="M:Dommel.DommelMapper.SetKeyPropertyResolver(Dommel.DommelMapper.IKeyPropertyResolver)">
+            <summary>
+            Sets the <see cref="T:Dommel.DommelMapper.IKeyPropertyResolver"/> implementation for resolving key properties of entities.
+            </summary>
+            <param name="resolver">An instance of <see cref="T:Dommel.DommelMapper.IKeyPropertyResolver"/>.</param>
+        </member>
+        <member name="M:Dommel.DommelMapper.SetTableNameResolver(Dommel.DommelMapper.ITableNameResolver)">
+            <summary>
+            Sets the <see cref="T:Dommel.ITableNameResolver"/> implementation for resolving table names for entities.
+            </summary>
+            <param name="resolver">An instance of <see cref="T:Dommel.ITableNameResolver"/>.</param>
+        </member>
+        <member name="M:Dommel.DommelMapper.SetColumnNameResolver(Dommel.DommelMapper.IColumnNameResolver)">
+            <summary>
+            Sets the <see cref="T:Dommel.IColumnNameResolver"/> implementation for resolving column names.
+            </summary>
+            <param name="resolver">An instance of <see cref="T:Dommel.IColumnNameResolver"/>.</param>
+        </member>
+        <member name="M:Dommel.DommelMapper.AddSqlBuilder(System.Type,Dommel.DommelMapper.ISqlBuilder)">
+            <summary>
+            Adds a custom implementation of <see cref="T:DommelMapper.ISqlBuilder"/> 
+            for the specified ADO.NET connection type.
+            </summary>
+            <param name="connectionType">
+            The ADO.NET conncetion type to use the <paramref name="builder"/> with. 
+            Example: <c>typeof(SqlConnection)</c>.
+            </param>
+            <param name="builder">An implementation of the <see cref="T:DommelMapper.ISqlBuilder interface"/>.</param>
+        </member>
+        <member name="T:Dommel.DommelMapper.Resolvers">
+            <summary>
+            Helper class for retrieving type metadata to build sql queries using configured resolvers.
+            </summary>
+        </member>
+        <member name="M:Dommel.DommelMapper.Resolvers.KeyProperty(System.Type)">
+            <summary>
+            Gets the key property for the specified type, using the configured <see cref="T:Dommel.DommelMapper.IKeyPropertyResolver"/>.
+            </summary>
+            <param name="type">The <see cref="T:System.Type"/> to get the key property for.</param>
+            <returns>The key property for <paramref name="type"/>.</returns>
+        </member>
+        <member name="M:Dommel.DommelMapper.Resolvers.Properties(System.Type)">
+            <summary>
+            Gets the properties to be mapped for the specified type, using the configured <see cref="T:Dommel.DommelMapper.IPropertyResolver"/>.
+            </summary>
+            <param name="type">The <see cref="T:System.Type"/> to get the properties from.</param>
+            <returns>&gt;The collection of to be mapped properties of <paramref name="type"/>.</returns>
+        </member>
+        <member name="M:Dommel.DommelMapper.Resolvers.Table(System.Type)">
+            <summary>
+            Gets the name of the table in the database for the specified type, 
+            using the configured <see cref="T:Dommel.DommelMapper.ITableNameResolver"/>.
+            </summary>
+            <param name="type">The <see cref="T:System.Type"/> to get the table name for.</param>
+            <returns>The table name in the database for <paramref name="type"/>.</returns>
+        </member>
+        <member name="M:Dommel.DommelMapper.Resolvers.Column(System.Reflection.PropertyInfo)">
+            <summary>
+            Gets the name of the column in the database for the specified type,
+            using the configured <see cref="T:DommelMapper.IColumnNameResolver"/>.
+            </summary>
+            <param name="propertyInfo">The <see cref="T:System.Reflection.PropertyInfo"/> to get the column name for.</param>
+            <returns>The column name in the database for <paramref name="propertyInfo"/>.</returns>
+        </member>
+        <member name="T:Dommel.DommelMapper.Resolvers.Default">
+            <summary>
+            Provides access to default resolver implementations.
+            </summary>
+        </member>
+        <member name="F:Dommel.DommelMapper.Resolvers.Default.ColumnNameResolver">
+            <summary>
+            The default column name resolver.
+            </summary>
+        </member>
+        <member name="F:Dommel.DommelMapper.Resolvers.Default.PropertyResolver">
+            <summary>
+            The default property resolver.
+            </summary>
+        </member>
+        <member name="F:Dommel.DommelMapper.Resolvers.Default.KeyPropertyResolver">
+            <summary>
+            The default key property resolver.
+            </summary>
+        </member>
+        <member name="F:Dommel.DommelMapper.Resolvers.Default.TableNameResolver">
+            <summary>
+            The default table name resolver.
+            </summary>
+        </member>
+        <member name="T:Dommel.DommelMapper.IPropertyResolver">
+            <summary>
+            Defines methods for resolving the properties of entities. 
+            Custom implementations can be registerd with <see cref="M:SetPropertyResolver()"/>.
+            </summary>
+        </member>
+        <member name="M:Dommel.DommelMapper.IPropertyResolver.ResolveProperties(System.Type)">
+            <summary>
+            Resolves the properties to be mapped for the specified type.
+            </summary>
+            <param name="type">The type to resolve the properties to be mapped for.</param>
+            <returns>A collection of <see cref="T:System.Reflection.PropertyInfo"/>'s of the <paramref name="type"/>.</returns>
+        </member>
+        <member name="T:Dommel.DommelMapper.PropertyResolverBase">
+            <summary>
+            Represents the base class for property resolvers.
+            </summary>
+        </member>
+        <member name="M:Dommel.DommelMapper.PropertyResolverBase.ResolveProperties(System.Type)">
+            <summary>
+            Resolves the properties to be mapped for the specified type.
+            </summary>
+            <param name="type">The type to resolve the properties to be mapped for.</param>
+            <returns>A collection of <see cref="T:System.Reflection.PropertyInfo"/>'s of the <paramref name="type"/>.</returns>
+        </member>
+        <member name="M:Dommel.DommelMapper.PropertyResolverBase.FilterComplexTypes(System.Collections.Generic.IEnumerable{System.Reflection.PropertyInfo})">
+            <summary>
+            Filters the complex types from the specified collection of properties.
+            </summary>
+            <param name="properties">A collection of properties.</param>
+            <returns>The properties that are considered 'primitive' of <paramref name="properties"/>.</returns>
+        </member>
+        <member name="P:Dommel.DommelMapper.PropertyResolverBase.PrimitiveTypes">
+            <summary>
+            Gets a collection of types that are considered 'primitive' for Dommel but are not for the CLR.
+            Override this if you need your own implementation of this.
+            </summary>
+        </member>
+        <member name="T:Dommel.DommelMapper.DefaultPropertyResolver">
+            <summary>
+            Default implemenation of the <see cref="T:Dommel.DommelMapper.IPropertyResolver"/> interface.
+            </summary>
+        </member>
+        <member name="T:Dommel.DommelMapper.IKeyPropertyResolver">
+            <summary>
+            Defines methods for resolving the key property of entities. 
+            Custom implementations can be registerd with <see cref="M:SetKeyPropertyResolver()"/>.
+            </summary>
+        </member>
+        <member name="M:Dommel.DommelMapper.IKeyPropertyResolver.ResolveKeyProperty(System.Type)">
+            <summary>
+            Resolves the key property for the specified type.
+            </summary>
+            <param name="type">The type to resolve the key property for.</param>
+            <returns>A <see cref="T:System.Reflection.PropertyInfo"/> instance of the key property of <paramref name="type"/>.</returns>
+        </member>
+        <member name="T:Dommel.DommelMapper.DefaultKeyPropertyResolver">
+            <summary>
+            Implements the <see cref="T:Dommel.DommelMapper.IKeyPropertyResolver"/> interface by resolving key properties
+            with the [Key] attribute or with the name 'Id'.
+            </summary>
+        </member>
+        <member name="M:Dommel.DommelMapper.DefaultKeyPropertyResolver.ResolveKeyProperty(System.Type)">
+            <summary>
+            Finds the key property by looking for a property with the [Key] attribute or with the name 'Id'.
+            </summary>
+        </member>
+        <member name="T:Dommel.DommelMapper.ITableNameResolver">
+            <summary>
+            Defines methods for resolving table names of entities. 
+            Custom implementations can be registerd with <see cref="M:SetTableNameResolver()"/>.
+            </summary>
+        </member>
+        <member name="M:Dommel.DommelMapper.ITableNameResolver.ResolveTableName(System.Type)">
+            <summary>
+            Resolves the table name for the specified type.
+            </summary>
+            <param name="type">The type to resolve the table name for.</param>
+            <returns>A string containing the resolved table name for for <paramref name="type"/>.</returns>
+        </member>
+        <member name="T:Dommel.DommelMapper.DefaultTableNameResolver">
+            <summary>
+            Implements the <see cref="T:Dommel.ITableNameResolver"/> interface by resolving table names 
+            by making the type name plural and removing the 'I' prefix for interfaces. 
+            </summary>
+        </member>
+        <member name="M:Dommel.DommelMapper.DefaultTableNameResolver.ResolveTableName(System.Type)">
+            <summary>
+            Resolves the table name by making the type plural (+ 's', Product -> Products) 
+            and removing the 'I' prefix for interfaces.
+            </summary>
+        </member>
+        <member name="T:Dommel.DommelMapper.IColumnNameResolver">
+            <summary>
+            Defines methods for resolving column names for entities. 
+            Custom implementations can be registerd with <see cref="M:SetColumnNameResolver()"/>.
+            </summary>
+        </member>
+        <member name="M:Dommel.DommelMapper.IColumnNameResolver.ResolveColumnName(System.Reflection.PropertyInfo)">
+            <summary>
+            Resolves the column name for the specified property.
+            </summary>
+            <param name="propertyInfo">The property of the entity.</param>
+            <returns>The column name for the property.</returns>
+        </member>
+        <member name="T:Dommel.DommelMapper.DefaultColumnNameResolver">
+            <summary>
+            Implements the <see cref="T:Dommel.DommelMapper.IKeyPropertyResolver"/>.
+            </summary>
+        </member>
+        <member name="M:Dommel.DommelMapper.DefaultColumnNameResolver.ResolveColumnName(System.Reflection.PropertyInfo)">
+            <summary>
+            Resolves the column name for the property. This is just the name of the property.
+            </summary>
+        </member>
+        <member name="T:Dommel.DommelMapper.ISqlBuilder">
+            <summary>
+            Defines methods for building specialized SQL queries.
+            </summary>
+        </member>
+        <member name="M:Dommel.DommelMapper.ISqlBuilder.BuildInsert(System.String,System.String[],System.String[],System.Reflection.PropertyInfo)">
+            <summary>
+            Builds an insert query using the specified table name, column names and parameter names. 
+            A query to fetch the new id will be included as well.
+            </summary>
+            <param name="tableName">The name of the table to query.</param>
+            <param name="columnNames">The names of the columns in the table.</param>
+            <param name="paramNames">The names of the parameters in the database command.</param>
+            <param name="keyProperty">The key property. This can be used to query a specific column for the new id. This is optional.</param>
+            <returns>An insert query including a query to fetch the new id.</returns>
+        </member>
+    </members>
+</doc>
