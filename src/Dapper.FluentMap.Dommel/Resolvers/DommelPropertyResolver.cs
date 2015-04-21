@@ -29,12 +29,9 @@ namespace Dapper.FluentMap.Dommel.Resolvers
             {
                 foreach (var property in FilterComplexTypes(type.GetProperties()))
                 {
+                    // Determine whether the property should be ignored.
                     var propertyMap = entityMap.PropertyMaps.FirstOrDefault(p => p.PropertyInfo.Name == property.Name);
-                    if (propertyMap != null)
-                    {
-                        yield return !propertyMap.Ignored ? property : null;
-                    }
-                    else
+                    if (propertyMap == null || !propertyMap.Ignored)
                     {
                         yield return property;
                     }
