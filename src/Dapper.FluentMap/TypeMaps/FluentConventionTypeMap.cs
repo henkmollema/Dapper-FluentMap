@@ -42,7 +42,7 @@ namespace Dapper.FluentMap.TypeMaps
                 {
                     // Find property map for current type and column name.
                     var maps = convention.PropertyMaps
-                                         .Where(map => map.PropertyInfo.DeclaringType == type &&
+                                         .Where(map => map.PropertyInfo.ReflectedType  == type &&
                                                        MatchColumnNames(map, columnName))
                                          .ToList();
 

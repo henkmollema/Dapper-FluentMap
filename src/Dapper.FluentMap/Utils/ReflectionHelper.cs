@@ -30,8 +30,12 @@ namespace Dapper.FluentMap.Utils
 
                     case ExpressionType.MemberAccess:
                         var memberExpression = (MemberExpression)expr;
-                        MemberInfo mi = memberExpression.Member;
-                        return mi;
+                        var baseMember = memberExpression.Member;
+
+                        // Make sure we get the property from the derived type.
+                        var paramType = lambda.Parameters[0].Type;
+                        var memberInfo = paramType.GetMember(baseMember.Name)[0];
+                        return memberInfo;
 
                     default:
                         return null;

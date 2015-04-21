@@ -82,6 +82,18 @@ namespace Dapper.FluentMap.Tests
             Assert.IsNotNull(typeMap, "TypeMap is null.");
         }
 
+        [TestMethod]
+        public void PropertyMap_ShouldMapInheritedProperies()
+        {
+            PreTest();
+            var map = new DerivedMap();
+            var idMap = map.PropertyMaps.First();
+            Assert.IsTrue(idMap.PropertyInfo.ReflectedType == typeof (DerivedTestEntity));
+
+            var nameName = map.PropertyMaps.Skip(1).First();
+            Assert.IsTrue(nameName.PropertyInfo.ReflectedType == typeof(DerivedTestEntity));
+        }
+
         private static void PreTest()
         {
             FluentMapper.EntityMaps.Clear();
@@ -109,6 +121,15 @@ namespace Dapper.FluentMap.Tests
             public MapWithOnePropertyMap()
             {
                 Map(p => p.Id).ToColumn("test");
+            }
+        }
+
+        private class DerivedMap : EntityMap<DerivedTestEntity>
+        {
+            public DerivedMap()
+            {
+                Map(p => p.Id).ToColumn("intId");
+                Map(p => p.Name).ToColumn("strName");
             }
         }
 
