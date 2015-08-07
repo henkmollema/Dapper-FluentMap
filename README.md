@@ -39,7 +39,7 @@ Column names are mapped case sensitive by default. You can change this by specif
 
 **Initialization:**
 ```csharp
-FluentMapper.Intialize(config =>
+FluentMapper.Initialize(config =>
 					   {
 						   config.AddMap(new ProductMap());
 					   });
@@ -73,7 +73,7 @@ public class TypePrefixConvention : Convention
 When initializing Dapper.FluentMap with conventions, the entities on which a convention applies must be configured. You can choose to either configure the entities explicitly or use assembly scanning.
 
 ```csharp
-FluentMapper.Intialize(config =>
+FluentMapper.Initialize(config =>
     {
         // Configure entities explicitly.
         config.AddConvention<TypePrefixConvention>()
@@ -144,7 +144,7 @@ public class ProductMap : DommelEntityMap<TEntity>
 You can configure Dapper.FluentMap.Dommel in the `FluentMapper.Initialize()` method:
 
 ```csharp
-FluentMapper.Intialize(config =>
+FluentMapper.Initialize(config =>
 					   {
 						   config.AddMap(new ProductMap());
 						   config.ForDommel();
