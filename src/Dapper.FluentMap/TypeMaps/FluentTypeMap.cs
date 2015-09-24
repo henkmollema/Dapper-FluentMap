@@ -52,16 +52,14 @@ namespace Dapper.FluentMap.TypeMaps
             {
                 var propertyMaps = entityMap.PropertyMaps;
 
-                // Find the mapping for the column name.
-                var propertyMap = propertyMaps.FirstOrDefault(m => MatchColumnNames(m, columnName));
+                // Find a mapping for the column name which isn't marked as ignored
+                var propertyMap = propertyMaps
+                    .FirstOrDefault(m => MatchColumnNames(m, columnName) && !m.Ignored);
 
                 if (propertyMap != null)
                 {
-                    if (!propertyMap.Ignored)
-                    {
-                        TypePropertyMapCache.Add(cacheKey, propertyMap.PropertyInfo);
-                        return propertyMap.PropertyInfo;
-                    }
+                    TypePropertyMapCache.Add(cacheKey, propertyMap.PropertyInfo);
+                    return propertyMap.PropertyInfo;
                 }
             }
 
