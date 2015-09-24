@@ -15,12 +15,26 @@ namespace Dapper.FluentMap.TypeMaps
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.TypeMaps.FluentTypeMap"/> class 
-        /// which uses the <see cref="T:Dapper.CustomPropertyTypeMap"/> and <see cref="T:Dapper.DefaultTypeMap"/>
+        /// which uses the <see cref="T:Dapper.CustomPropertyTypeMap"/>
         /// as mapping strategies.
         /// </summary>
         public FluentMapTypeMap()
-            : base(new CustomPropertyTypeMap(typeof(TEntity), GetPropertyInfo), new DefaultTypeMap(typeof(TEntity)))
+            : base(
+                new CustomPropertyTypeMap(typeof(TEntity), GetPropertyInfo))
         {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.TypeMaps.FluentTypeMap"/> class 
+        /// which uses the <see cref="T:Dapper.CustomPropertyTypeMap"/> and <see cref="T:Dapper.DefaultTypeMap"/>
+        /// as mapping strategies.
+        /// </summary>
+        public FluentMapTypeMap(DefaultTypeMap defaultTypeMap)
+            : base(
+                new CustomPropertyTypeMap(typeof(TEntity), GetPropertyInfo),
+                defaultTypeMap)
+        {
+
         }
 
         private static PropertyInfo GetPropertyInfo(Type type, string columnName)

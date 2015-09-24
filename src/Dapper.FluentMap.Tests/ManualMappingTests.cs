@@ -94,6 +94,28 @@ namespace Dapper.FluentMap.Tests
             Assert.IsTrue(nameName.PropertyInfo.ReflectedType == typeof(DerivedTestEntity));
         }
 
+        [TestMethod]
+        public void FluentMapTypeMap_ShouldUse_DefaultTypeMap_AsDefault()
+        {
+            PreTest();
+            FluentMapper.Initialize(c => c.AddMap(new MapWithOneIgnoredPropertyMap()));
+            var map = SqlMapper.GetTypeMap(typeof(TestEntity));
+            var idMap = map.GetMember("id");
+
+            Assert.IsNotNull(idMap, "Ignored property missing, although default type map should map it anyway.");
+        }
+
+        [TestMethod]
+        public void FluentMapTypeMap_ShouldIgnore_IgnoredProperty_When_DefaultTypeMap_IsNotUsed()
+        {
+            PreTest();
+            FluentMapper.Initialize(c => c.AddMap(new MapWithOneIgnoredPropertyMap(), false));
+            var map = SqlMapper.GetTypeMap(typeof(TestEntity));
+            var idMap = map.GetMember("id");
+
+            Assert.IsNull(idMap, "Ignored property wasn't ignored");
+        }
+
         private static void PreTest()
         {
             FluentMapper.EntityMaps.Clear();
@@ -121,6 +143,14 @@ namespace Dapper.FluentMap.Tests
             public MapWithOnePropertyMap()
             {
                 Map(p => p.Id).ToColumn("test");
+            }
+        }
+
+        private class MapWithOneIgnoredPropertyMap : EntityMap<TestEntity>
+        {
+            public MapWithOneIgnoredPropertyMap()
+            {
+                Map(p => p.Id).Ignore();
             }
         }
 

@@ -38,18 +38,22 @@ namespace Dapper.FluentMap
         /// Registers a Dapper type map using fluent mapping for the specified <typeparamref name="TEntity"/>.
         /// </summary>
         /// <typeparam name="TEntity">The type of the entity.</typeparam>
-        internal static void AddTypeMap<TEntity>()
+        internal static void AddTypeMap<TEntity>(bool useDefaultMapType = true)
         {
-            SqlMapper.SetTypeMap(typeof (TEntity), new FluentMapTypeMap<TEntity>());
+            SqlMapper.SetTypeMap(
+                typeof(TEntity),
+                useDefaultMapType
+                    ? new FluentMapTypeMap<TEntity>(new DefaultTypeMap(typeof(TEntity)))
+                    : new FluentMapTypeMap<TEntity>());
         }
 
         /// <summary>
         /// Registers a Dapper type map using fluent mapping for the specified <paramref name="entityType"/>.
         /// </summary>
         /// <param name="entityType">The type of the entity.</param>
-        internal static void AddTypeMap(Type entityType)
+        internal static void AddTypeMap(Type entityType, bool useDefaultMapType = true)
         {
-            var instance = (SqlMapper.ITypeMap)Activator.CreateInstance(typeof (FluentMapTypeMap<>).MakeGenericType(entityType));
+            var instance = (SqlMapper.ITypeMap)Activator.CreateInstance(typeof(FluentMapTypeMap<>).MakeGenericType(entityType), useDefaultMapType);
             SqlMapper.SetTypeMap(entityType, instance);
         }
 
@@ -59,7 +63,7 @@ namespace Dapper.FluentMap
         /// <typeparam name="TEntity">The type of the entity.</typeparam>
         internal static void AddConventionTypeMap<TEntity>()
         {
-            SqlMapper.SetTypeMap(typeof (TEntity), new FluentConventionTypeMap<TEntity>());
+            SqlMapper.SetTypeMap(typeof(TEntity), new FluentConventionTypeMap<TEntity>());
         }
 
         /// <summary>
@@ -68,7 +72,7 @@ namespace Dapper.FluentMap
         /// <param name="entityType">The type of the entity.</param>
         internal static void AddConventionTypeMap(Type entityType)
         {
-            var instance = (SqlMapper.ITypeMap)Activator.CreateInstance(typeof (FluentConventionTypeMap<>).MakeGenericType(entityType));
+            var instance = (SqlMapper.ITypeMap)Activator.CreateInstance(typeof(FluentConventionTypeMap<>).MakeGenericType(entityType));
             SqlMapper.SetTypeMap(entityType, instance);
         }
     }
