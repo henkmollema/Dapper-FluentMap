@@ -51,7 +51,7 @@ namespace Dapper.FluentMap.TypeMaps
                 {
                     var propertyMaps = entityMap.PropertyMaps;
 
-                    foreach (var propertyMap in propertyMaps)
+                    foreach (var propertyMap in propertyMaps.Where(m => MatchColumnNames(m, columnName)))
                     {
                         if (!propertyMap.Ignored)
                         {
