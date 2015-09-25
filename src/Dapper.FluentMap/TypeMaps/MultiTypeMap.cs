@@ -90,7 +90,7 @@ namespace Dapper.FluentMap.TypeMaps
             return null;
         }
 
-        public SqlMapper.IMemberMap GetMember(string columnName)
+        public virtual SqlMapper.IMemberMap GetMember(string columnName)
         {
             foreach (var mapper in _mappers)
             {

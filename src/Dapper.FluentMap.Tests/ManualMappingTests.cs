@@ -95,25 +95,29 @@ namespace Dapper.FluentMap.Tests
         }
 
         [TestMethod]
-        public void FluentMapTypeMap_ShouldUse_DefaultTypeMap_AsDefault()
+        public void FluentMapTypeMap_ShouldIgnore_IgnoredProperty()
         {
             PreTest();
             FluentMapper.Initialize(c => c.AddMap(new MapWithOneIgnoredPropertyMap()));
             var map = SqlMapper.GetTypeMap(typeof(TestEntity));
             var idMap = map.GetMember("id");
 
-            Assert.IsNotNull(idMap, "Ignored property missing, although default type map should map it anyway.");
+            Assert.IsNull(idMap, "Ignored property wasn't ignored");
         }
 
         [TestMethod]
-        public void FluentMapTypeMap_ShouldIgnore_IgnoredProperty_When_DefaultTypeMap_IsNotUsed()
+        public void FluentMapTypeMap_ShouldIgnore_IgnoredProperty_WhichEqualsColumnName()
         {
             PreTest();
-            FluentMapper.Initialize(c => c.AddMap(new MapWithOneIgnoredPropertyMap(), false));
-            var map = SqlMapper.GetTypeMap(typeof(TestEntity));
-            var idMap = map.GetMember("id");
+            FluentMapper.Initialize(c => c.AddMap(new MapWithOneIgnoredPropertyWhichMatchesColumnNameMap()));
+            var map = SqlMapper.GetTypeMap(typeof(TestEntityWithEqualPropertyNameAsColumn));
+            var member = map.GetMember("position");
 
-            Assert.IsNull(idMap, "Ignored property wasn't ignored");
+            Assert.IsNotNull(member, "Missing mapped property (PositionAsInt64)");
+            Assert.AreEqual("PositionAsInt64", member.Property.Name);
+
+            var idMember = map.GetMember("id");
+            Assert.IsNotNull(idMember);
         }
 
         private static void PreTest()
@@ -151,6 +155,15 @@ namespace Dapper.FluentMap.Tests
             public MapWithOneIgnoredPropertyMap()
             {
                 Map(p => p.Id).Ignore();
+            }
+        }
+
+        private class MapWithOneIgnoredPropertyWhichMatchesColumnNameMap : EntityMap<TestEntityWithEqualPropertyNameAsColumn>
+        {
+            public MapWithOneIgnoredPropertyWhichMatchesColumnNameMap()
+            {
+                Map(p => p.Position).Ignore();
+                Map(p => p.PositionAsInt64).ToColumn("position");
             }
         }
 

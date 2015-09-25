@@ -38,22 +38,20 @@ namespace Dapper.FluentMap
         /// Registers a Dapper type map using fluent mapping for the specified <typeparamref name="TEntity"/>.
         /// </summary>
         /// <typeparam name="TEntity">The type of the entity.</typeparam>
-        internal static void AddTypeMap<TEntity>(bool useDefaultMapType = true)
+        internal static void AddTypeMap<TEntity>()
         {
             SqlMapper.SetTypeMap(
                 typeof(TEntity),
-                useDefaultMapType
-                    ? new FluentMapTypeMap<TEntity>(new DefaultTypeMap(typeof(TEntity)))
-                    : new FluentMapTypeMap<TEntity>());
+                new FluentMapTypeMap<TEntity>());
         }
 
         /// <summary>
         /// Registers a Dapper type map using fluent mapping for the specified <paramref name="entityType"/>.
         /// </summary>
         /// <param name="entityType">The type of the entity.</param>
-        internal static void AddTypeMap(Type entityType, bool useDefaultMapType = true)
+        internal static void AddTypeMap(Type entityType)
         {
-            var instance = (SqlMapper.ITypeMap)Activator.CreateInstance(typeof(FluentMapTypeMap<>).MakeGenericType(entityType), useDefaultMapType);
+            var instance = (SqlMapper.ITypeMap)Activator.CreateInstance(typeof(FluentMapTypeMap<>).MakeGenericType(entityType));
             SqlMapper.SetTypeMap(entityType, instance);
         }
 
