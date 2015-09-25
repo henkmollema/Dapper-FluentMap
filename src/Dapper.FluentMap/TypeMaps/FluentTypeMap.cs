@@ -43,7 +43,7 @@ namespace Dapper.FluentMap.TypeMaps
 
             if (!TypePropertyMapCache.ContainsKey(cacheKey))
             {
-                _ignoredColumnCache[cacheKey] = true;
+                _ignoredColumnCache[cacheKey] = false;
                 TypePropertyMapCache.Add(cacheKey, null);
 
                 IEntityMap entityMap;
@@ -51,13 +51,23 @@ namespace Dapper.FluentMap.TypeMaps
                 {
                     var propertyMaps = entityMap.PropertyMaps;
 
-                    foreach (var propertyMap in propertyMaps.Where(m => MatchColumnNames(m, columnName)))
+                    var matchingPropertyMaps = propertyMaps.Where(m => MatchColumnNames(m, columnName));
+                    if (matchingPropertyMaps.Count() > 0)
                     {
-                        if (!propertyMap.Ignored)
+                        foreach (var propertyMap in matchingPropertyMaps)
                         {
-                            _ignoredColumnCache[cacheKey] = false;
-                            TypePropertyMapCache[cacheKey] = propertyMap.PropertyInfo;
+                            if (!propertyMap.Ignored)
+                            {
+                                _ignoredColumnCache[cacheKey] = false;
+                                TypePropertyMapCache[cacheKey] = propertyMap.PropertyInfo;
+
+                                return cacheKey;
+                            }
                         }
+
+                        // when this point is reached, all mappings
+                        // have set the ignored flag to true
+                        _ignoredColumnCache[cacheKey] = true;
                     }
                 }
             }
