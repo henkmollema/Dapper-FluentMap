@@ -59,13 +59,13 @@ namespace Dapper.FluentMap.TypeMaps
                     }
 
                     info = maps[0].PropertyInfo;
-                    TypePropertyMapCache.Add(cacheKey, info);
+                    TypePropertyMapCache.TryAdd(cacheKey, info);
                     return info;
                 }
             }
 
             // If we get here, the property was not mapped.
-            TypePropertyMapCache.Add(cacheKey, null);
+            TypePropertyMapCache.TryAdd(cacheKey, null);
             return null;
         }
 

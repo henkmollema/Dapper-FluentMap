@@ -17,8 +17,8 @@ namespace Dapper.FluentMap.Configuration
         /// <param name="mapper">An instance of the <see cref="T:Dapper.FluentMap.Mapping.IEntityMap"/> interface containing the entity mapping configuration.</param>
         public void AddMap<TEntity>(IEntityMap<TEntity> mapper) where TEntity : class
         {
-            FluentMapper.EntityMaps.Add(typeof (TEntity), mapper);
-            FluentMapper.AddTypeMap<TEntity>();
+            if (FluentMapper.EntityMaps.TryAdd(typeof (TEntity), mapper))
+                FluentMapper.AddTypeMap<TEntity>();
         }
 
         /// <summary>
