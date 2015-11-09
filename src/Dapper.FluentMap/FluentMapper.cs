@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Dapper.FluentMap.Configuration;
 using Dapper.FluentMap.Conventions;
@@ -17,7 +18,7 @@ namespace Dapper.FluentMap
         /// <summary>
         /// Gets the dictionary containing the entity mapping per entity type.
         /// </summary>
-        public static readonly IDictionary<Type, IEntityMap> EntityMaps = new Dictionary<Type, IEntityMap>();
+        public static readonly ConcurrentDictionary<Type, IEntityMap> EntityMaps = new ConcurrentDictionary<Type, IEntityMap>();
 
         /// <summary>
         /// Gets the dictionairy containing the conventions per entity type.

@@ -45,14 +45,14 @@ namespace Dapper.FluentMap.TypeMaps
                 {
                     if (!propertyMap.Ignored)
                     {
-                        TypePropertyMapCache.Add(cacheKey, propertyMap.PropertyInfo);
+                        TypePropertyMapCache.TryAdd(cacheKey, propertyMap.PropertyInfo);
                         return propertyMap.PropertyInfo;
                     }
                 }
             }
 
             // If we get here, the property was not mapped.
-            TypePropertyMapCache.Add(cacheKey, null);
+            TypePropertyMapCache.TryAdd(cacheKey, null);
             return null;
         }
 

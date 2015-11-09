@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -10,7 +11,7 @@ namespace Dapper.FluentMap.TypeMaps
     internal abstract class MultiTypeMap : SqlMapper.ITypeMap
     {
         private readonly IEnumerable<SqlMapper.ITypeMap> _mappers;
-        private static readonly Dictionary<string, PropertyInfo> _typePropertyMapCache = new Dictionary<string, PropertyInfo>();
+        private static readonly ConcurrentDictionary<string, PropertyInfo> _typePropertyMapCache = new ConcurrentDictionary<string, PropertyInfo>();
 
         /// <summary>
         /// Initializes an instance of the <see cref="T:Dapper.FluentMap.TypeMaps.MultiTypeMap"/> 
@@ -112,7 +113,7 @@ namespace Dapper.FluentMap.TypeMaps
             return null;
         }
 
-        protected static Dictionary<string, PropertyInfo> TypePropertyMapCache
+        protected static ConcurrentDictionary<string, PropertyInfo> TypePropertyMapCache
         {
             get
             {
