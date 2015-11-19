@@ -94,6 +94,32 @@ namespace Dapper.FluentMap.Tests
             Assert.IsTrue(nameName.PropertyInfo.ReflectedType == typeof(DerivedTestEntity));
         }
 
+        [TestMethod]
+        public void FluentMapTypeMap_ShouldIgnore_IgnoredProperty()
+        {
+            PreTest();
+            FluentMapper.Initialize(c => c.AddMap(new MapWithOneIgnoredPropertyMap()));
+            var map = SqlMapper.GetTypeMap(typeof(TestEntity));
+            var idMap = map.GetMember("id");
+
+            Assert.IsNull(idMap, "Ignored property wasn't ignored");
+        }
+
+        [TestMethod]
+        public void FluentMapTypeMap_ShouldIgnore_IgnoredProperty_WhichEqualsColumnName()
+        {
+            PreTest();
+            FluentMapper.Initialize(c => c.AddMap(new MapWithOneIgnoredPropertyWhichMatchesColumnNameMap()));
+            var map = SqlMapper.GetTypeMap(typeof(TestEntityWithEqualPropertyNameAsColumn));
+            var member = map.GetMember("position");
+
+            Assert.IsNotNull(member, "Missing mapped property (PositionAsInt64)");
+            Assert.AreEqual("PositionAsInt64", member.Property.Name);
+
+            var idMember = map.GetMember("id");
+            Assert.IsNotNull(idMember);
+        }
+
         private static void PreTest()
         {
             FluentMapper.EntityMaps.Clear();
@@ -121,6 +147,23 @@ namespace Dapper.FluentMap.Tests
             public MapWithOnePropertyMap()
             {
                 Map(p => p.Id).ToColumn("test");
+            }
+        }
+
+        private class MapWithOneIgnoredPropertyMap : EntityMap<TestEntity>
+        {
+            public MapWithOneIgnoredPropertyMap()
+            {
+                Map(p => p.Id).Ignore();
+            }
+        }
+
+        private class MapWithOneIgnoredPropertyWhichMatchesColumnNameMap : EntityMap<TestEntityWithEqualPropertyNameAsColumn>
+        {
+            public MapWithOneIgnoredPropertyWhichMatchesColumnNameMap()
+            {
+                Map(p => p.Position).Ignore();
+                Map(p => p.PositionAsInt64).ToColumn("position");
             }
         }
 

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Reflection;
 
 using Dapper.FluentMap.Mapping;
+using System.Collections.Generic;
 
 namespace Dapper.FluentMap.TypeMaps
 {
@@ -13,47 +14,79 @@ namespace Dapper.FluentMap.TypeMaps
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     internal class FluentMapTypeMap<TEntity> : MultiTypeMap
     {
+        private static readonly Dictionary<string, bool> _ignoredColumnCache = new Dictionary<string, bool>();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.TypeMaps.FluentTypeMap"/> class 
         /// which uses the <see cref="T:Dapper.CustomPropertyTypeMap"/> and <see cref="T:Dapper.DefaultTypeMap"/>
         /// as mapping strategies.
         /// </summary>
         public FluentMapTypeMap()
-            : base(new CustomPropertyTypeMap(typeof(TEntity), GetPropertyInfo), new DefaultTypeMap(typeof(TEntity)))
+            : base(
+                new CustomPropertyTypeMap(typeof(TEntity), GetPropertyInfo),
+                new DefaultTypeMap(typeof(TEntity)))
         {
         }
 
-        private static PropertyInfo GetPropertyInfo(Type type, string columnName)
+        private static string GetCacheKey(Type type, string columnName)
         {
-            string cacheKey = string.Format("{0};{1}", type.FullName, columnName);
+            return string.Format("{0};{1}", type.FullName, columnName);
+        }
 
-            PropertyInfo info;
-            if (TypePropertyMapCache.TryGetValue(cacheKey, out info))
+        /// <summary>
+        /// Fills the TypePropertyMapCache and the _ignoredColumnCache for the given type and column
+        /// </summary>
+        /// <returns>The cache key</returns>
+        private static string CacheColumn(Type type, string columnName)
+        {
+            string cacheKey = GetCacheKey(type, columnName);
+
+            if (!TypePropertyMapCache.ContainsKey(cacheKey))
             {
-                return info;
-            }
+                _ignoredColumnCache[cacheKey] = false;
+                TypePropertyMapCache.Add(cacheKey, null);
 
-            IEntityMap entityMap;
-            if (FluentMapper.EntityMaps.TryGetValue(type, out entityMap))
-            {
-                var propertyMaps = entityMap.PropertyMaps;
-
-                // Find the mapping for the column name.
-                var propertyMap = propertyMaps.FirstOrDefault(m => MatchColumnNames(m, columnName));
-
-                if (propertyMap != null)
+                IEntityMap entityMap;
+                if (FluentMapper.EntityMaps.TryGetValue(type, out entityMap))
                 {
-                    if (!propertyMap.Ignored)
+                    var propertyMaps = entityMap.PropertyMaps;
+
+                    var matchingPropertyMaps = propertyMaps.Where(m => MatchColumnNames(m, columnName));
+                    if (matchingPropertyMaps.Count() > 0)
                     {
-                        TypePropertyMapCache.Add(cacheKey, propertyMap.PropertyInfo);
-                        return propertyMap.PropertyInfo;
+                        foreach (var propertyMap in matchingPropertyMaps)
+                        {
+                            if (!propertyMap.Ignored)
+                            {
+                                _ignoredColumnCache[cacheKey] = false;
+                                TypePropertyMapCache[cacheKey] = propertyMap.PropertyInfo;
+
+                                return cacheKey;
+                            }
+                        }
+
+                        // when this point is reached, all mappings
+                        // have set the ignored flag to true
+                        _ignoredColumnCache[cacheKey] = true;
                     }
                 }
             }
 
-            // If we get here, the property was not mapped.
-            TypePropertyMapCache.Add(cacheKey, null);
-            return null;
+            return cacheKey;
+        }
+
+        private static bool ShallIgnoreColumn(Type type, string columnName)
+        {
+            // ensure that the column info got cached
+            string key = CacheColumn(type, columnName);
+            return _ignoredColumnCache[key];
+        }
+
+        private static PropertyInfo GetPropertyInfo(Type type, string columnName)
+        {
+            // ensure that the column info got cached
+            string key = CacheColumn(type, columnName);
+            return TypePropertyMapCache[key];
         }
 
         private static bool MatchColumnNames(IPropertyMap map, string columnName)
@@ -65,6 +98,17 @@ namespace Dapper.FluentMap.TypeMaps
             }
 
             return string.Equals(map.ColumnName, columnName, comparison);
+        }
+
+        public override SqlMapper.IMemberMap GetMember(string columnName)
+        {
+            // check fluent type map first
+            if (ShallIgnoreColumn(typeof(TEntity), columnName))
+            {
+                return null;
+            }
+
+            return base.GetMember(columnName);
         }
     }
 }
