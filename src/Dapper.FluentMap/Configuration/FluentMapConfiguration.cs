@@ -17,8 +17,10 @@ namespace Dapper.FluentMap.Configuration
         /// <param name="mapper">An instance of the <see cref="T:Dapper.FluentMap.Mapping.IEntityMap"/> interface containing the entity mapping configuration.</param>
         public void AddMap<TEntity>(IEntityMap<TEntity> mapper) where TEntity : class
         {
-            FluentMapper.EntityMaps.Add(typeof (TEntity), mapper);
-            FluentMapper.AddTypeMap<TEntity>();
+            if (FluentMapper.EntityMaps.TryAdd(typeof(TEntity), mapper))
+            {
+                FluentMapper.AddTypeMap<TEntity>();
+            }
         }
 
         /// <summary>
@@ -26,7 +28,7 @@ namespace Dapper.FluentMap.Configuration
         /// </summary>
         /// <typeparam name="TConvention">The type of the convention.</typeparam>
         /// <returns>
-        /// An instance of <see cref="T:Dapper.FluentMap.Configuration.FluentConventionConfiguration"/> 
+        /// An instance of <see cref="T:Dapper.FluentMap.Configuration.FluentConventionConfiguration"/>
         /// which allows configuration of the convention.
         /// </returns>
         public FluentConventionConfiguration AddConvention<TConvention>() where TConvention : Convention, new()
