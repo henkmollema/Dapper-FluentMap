@@ -16,7 +16,7 @@ namespace Dapper.FluentMap.TypeMaps
     internal class FluentConventionTypeMap<TEntity> : MultiTypeMap
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.TypeMaps.FluentConventionTypeMap"/> class 
+        /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.TypeMaps.FluentConventionTypeMap"/> class
         /// which uses the <see cref="T:Dapper.CustomPropertyTypeMap"/> and <see cref="T:Dapper.DefaultTypeMap"/>
         /// as mapping strategies.
         /// </summary>
@@ -59,13 +59,13 @@ namespace Dapper.FluentMap.TypeMaps
                     }
 
                     info = maps[0].PropertyInfo;
-                    TypePropertyMapCache.Add(cacheKey, info);
+                    TypePropertyMapCache.TryAdd(cacheKey, info);
                     return info;
                 }
             }
 
             // If we get here, the property was not mapped.
-            TypePropertyMapCache.Add(cacheKey, null);
+            TypePropertyMapCache.TryAdd(cacheKey, null);
             return null;
         }
 

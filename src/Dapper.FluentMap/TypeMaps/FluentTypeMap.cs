@@ -7,14 +7,14 @@ using Dapper.FluentMap.Mapping;
 namespace Dapper.FluentMap.TypeMaps
 {
     /// <summary>
-    /// Represents a Dapper type mapping strategy which first tries to map the type using a <see cref="T:Dapper.CustomPropertyTypeMap"/>, 
+    /// Represents a Dapper type mapping strategy which first tries to map the type using a <see cref="T:Dapper.CustomPropertyTypeMap"/>,
     /// if that fails, the <see cref="T:Dapper.DefaultTypeMap"/> is used as mapping strategy.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     internal class FluentMapTypeMap<TEntity> : MultiTypeMap
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.TypeMaps.FluentTypeMap"/> class 
+        /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.TypeMaps.FluentTypeMap"/> class
         /// which uses the <see cref="T:Dapper.CustomPropertyTypeMap"/> and <see cref="T:Dapper.DefaultTypeMap"/>
         /// as mapping strategies.
         /// </summary>
@@ -45,14 +45,14 @@ namespace Dapper.FluentMap.TypeMaps
                 {
                     if (!propertyMap.Ignored)
                     {
-                        TypePropertyMapCache.Add(cacheKey, propertyMap.PropertyInfo);
+                        TypePropertyMapCache.TryAdd(cacheKey, propertyMap.PropertyInfo);
                         return propertyMap.PropertyInfo;
                     }
                 }
             }
 
             // If we get here, the property was not mapped.
-            TypePropertyMapCache.Add(cacheKey, null);
+            TypePropertyMapCache.TryAdd(cacheKey, null);
             return null;
         }
 
