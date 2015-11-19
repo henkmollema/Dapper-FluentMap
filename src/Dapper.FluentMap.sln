@@ -1,15 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper.FluentMap", "Dapper.FluentMap\Dapper.FluentMap.csproj", "{A04CCA46-B05D-45D7-8ADC-5CEF70D26B60}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper.FluentMap.Dommel", "Dapper.FluentMap.Dommel\Dapper.FluentMap.Dommel.csproj", "{74FD33BB-78DC-4170-9871-DEBE8FF71646}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper.FluentMap.Tests", "Dapper.FluentMap.Tests\Dapper.FluentMap.Tests.csproj", "{CE214E29-ADBE-43D3-846E-97AED03132CC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper.FluentMap-net35", "Dapper.FluentMap-net35\Dapper.FluentMap-net35.csproj", "{E3672FC6-FC8E-453F-A007-E144AE983997}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{CE214E29-ADBE-43D3-846E-97AED03132CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE214E29-ADBE-43D3-846E-97AED03132CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE214E29-ADBE-43D3-846E-97AED03132CC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E3672FC6-FC8E-453F-A007-E144AE983997}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E3672FC6-FC8E-453F-A007-E144AE983997}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E3672FC6-FC8E-453F-A007-E144AE983997}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E3672FC6-FC8E-453F-A007-E144AE983997}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
