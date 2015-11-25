@@ -41,6 +41,7 @@ namespace Dapper.FluentMap.Configuration
             return this;
         }
 
+#if !COREFX
         /// <summary>
         /// Configures the current convention for all the entities in current assembly filtered by the specified namespaces.
         /// </summary>
@@ -59,6 +60,7 @@ namespace Dapper.FluentMap.Configuration
 
             return this;
         }
+#endif
 
         /// <summary>
         /// Configures the current convention for all entities in the specified assembly filtered by the specified namespaces.
@@ -125,7 +127,7 @@ namespace Dapper.FluentMap.Configuration
             _convention.PropertyMaps.Add(map);
         }
 
-        #region EditorBrowsableStates
+#region EditorBrowsableStates
         /// <inheritdoc/>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString()
@@ -153,6 +155,6 @@ namespace Dapper.FluentMap.Configuration
         {
             return base.GetType();
         }
-        #endregion
+#endregion
     }
 }
