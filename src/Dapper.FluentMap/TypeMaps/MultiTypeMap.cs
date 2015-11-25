@@ -8,7 +8,7 @@ namespace Dapper.FluentMap.TypeMaps
     /// <summary>
     /// Represents a Dapper type mapping strategy which consists of multiple strategies.
     /// </summary>
-    internal abstract class MultiTypeMap : SqlMapper.ITypeMap
+    public abstract class MultiTypeMap : SqlMapper.ITypeMap
     {
         private readonly IEnumerable<SqlMapper.ITypeMap> _mappers;
         private static readonly ConcurrentDictionary<string, PropertyInfo> _typePropertyMapCache = new ConcurrentDictionary<string, PropertyInfo>();

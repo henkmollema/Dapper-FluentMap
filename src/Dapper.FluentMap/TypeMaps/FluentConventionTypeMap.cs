@@ -13,7 +13,7 @@ namespace Dapper.FluentMap.TypeMaps
     /// with the configured conventions. <see cref="T:Dapper.DefaultTypeMap"/> is used as fallback mapping strategy.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    internal class FluentConventionTypeMap<TEntity> : MultiTypeMap
+    public class FluentConventionTypeMap<TEntity> : MultiTypeMap
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.TypeMaps.FluentConventionTypeMap"/> class

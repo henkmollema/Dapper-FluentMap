@@ -11,7 +11,7 @@ namespace Dapper.FluentMap.TypeMaps
     /// if that fails, the <see cref="T:Dapper.DefaultTypeMap"/> is used as mapping strategy.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    internal class FluentMapTypeMap<TEntity> : MultiTypeMap
+    public class FluentMapTypeMap<TEntity> : MultiTypeMap
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.TypeMaps.FluentTypeMap"/> class
