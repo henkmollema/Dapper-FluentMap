@@ -1,7 +1,7 @@
 [Dapper.FluentMap](http://henkmollema.github.io/Dapper-FluentMap)
 ================
 
-[![Build status](https://ci.appveyor.com/api/projects/status/x6grw3cjuyud9c76?svg=true)](https://ci.appveyor.com/project/henkmollema/dapper-fluentmap)
+[![Build status](https://ci.appveyor.com/api/projects/status/x6grw3cjuyud9c76/branch/master?svg=true)](https://ci.appveyor.com/project/henkmollema/dapper-fluentmap/branch/master)
 [![NuGet Version](http://img.shields.io/nuget/v/Dapper.FluentMap.svg?style=flat)](https://www.nuget.org/packages/Dapper.FluentMap/ "NuGet version")
 [![NuGet Downloads](http://img.shields.io/nuget/dt/Dapper.FluentMap.svg?style=flat)](https://www.nuget.org/packages/Dapper.FluentMap/)
 
