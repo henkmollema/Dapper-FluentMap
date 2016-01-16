@@ -1,12 +1,12 @@
 ﻿{
   "version": "2.0.0-beta-1",
-  "description": "Simple API to fluently map POCO properties to database columns when using Dapper",
+  "description": "Simple API to fluently map POCO properties to database columns when using Dapper.",
   "authors": [ "Henk Mollema" ],
-  "owners": [ "henkmollema" ],
+  "owners": [ "Henk Mollema" ],
   "tags": [ "c#", "dapper", "mapping", "fluentmap" ],
   "projectUrl": "https://github.com/henkmollema/Dapper-FluentMap",
   "licenseUrl": "https://github.com/henkmollema/Dapper-FluentMap/blob/master/LICENSE",
-  "copyright": "Copyright © Henk Mollema 2015",
+  "copyright": "Copyright © Henk Mollema 2016",
 
   "dependencies": {
     "Dapper": "1.50.0-beta7"
