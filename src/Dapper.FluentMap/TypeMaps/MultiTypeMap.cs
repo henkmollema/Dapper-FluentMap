@@ -11,7 +11,6 @@ namespace Dapper.FluentMap.TypeMaps
     public abstract class MultiTypeMap : SqlMapper.ITypeMap
     {
         private readonly IEnumerable<SqlMapper.ITypeMap> _mappers;
-        private static readonly ConcurrentDictionary<string, PropertyInfo> _typePropertyMapCache = new ConcurrentDictionary<string, PropertyInfo>();
 
         /// <summary>
         /// Initializes an instance of the <see cref="T:Dapper.FluentMap.TypeMaps.MultiTypeMap"/>
@@ -113,12 +112,6 @@ namespace Dapper.FluentMap.TypeMaps
             return null;
         }
 
-        protected static ConcurrentDictionary<string, PropertyInfo> TypePropertyMapCache
-        {
-            get
-            {
-                return _typePropertyMapCache;
-            }
-        }
+        protected static ConcurrentDictionary<string, PropertyInfo> TypePropertyMapCache { get; } = new ConcurrentDictionary<string, PropertyInfo>();
     }
 }

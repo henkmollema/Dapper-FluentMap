@@ -19,6 +19,12 @@
 
     "dnx451": { },
 
+    "dnxcore50": {
+      "compilationOptions": {
+        "define": [ "COREFX" ]
+      }
+    },
+
     "dotnet5.4": {
       "compilationOptions": {
         "define": [ "COREFX" ]

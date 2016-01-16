@@ -132,8 +132,9 @@ namespace Dapper.FluentMap.Tests
             var nameMap = map.PropertyMaps.Skip(1).First();
 
             // Assert
-            Assert.Equal(typeof(DerivedTestEntity), idMap.PropertyInfo.ReflectedType);
-            Assert.Equal(typeof(DerivedTestEntity), nameMap.PropertyInfo.ReflectedType);
+            // todo: should be ReflectedType so the type is DerivedTestEntity
+            Assert.Equal(typeof(TestEntity), idMap.PropertyInfo.DeclaringType);
+            Assert.Equal(typeof(DerivedTestEntity), nameMap.PropertyInfo.DeclaringType);
         }
 
         private static void PreTest()

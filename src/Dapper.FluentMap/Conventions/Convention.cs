@@ -19,9 +19,9 @@ namespace Dapper.FluentMap.Conventions
             PropertyMaps = new List<PropertyMap>();
         }
 
-        internal IList<PropertyConventionConfiguration> ConventionConfigurations { get; private set; }
+        internal IList<PropertyConventionConfiguration> ConventionConfigurations { get; }
 
-        internal IList<PropertyMap> PropertyMaps { get; private set; }
+        internal IList<PropertyMap> PropertyMaps { get; }
 
         /// <summary>
         /// Configures a convention that applies on all properties of the entity.
@@ -43,7 +43,7 @@ namespace Dapper.FluentMap.Conventions
         protected PropertyConventionConfiguration Properties<T>()
         {
             // Get the underlying type for a nullale type. (int? -> int)
-            Type underlyingType = Nullable.GetUnderlyingType(typeof (T)) ?? typeof (T);
+            var underlyingType = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
             var config = new PropertyConventionConfiguration().Where(p => p.PropertyType == underlyingType);
             ConventionConfigurations.Add(config);
 

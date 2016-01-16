@@ -1,13 +1,13 @@
 using System;
 using System.Linq;
 using System.Reflection;
-
 using Dapper.FluentMap.Mapping;
 
 namespace Dapper.FluentMap.TypeMaps
 {
     /// <summary>
-    /// Represents a Dapper type mapping strategy which first tries to map the type using a <see cref="T:Dapper.CustomPropertyTypeMap"/>,
+    /// Represents a Dapper type mapping strategy which first tries to map the type using a
+    /// <see cref="T:Dapper.CustomPropertyTypeMap"/>,
     /// if that fails, the <see cref="T:Dapper.DefaultTypeMap"/> is used as mapping strategy.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
@@ -25,7 +25,7 @@ namespace Dapper.FluentMap.TypeMaps
 
         private static PropertyInfo GetPropertyInfo(Type type, string columnName)
         {
-            string cacheKey = string.Format("{0};{1}", type.FullName, columnName);
+            var cacheKey = $"{type.FullName};{columnName}";
 
             PropertyInfo info;
             if (TypePropertyMapCache.TryGetValue(cacheKey, out info))

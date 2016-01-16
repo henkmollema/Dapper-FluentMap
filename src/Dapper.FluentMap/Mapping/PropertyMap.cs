@@ -38,7 +38,7 @@ namespace Dapper.FluentMap.Mapping
         where TPropertyMap : class, IPropertyMap
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.Mapping.PropertyMap"/> using 
+        /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.Mapping.PropertyMap"/> using
         /// the specified <see cref="T:System.Reflection.PropertyInfo"/> object representing the property to map.
         /// </summary>
         /// <param name="info">The <see cref="T:System.Reflection.PropertyInfo"/> object representing to the property to map.</param>
@@ -49,8 +49,8 @@ namespace Dapper.FluentMap.Mapping
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.Mapping.PropertyMap"/> using 
-        /// the specified <see cref="T:System.Reflection.PropertyInfo"/> object representing the property to map 
+        /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.Mapping.PropertyMap"/> using
+        /// the specified <see cref="T:System.Reflection.PropertyInfo"/> object representing the property to map
         /// and column name to map the property to.
         /// </summary>
         /// <param name="info">The <see cref="T:System.Reflection.PropertyInfo"/> object representing to the property to map.</param>
@@ -62,8 +62,8 @@ namespace Dapper.FluentMap.Mapping
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.Mapping.PropertyMap"/> using 
-        /// the specified <see cref="T:System.Reflection.PropertyInfo"/> object representing the property to map, 
+        /// Initializes a new instance of the <see cref="T:Dapper.FluentMap.Mapping.PropertyMap"/> using
+        /// the specified <see cref="T:System.Reflection.PropertyInfo"/> object representing the property to map,
         /// column name to map the property to and a value indicating whether the mapping should be case sensitive.
         /// </summary>
         /// <param name="info">The <see cref="T:System.Reflection.PropertyInfo"/> object representing to the property to map.</param>
@@ -82,7 +82,7 @@ namespace Dapper.FluentMap.Mapping
 
         public bool Ignored { get; private set; }
 
-        public PropertyInfo PropertyInfo { get; private set; }
+        public PropertyInfo PropertyInfo { get; }
 
         /// <summary>
         /// Maps the current property to the specified column name.
@@ -140,7 +140,7 @@ namespace Dapper.FluentMap.Mapping
     public class PropertyMap : PropertyMapBase<PropertyMap>, IPropertyMap
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Dapper.FluentMap.Mapping.PropertyMap"/> class 
+        /// Initializes a new instance of the <see cref="Dapper.FluentMap.Mapping.PropertyMap"/> class
         /// with the specified <see cref="System.Reflection.PropertyInfo"/> object.
         /// </summary>
         /// <param name="info">The information about the property.</param>
@@ -150,7 +150,7 @@ namespace Dapper.FluentMap.Mapping
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Dapper.FluentMap.Mapping.PropertyMap"/> class 
+        /// Initializes a new instance of the <see cref="Dapper.FluentMap.Mapping.PropertyMap"/> class
         /// with the specified <see cref="System.Reflection.PropertyInfo"/> object and column name.
         /// </summary>
         /// <param name="info">The information about the property.</param>
@@ -161,8 +161,8 @@ namespace Dapper.FluentMap.Mapping
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Dapper.FluentMap.Mapping.PropertyMap"/> class 
-        /// with the specified <see cref="System.Reflection.PropertyInfo"/> object, column name 
+        /// Initializes a new instance of the <see cref="Dapper.FluentMap.Mapping.PropertyMap"/> class
+        /// with the specified <see cref="System.Reflection.PropertyInfo"/> object, column name
         /// and a value indicating whether the mapping should be case sensitive.
         /// </summary>
         /// <param name="info">The information about the property.</param>
