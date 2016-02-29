@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Dapper.FluentMap")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Provides a simple API to fluently map POCO properties to database columns when using Dapper.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Dapper.FluentMap")]
-[assembly: AssemblyCopyright("Copyright © 2014 Henk Mollema")]
+[assembly: AssemblyCopyright("Copyright © 2016 Henk Mollema")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -22,4 +22,5 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("4bec5ee4-bd0e-4760-badb-5f35d076133f")]
 
-[assembly: AssemblyVersion("1.4.0")]
+[assembly: AssemblyVersion("1.5.0")]
+[assembly: AssemblyInformationalVersion("1.5.0-beta1")]
