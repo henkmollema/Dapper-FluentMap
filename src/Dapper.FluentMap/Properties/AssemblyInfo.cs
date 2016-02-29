@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyTitle("Dapper.FluentMap")]
 [assembly: AssemblyDescription("Provides a simple API to fluently map POCO properties to database columns when using Dapper.")]
-[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyConfiguration("Dapper.FluentMap extension for Dommel support.")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Dapper.FluentMap")]
 [assembly: AssemblyCopyright("Copyright © 2016 Henk Mollema")]
