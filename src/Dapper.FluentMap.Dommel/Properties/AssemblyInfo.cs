@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Dapper.FluentMap.Dommel")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCopyright("Copyright © 2016 Henk Mollema")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -22,4 +22,4 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("ef9b2624-ef04-4231-8f5a-55c41929b4a1")]
 
-[assembly: AssemblyVersion("1.2.0.0")]
+[assembly: AssemblyVersion("1.2.1.0")]
