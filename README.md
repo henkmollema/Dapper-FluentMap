@@ -9,8 +9,8 @@ This [Dapper](https://github.com/StackExchange/dapper-dot-net) extension allows 
 
 <hr>
 
-### Download
-[![Download Dapper.FluentMap on NuGet](http://i.imgur.com/Rs483do.png "Download Dapper.FluentMap on NuGet")](https://www.nuget.org/packages/Dapper.FluentMap)
+### Download using NuGet
+#### `PM> Install-Package Dapper.FluentMap`
 
 <hr>
 
