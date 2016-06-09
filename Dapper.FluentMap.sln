@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{580E3446-6579-4414-9875-970849E635E5}"
 EndProject
@@ -11,11 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		NuGet.Config = NuGet.Config
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Dapper.FluentMap", "src\Dapper.FluentMap\Dapper.FluentMap.xproj", "{3ECF719B-E39F-40E5-8B4E-DC1F8E429E32}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Dapper.FluentMap.Tests", "test\Dapper.FluentMap.Tests\Dapper.FluentMap.Tests.xproj", "{FF3FAE2A-EB78-46CC-B049-ED4F5123BC4B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{742442F2-CAE7-4DC8-BD73-8C54C0005A53}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Dapper.FluentMap", "src\Dapper.FluentMap\Dapper.FluentMap.xproj", "{457E0B9B-F6A4-42C6-BFAE-6F8C71D1F435}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Dapper.FluentMap.Tests", "test\Dapper.FluentMap.Tests\Dapper.FluentMap.Tests.xproj", "{8901F2FD-F98B-484B-A20A-7844A39C7458}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Dapper.FluentMap.Dommel", "src\Dapper.FluentMap.Dommel\Dapper.FluentMap.Dommel.xproj", "{E60B79F6-FE71-44E0-BE88-BFA269378EDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,20 +25,25 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3ECF719B-E39F-40E5-8B4E-DC1F8E429E32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3ECF719B-E39F-40E5-8B4E-DC1F8E429E32}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3ECF719B-E39F-40E5-8B4E-DC1F8E429E32}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3ECF719B-E39F-40E5-8B4E-DC1F8E429E32}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FF3FAE2A-EB78-46CC-B049-ED4F5123BC4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF3FAE2A-EB78-46CC-B049-ED4F5123BC4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF3FAE2A-EB78-46CC-B049-ED4F5123BC4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FF3FAE2A-EB78-46CC-B049-ED4F5123BC4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{457E0B9B-F6A4-42C6-BFAE-6F8C71D1F435}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{457E0B9B-F6A4-42C6-BFAE-6F8C71D1F435}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{457E0B9B-F6A4-42C6-BFAE-6F8C71D1F435}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{457E0B9B-F6A4-42C6-BFAE-6F8C71D1F435}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8901F2FD-F98B-484B-A20A-7844A39C7458}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8901F2FD-F98B-484B-A20A-7844A39C7458}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8901F2FD-F98B-484B-A20A-7844A39C7458}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8901F2FD-F98B-484B-A20A-7844A39C7458}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E60B79F6-FE71-44E0-BE88-BFA269378EDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E60B79F6-FE71-44E0-BE88-BFA269378EDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E60B79F6-FE71-44E0-BE88-BFA269378EDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E60B79F6-FE71-44E0-BE88-BFA269378EDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{3ECF719B-E39F-40E5-8B4E-DC1F8E429E32} = {580E3446-6579-4414-9875-970849E635E5}
-		{FF3FAE2A-EB78-46CC-B049-ED4F5123BC4B} = {742442F2-CAE7-4DC8-BD73-8C54C0005A53}
+		{457E0B9B-F6A4-42C6-BFAE-6F8C71D1F435} = {580E3446-6579-4414-9875-970849E635E5}
+		{8901F2FD-F98B-484B-A20A-7844A39C7458} = {742442F2-CAE7-4DC8-BD73-8C54C0005A53}
+		{E60B79F6-FE71-44E0-BE88-BFA269378EDB} = {580E3446-6579-4414-9875-970849E635E5}
 	EndGlobalSection
 EndGlobal

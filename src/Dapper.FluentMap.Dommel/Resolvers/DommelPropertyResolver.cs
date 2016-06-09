@@ -13,9 +13,10 @@ namespace Dapper.FluentMap.Dommel.Resolvers
         {
             foreach (var propertyInfo in properties)
             {
-                Type type = propertyInfo.PropertyType;
+                var type = propertyInfo.PropertyType;
                 type = Nullable.GetUnderlyingType(type) ?? type;
-                if (type.IsPrimitive || type.IsEnum || PrimitiveTypes.Contains(type))
+
+                if (type.GetTypeInfo().IsPrimitive || type.GetTypeInfo().IsEnum || PrimitiveTypes.Contains(type))
                 {
                     yield return propertyInfo;
                 }

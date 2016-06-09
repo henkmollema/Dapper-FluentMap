@@ -1,12 +1,15 @@
 ﻿using Dapper.FluentMap.Conventions;
 using Xunit;
+
+#if COREFX
 using System.Reflection;
+#endif
 
 namespace Dapper.FluentMap.Tests
 {
     public class ConventionTests
     {
-#if DNX451
+#if NET451
         [Fact]
         public void ShouldMapEntitiesInCurrentAssembly()
         {
@@ -18,7 +21,7 @@ namespace Dapper.FluentMap.Tests
             var map = FluentMapper.TypeConventions[typeof(TestEntity)];
             Assert.True(map[0] is TestConvention);
         }
-#elif DNXCORE50
+#elif COREFX
         [Fact]
         public void ShouldMapEntitiesInCurrentAssembly()
         {
@@ -38,7 +41,7 @@ namespace Dapper.FluentMap.Tests
             {
                 Properties<int>().
                     Where(p => p.Name.ToLower() == "id")
-                                 .Configure(c => c.HasColumnName("autID"));
+                    .Configure(c => c.HasColumnName("autID"));
             }
         }
 

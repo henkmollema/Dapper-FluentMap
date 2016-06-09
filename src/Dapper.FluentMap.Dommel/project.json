@@ -1,0 +1,20 @@
+﻿{
+  "version": "1.4.0-beta-1",
+
+  "dependencies": {
+    "Dapper.FluentMap": "2.0.0-*",
+    "Dommel": "1.5.0"
+  },
+
+  "frameworks": {
+    "net451": { },
+    "netstandard1.3": {
+      "buildOptions": {
+        "define": [ "COREFX" ]
+      },
+      "dependencies": {
+      },
+      "imports": [ "dnxcore50" ]
+    }
+  }
+}

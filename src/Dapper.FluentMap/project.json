@@ -1,41 +1,43 @@
 ﻿{
-  "version": "2.0.0-beta-1",
+  "version": "2.0.0-beta-2",
   "description": "Simple API to fluently map POCO properties to database columns when using Dapper.",
   "authors": [ "Henk Mollema" ],
-  "owners": [ "Henk Mollema" ],
-  "tags": [ "c#", "dapper", "mapping", "fluentmap" ],
-  "projectUrl": "https://github.com/henkmollema/Dapper-FluentMap",
-  "licenseUrl": "https://github.com/henkmollema/Dapper-FluentMap/blob/master/LICENSE",
   "copyright": "Copyright © Henk Mollema 2016",
+  "packOptions": {
+    "licenseUrl": "https://github.com/henkmollema/Dapper-FluentMap/blob/master/LICENSE",
+    "owners": [ "Henk Mollema" ],
+    "projectUrl": "https://github.com/henkmollema/Dapper-FluentMap",
+    "tags": [ "c#", "dapper", "mapping", "fluentmap" ]
+  },
 
   "dependencies": {
-    "Dapper": "1.50.0-beta7"
+    "Dapper": "1.50.0-rc2b"
   },
 
   "frameworks": {
-    "net40": { },
-
-    "net451": { },
-
-    "dnx451": { },
-
-    "dnxcore50": {
-      "compilationOptions": {
-        "define": [ "COREFX" ]
+    "net40": {
+      "frameworkAssemblies": {
+        "System.Data": "4.0.0.0"
       }
     },
 
-    "dotnet5.4": {
-      "compilationOptions": {
+    "net451": {
+      "frameworkAssemblies": {
+        "System.Data": "4.0.0.0"
+      }
+    },
+
+    "netstandard1.3": {
+      "buildOptions": {
         "define": [ "COREFX" ]
       },
       "dependencies": {
-        "Microsoft.CSharp": "4.0.1-beta-23516",
-        "System.Collections": "4.0.11-beta-23516",
-        "System.Linq": "4.0.1-beta-23516",
-        "System.Runtime": "4.0.21-beta-23516",
-        "System.Threading": "4.0.11-beta-23516",
-        "System.Reflection.TypeExtensions": "4.1.0-beta-23516"
+        "Microsoft.CSharp": "4.0.1-rc2-24027",
+        "NETStandard.Library": "1.5.0-rc2-24027",
+        "System.Collections": "4.0.11-rc2-24027",
+        "System.Linq": "4.1.0-rc2-24027",
+        "System.Reflection.TypeExtensions": "4.1.0-rc2-24027",
+        "System.Threading": "4.0.11-rc2-24027"
       }
     }
   }
