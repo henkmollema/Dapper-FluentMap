@@ -23,7 +23,7 @@ namespace Dapper.FluentMap
         /// <summary>
         /// Gets the dictionary containing the conventions per entity type.
         /// </summary>
-        public static readonly IDictionary<Type, IList<Convention>> TypeConventions = new Dictionary<Type, IList<Convention>>();
+        public static readonly ConcurrentDictionary<Type, IList<Convention>> TypeConventions = new ConcurrentDictionary<Type, IList<Convention>>();
 
         /// <summary>
         /// Initializes Dapper.FluentMap with the specified configuration.
