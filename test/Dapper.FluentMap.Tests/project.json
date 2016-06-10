@@ -1,6 +1,6 @@
 ﻿{
   "dependencies": {
-    "Dapper.FluentMap": "2.0.0-*",
+    "Dapper.FluentMap": "1.5.0",
     "xunit": "2.1.0",
     "dotnet-test-xunit": "1.0.0-rc2-build10015",
     "Microsoft.NETCore.Platforms": "1.0.1-rc2-24027"

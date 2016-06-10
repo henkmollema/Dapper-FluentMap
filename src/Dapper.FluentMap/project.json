@@ -1,5 +1,5 @@
 ﻿{
-  "version": "2.0.0-beta-2",
+  "version": "1.5.0",
   "description": "Simple API to fluently map POCO properties to database columns when using Dapper.",
   "authors": [ "Henk Mollema" ],
   "copyright": "Copyright © Henk Mollema 2016",
