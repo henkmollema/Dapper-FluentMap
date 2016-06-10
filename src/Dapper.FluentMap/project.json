@@ -1,0 +1,44 @@
+﻿{
+  "version": "1.5.0",
+  "description": "Simple API to fluently map POCO properties to database columns when using Dapper.",
+  "authors": [ "Henk Mollema" ],
+  "copyright": "Copyright © Henk Mollema 2016",
+  "packOptions": {
+    "licenseUrl": "https://github.com/henkmollema/Dapper-FluentMap/blob/master/LICENSE",
+    "owners": [ "Henk Mollema" ],
+    "projectUrl": "https://github.com/henkmollema/Dapper-FluentMap",
+    "tags": [ "c#", "dapper", "mapping", "fluentmap" ]
+  },
+
+  "dependencies": {
+    "Dapper": "1.50.0-rc2b"
+  },
+
+  "frameworks": {
+    "net40": {
+      "frameworkAssemblies": {
+        "System.Data": "4.0.0.0"
+      }
+    },
+
+    "net451": {
+      "frameworkAssemblies": {
+        "System.Data": "4.0.0.0"
+      }
+    },
+
+    "netstandard1.3": {
+      "buildOptions": {
+        "define": [ "COREFX" ]
+      },
+      "dependencies": {
+        "Microsoft.CSharp": "4.0.1-rc2-24027",
+        "NETStandard.Library": "1.5.0-rc2-24027",
+        "System.Collections": "4.0.11-rc2-24027",
+        "System.Linq": "4.1.0-rc2-24027",
+        "System.Reflection.TypeExtensions": "4.1.0-rc2-24027",
+        "System.Threading": "4.0.11-rc2-24027"
+      }
+    }
+  }
+}
