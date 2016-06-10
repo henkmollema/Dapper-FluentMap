@@ -13,6 +13,8 @@ namespace Dapper.FluentMap.Tests
         [Fact]
         public void ShouldMapEntitiesInCurrentAssembly()
         {
+            PreTest();
+
             // Arrange & Act
             FluentMapper.Initialize(c => c.AddConvention<TestConvention>().ForEntitiesInCurrentAssembly());
 
@@ -25,6 +27,8 @@ namespace Dapper.FluentMap.Tests
         [Fact]
         public void ShouldMapEntitiesInCurrentAssembly()
         {
+            PreTest();
+
             // Arrange & Act
             FluentMapper.Initialize(c => c.AddConvention<TestConvention>().ForEntitiesInAssembly(typeof(ConventionTests).GetTypeInfo().Assembly));
 

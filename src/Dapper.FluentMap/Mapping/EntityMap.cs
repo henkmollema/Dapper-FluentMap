@@ -36,7 +36,7 @@ namespace Dapper.FluentMap.Mapping
         where TPropertyMap : IPropertyMap
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Dapper.FluentMap.Mapping.EntityMapBase"/> class.
+        /// Initializes a new instance of the <see cref="EntityMapBase{TEntity, TPropertyMap}"/> class.
         /// </summary>
         protected EntityMapBase()
         {
