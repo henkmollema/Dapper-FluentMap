@@ -22,6 +22,7 @@ namespace Dapper.FluentMap.TypeMaps
             _mappers = mappers;
         }
 
+        /// <inheritdoc />
         public ConstructorInfo FindConstructor(string[] names, Type[] types)
         {
             foreach (var mapper in _mappers)
@@ -45,6 +46,7 @@ namespace Dapper.FluentMap.TypeMaps
             return null;
         }
 
+        /// <inheritdoc />
         public ConstructorInfo FindExplicitConstructor()
         {
             foreach (var mapper in _mappers)
@@ -67,6 +69,7 @@ namespace Dapper.FluentMap.TypeMaps
             return null;
         }
 
+        /// <inheritdoc />
         public SqlMapper.IMemberMap GetConstructorParameter(ConstructorInfo constructor, string columnName)
         {
             foreach (var mapper in _mappers)
@@ -90,6 +93,7 @@ namespace Dapper.FluentMap.TypeMaps
             return null;
         }
 
+        /// <inheritdoc />
         public SqlMapper.IMemberMap GetMember(string columnName)
         {
             foreach (var mapper in _mappers)
@@ -112,6 +116,9 @@ namespace Dapper.FluentMap.TypeMaps
             return null;
         }
 
+        /// <summary>
+        /// Gets a cache for columns and properties.
+        /// </summary>
         protected static ConcurrentDictionary<string, PropertyInfo> TypePropertyMapCache { get; } = new ConcurrentDictionary<string, PropertyInfo>();
     }
 }

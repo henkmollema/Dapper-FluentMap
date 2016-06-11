@@ -31,6 +31,9 @@ namespace Dapper.FluentMap.Dommel.Mapping
             return new DommelPropertyMap(info);
         }
 
+        /// <summary>
+        /// Gets the table name for this entity map.
+        /// </summary>
         public string TableName { get; private set; }
 
         /// <summary>

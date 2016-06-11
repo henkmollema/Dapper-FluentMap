@@ -76,12 +76,24 @@ namespace Dapper.FluentMap.Mapping
             CaseSensitive = caseSensitive;
         }
 
+        /// <summary>
+        /// Gets the column name for the mapping.
+        /// </summary>
         public string ColumnName { get; private set; }
 
+        /// <summary>
+        /// Gets a value indicating whether this mapping is case sensitive.
+        /// </summary>
         public bool CaseSensitive { get; private set; }
 
+        /// <summary>
+        /// Gets a value indicating the property should be ignored when mapping.
+        /// </summary>
         public bool Ignored { get; private set; }
 
+        /// <summary>
+        /// Gets a reference to the <see cref="System.Reflection.PropertyInfo"/> of this mapping.
+        /// </summary>
         public PropertyInfo PropertyInfo { get; }
 
         /// <summary>
@@ -108,24 +120,28 @@ namespace Dapper.FluentMap.Mapping
         }
 
         #region EditorBrowsableStates
+        /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override string ToString()
         {
             return base.ToString();
         }
 
+        /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override bool Equals(object obj)
         {
             return base.Equals(obj);
         }
 
+        /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode()
         {
             return base.GetHashCode();
         }
 
+        /// <inheritdoc />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public new Type GetType()
         {

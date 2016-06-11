@@ -87,6 +87,7 @@ namespace Dapper.FluentMap.Mapping
     public abstract class EntityMap<TEntity> : EntityMapBase<TEntity, PropertyMap>
         where TEntity : class
     {
+        /// <inheritdoc />
         protected override PropertyMap GetPropertyMap(PropertyInfo info)
         {
             return new PropertyMap(info);

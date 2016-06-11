@@ -18,6 +18,9 @@ namespace Dapper.FluentMap.Dommel.Mapping
         {
         }
 
+        /// <summary>
+        /// Gets a value indicating whether this property is a primary key.
+        /// </summary>
         public bool Key { get; private set; }
 
         /// <summary>

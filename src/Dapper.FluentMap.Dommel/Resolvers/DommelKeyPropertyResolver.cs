@@ -12,6 +12,7 @@ namespace Dapper.FluentMap.Dommel.Resolvers
     /// </summary>
     public class DommelKeyPropertyResolver : DommelMapper.IKeyPropertyResolver
     {
+        /// <inheritdoc />
         public PropertyInfo ResolveKeyProperty(Type type)
         {
             IEntityMap entityMap;

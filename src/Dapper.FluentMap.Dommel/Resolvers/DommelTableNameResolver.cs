@@ -10,6 +10,7 @@ namespace Dapper.FluentMap.Dommel.Resolvers
     /// </summary>
     public class DommelTableNameResolver : DommelMapper.ITableNameResolver
     {
+        /// <inheritdoc />
         public string ResolveTableName(Type type)
         {
             IEntityMap entityMap;
