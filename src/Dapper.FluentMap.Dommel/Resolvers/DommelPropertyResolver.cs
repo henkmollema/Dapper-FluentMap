@@ -7,21 +7,27 @@ using Dommel;
 
 namespace Dapper.FluentMap.Dommel.Resolvers
 {
+    /// <summary>
+    /// Implements the <see cref="DommelMapper.IPropertyResolver"/> interface by using the configured mapping.
+    /// </summary>
     public class DommelPropertyResolver : DommelMapper.PropertyResolverBase
     {
+        /// <inheritdoc />
         protected override IEnumerable<PropertyInfo> FilterComplexTypes(IEnumerable<PropertyInfo> properties)
         {
             foreach (var propertyInfo in properties)
             {
-                Type type = propertyInfo.PropertyType;
+                var type = propertyInfo.PropertyType;
                 type = Nullable.GetUnderlyingType(type) ?? type;
-                if (type.IsPrimitive || type.IsEnum || PrimitiveTypes.Contains(type))
+
+                if (type.GetTypeInfo().IsPrimitive || type.GetTypeInfo().IsEnum || PrimitiveTypes.Contains(type))
                 {
                     yield return propertyInfo;
                 }
             }
         }
 
+        /// <inheritdoc />
         public override IEnumerable<PropertyInfo> ResolveProperties(Type type)
         {
             IEntityMap entityMap;

@@ -8,10 +8,9 @@ namespace Dapper.FluentMap.TypeMaps
     /// <summary>
     /// Represents a Dapper type mapping strategy which consists of multiple strategies.
     /// </summary>
-    internal abstract class MultiTypeMap : SqlMapper.ITypeMap
+    public abstract class MultiTypeMap : SqlMapper.ITypeMap
     {
         private readonly IEnumerable<SqlMapper.ITypeMap> _mappers;
-        private static readonly ConcurrentDictionary<string, PropertyInfo> _typePropertyMapCache = new ConcurrentDictionary<string, PropertyInfo>();
 
         /// <summary>
         /// Initializes an instance of the <see cref="T:Dapper.FluentMap.TypeMaps.MultiTypeMap"/>
@@ -23,6 +22,7 @@ namespace Dapper.FluentMap.TypeMaps
             _mappers = mappers;
         }
 
+        /// <inheritdoc />
         public ConstructorInfo FindConstructor(string[] names, Type[] types)
         {
             foreach (var mapper in _mappers)
@@ -46,6 +46,7 @@ namespace Dapper.FluentMap.TypeMaps
             return null;
         }
 
+        /// <inheritdoc />
         public ConstructorInfo FindExplicitConstructor()
         {
             foreach (var mapper in _mappers)
@@ -68,6 +69,7 @@ namespace Dapper.FluentMap.TypeMaps
             return null;
         }
 
+        /// <inheritdoc />
         public SqlMapper.IMemberMap GetConstructorParameter(ConstructorInfo constructor, string columnName)
         {
             foreach (var mapper in _mappers)
@@ -91,6 +93,7 @@ namespace Dapper.FluentMap.TypeMaps
             return null;
         }
 
+        /// <inheritdoc />
         public SqlMapper.IMemberMap GetMember(string columnName)
         {
             foreach (var mapper in _mappers)
@@ -113,12 +116,9 @@ namespace Dapper.FluentMap.TypeMaps
             return null;
         }
 
-        protected static ConcurrentDictionary<string, PropertyInfo> TypePropertyMapCache
-        {
-            get
-            {
-                return _typePropertyMapCache;
-            }
-        }
+        /// <summary>
+        /// Gets a cache for columns and properties.
+        /// </summary>
+        protected static ConcurrentDictionary<string, PropertyInfo> TypePropertyMapCache { get; } = new ConcurrentDictionary<string, PropertyInfo>();
     }
 }

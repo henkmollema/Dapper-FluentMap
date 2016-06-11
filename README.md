@@ -1,7 +1,9 @@
 [Dapper.FluentMap](http://henkmollema.github.io/Dapper-FluentMap)
 ================
 
-[![Build status](https://ci.appveyor.com/api/projects/status/x6grw3cjuyud9c76/branch/master?svg=true)](https://ci.appveyor.com/project/henkmollema/dapper-fluentmap/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/x6grw3cjuyud9c76?svg=true)](https://ci.appveyor.com/project/henkmollema/dapper-fluentmap)
+[![NuGet Version](http://img.shields.io/nuget/v/Dapper.FluentMap.svg?style=flat)](https://www.nuget.org/packages/Dapper.FluentMap/ "NuGet version")
+[![NuGet Downloads](http://img.shields.io/nuget/dt/Dapper.FluentMap.svg?style=flat)](https://www.nuget.org/packages/Dapper.FluentMap/)
 
 ### Introduction
 
@@ -9,8 +11,8 @@ This [Dapper](https://github.com/StackExchange/dapper-dot-net) extension allows 
 
 <hr>
 
-### Download using NuGet
-#### `PM> Install-Package Dapper.FluentMap`
+### Download
+[![Download Dapper.FluentMap on NuGet](http://i.imgur.com/Rs483do.png "Download Dapper.FluentMap on NuGet")](https://www.nuget.org/packages/Dapper.FluentMap)
 
 <hr>
 

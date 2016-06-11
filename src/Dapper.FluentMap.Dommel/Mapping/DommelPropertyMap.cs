@@ -9,7 +9,7 @@ namespace Dapper.FluentMap.Dommel.Mapping
     public class DommelPropertyMap : PropertyMapBase<DommelPropertyMap>, IPropertyMap
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Dapper.FluentMap.Dommel.Mapping.DommelPropertyMap"/> class 
+        /// Initializes a new instance of the <see cref="Dapper.FluentMap.Dommel.Mapping.DommelPropertyMap"/> class
         /// with the specified <see cref="System.Reflection.PropertyInfo"/> object.
         /// </summary>
         /// <param name="info">The information about the property.</param>
@@ -18,6 +18,9 @@ namespace Dapper.FluentMap.Dommel.Mapping
         {
         }
 
+        /// <summary>
+        /// Gets a value indicating whether this property is a primary key.
+        /// </summary>
         public bool Key { get; private set; }
 
         /// <summary>

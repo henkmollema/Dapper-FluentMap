@@ -19,7 +19,7 @@ namespace Dapper.FluentMap.Mapping
     }
 
     /// <summary>
-    /// Represents a typed mapping of an entity. 
+    /// Represents a typed mapping of an entity.
     /// This serves as a marker interface for generic type inference.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity to configure the mapping for.</typeparam>
@@ -36,7 +36,7 @@ namespace Dapper.FluentMap.Mapping
         where TPropertyMap : IPropertyMap
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Dapper.FluentMap.Mapping.EntityMapBase"/> class.
+        /// Initializes a new instance of the <see cref="EntityMapBase{TEntity, TPropertyMap}"/> class.
         /// </summary>
         protected EntityMapBase()
         {
@@ -46,7 +46,7 @@ namespace Dapper.FluentMap.Mapping
         /// <summary>
         /// Gets the collection of mapped properties.
         /// </summary>
-        public IList<IPropertyMap> PropertyMaps { get; private set; }
+        public IList<IPropertyMap> PropertyMaps { get; }
 
         /// <summary>
         /// Returns an instance of <typeparamref name="TPropertyMap"/> which can perform custom mapping
@@ -75,7 +75,7 @@ namespace Dapper.FluentMap.Mapping
         {
             if (PropertyMaps.Any(p => p.PropertyInfo.Name == map.PropertyInfo.Name))
             {
-                throw new Exception(string.Format("Duplicate mapping detected. Property '{0}' is already mapped to column '{1}'.", map.PropertyInfo.Name, map.ColumnName));
+                throw new Exception($"Duplicate mapping detected. Property '{map.PropertyInfo.Name}' is already mapped to column '{map.ColumnName}'.");
             }
         }
     }
@@ -87,6 +87,7 @@ namespace Dapper.FluentMap.Mapping
     public abstract class EntityMap<TEntity> : EntityMapBase<TEntity, PropertyMap>
         where TEntity : class
     {
+        /// <inheritdoc />
         protected override PropertyMap GetPropertyMap(PropertyInfo info)
         {
             return new PropertyMap(info);

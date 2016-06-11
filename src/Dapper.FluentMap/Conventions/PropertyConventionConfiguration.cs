@@ -11,7 +11,7 @@ namespace Dapper.FluentMap.Conventions
     public class PropertyConventionConfiguration
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PropertyConventionConfiguration"/> class, 
+        /// Initializes a new instance of the <see cref="PropertyConventionConfiguration"/> class,
         /// allowing configuration for a convention.
         /// </summary>
         public PropertyConventionConfiguration()
@@ -19,7 +19,7 @@ namespace Dapper.FluentMap.Conventions
             PropertyPredicates = new List<Func<PropertyInfo, bool>>();
         }
 
-        internal IList<Func<PropertyInfo, bool>> PropertyPredicates { get; private set; }
+        internal IList<Func<PropertyInfo, bool>> PropertyPredicates { get; }
 
         internal ConventionPropertyConfiguration PropertyConfiguration { get; private set; }
 
@@ -37,7 +37,10 @@ namespace Dapper.FluentMap.Conventions
         /// <summary>
         /// Configures the properties that this convention applies to.
         /// </summary>
-        /// <param name="configure">An action that performs configuration against <see cref="T:Dapper.FluentMap.Conventions.ConventionPropertyConfiguration"/>.</param>
+        /// <param name="configure">
+        /// An action that performs configuration against
+        /// <see cref="T:Dapper.FluentMap.Conventions.ConventionPropertyConfiguration"/>.
+        /// </param>
         public void Configure(Action<ConventionPropertyConfiguration> configure)
         {
             var config = new ConventionPropertyConfiguration();

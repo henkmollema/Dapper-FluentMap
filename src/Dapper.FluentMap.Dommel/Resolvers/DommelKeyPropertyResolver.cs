@@ -8,10 +8,11 @@ using Dommel;
 namespace Dapper.FluentMap.Dommel.Resolvers
 {
     /// <summary>
-    /// Implements the <see cref="DommelMapper.IKeyPropertyResolver" /> interface by using the configured mapping.
+    /// Implements the <see cref="DommelMapper.IKeyPropertyResolver"/> interface by using the configured mapping.
     /// </summary>
     public class DommelKeyPropertyResolver : DommelMapper.IKeyPropertyResolver
     {
+        /// <inheritdoc />
         public PropertyInfo ResolveKeyProperty(Type type)
         {
             IEntityMap entityMap;
@@ -29,7 +30,7 @@ namespace Dapper.FluentMap.Dommel.Resolvers
 
                     if (keyPropertyMaps.Count > 1)
                     {
-                        string msg = string.Format("Found multiple key properties on type '{0}'. This is not yet supported. The following key properties were found:{1}{2}",
+                        var msg = string.Format("Found multiple key properties on type '{0}'. This is not yet supported. The following key properties were found:{1}{2}",
                             type.FullName,
                             Environment.NewLine,
                             string.Join(Environment.NewLine, keyPropertyMaps.Select(t => t.PropertyInfo.Name)));
