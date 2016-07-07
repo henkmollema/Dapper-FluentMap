@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.ComponentModel;
 using Dapper.FluentMap.Conventions;
 using Dapper.FluentMap.Mapping;
@@ -23,6 +24,10 @@ namespace Dapper.FluentMap.Configuration
             if (FluentMapper.EntityMaps.TryAdd(typeof(TEntity), mapper))
             {
                 FluentMapper.AddTypeMap<TEntity>();
+            }
+            else
+            {
+                throw new InvalidOperationException($"Adding entity map for type '{typeof(TEntity)}' failed. The type already exists. Current entity maps: " + string.Join(", ", FluentMapper.EntityMaps.Select(e => e.Key.ToString())));
             }
         }
 
