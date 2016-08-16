@@ -1,5 +1,5 @@
 ﻿{
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Dapper.FluentMap extension for Dommel support.",
   "authors": [ "Henk Mollema" ],
   "copyright": "Copyright © Henk Mollema 2016",
@@ -16,8 +16,13 @@
   },
 
   "frameworks": {
-    "net451": { },
-    "netstandard1.3": { }
+    "net45": {},
+    "net451": {},
+    "netstandard1.3": {
+      "dependencies": {
+        "NETStandard.Library": "1.6.0"
+      }
+    }
   },
 
   "buildOptions": {
