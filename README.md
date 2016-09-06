@@ -1,4 +1,4 @@
-[Dapper.FluentMap](http://henkmollema.github.io/Dapper-FluentMap)
+# Dapper.FluentMap 
 Provides a simple API to fluently map POCO properties to database columns when using Dapper. 
 
 <hr>
