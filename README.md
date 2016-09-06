@@ -1,9 +1,11 @@
 [Dapper.FluentMap](http://henkmollema.github.io/Dapper-FluentMap)
-================
+Provides a simple API to fluently map POCO properties to database columns when using Dapper. 
 
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/x6grw3cjuyud9c76?svg=true)](https://ci.appveyor.com/project/henkmollema/dapper-fluentmap)
-[![Linux Build Status](https://travis-ci.org/henkmollema/Dapper-FluentMap.svg?branch=master)](https://travis-ci.org/henkmollema/Dapper-FluentMap)
-[![NuGet Version](http://img.shields.io/nuget/v/Dapper.FluentMap.svg)](https://www.nuget.org/packages/Dapper.FluentMap/ "NuGet version")
+<hr>
+
+| Windows | Linux/OSX | NuGet |
+| --- | --- | --- |
+| [![Windows Build status](https://ci.appveyor.com/api/projects/status/x6grw3cjuyud9c76?svg=true)](https://ci.appveyor.com/project/henkmollema/dapper-fluentmap) | [![Linux Build Status](https://travis-ci.org/henkmollema/Dapper-FluentMap.svg?branch=master)](https://travis-ci.org/henkmollema/Dapper-FluentMap) | [![NuGet Version](http://img.shields.io/nuget/v/Dapper.FluentMap.svg)](https://www.nuget.org/packages/Dapper.FluentMap/ "NuGet version") |
 
 ### Introduction
 
