@@ -44,5 +44,15 @@ namespace Dapper.FluentMap.Dommel.Mapping
         {
             TableName = tableName;
         }
+
+        /// <summary>
+        /// Sets the table name for the current entity.
+        /// </summary>
+        /// <param name="tableName">The name of the table in the database.</param>
+        /// <param name="schemaName">The name of the table schema in the database.</param>
+        protected void ToTable(string tableName, string schemaName)
+        {
+            TableName = $"{schemaName}.{tableName}";
+        }
     }
 }
