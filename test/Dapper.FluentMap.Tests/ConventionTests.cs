@@ -1,4 +1,5 @@
-﻿using Dapper.FluentMap.Conventions;
+﻿using System.Linq;
+using Dapper.FluentMap.Conventions;
 using Xunit;
 
 #if COREFX
@@ -18,23 +19,36 @@ namespace Dapper.FluentMap.Tests
             // Arrange & Act
             FluentMapper.Initialize(c => c.AddConvention<TestConvention>().ForEntitiesInCurrentAssembly());
 
-            // Asert
-            Assert.True(FluentMapper.TypeConventions.ContainsKey(typeof(TestEntity)));
-            var map = FluentMapper.TypeConventions[typeof(TestEntity)];
+            // Assert
+            var conventions = FluentMapper.TypeConventions.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            foreach (var x in conventions)
+            {
+                System.Console.WriteLine("Type: " + x.Key.ToString());
+            }
+            Assert.NotEmpty(conventions);
+            Assert.True(conventions.ContainsKey(typeof(TestEntity)));
+            var map = conventions[typeof(TestEntity)];
             Assert.True(map[0] is TestConvention);
         }
+
 #elif COREFX
         [Fact]
-        public void ShouldMapEntitiesInCurrentAssembly()
+        public void ShouldMapEntitiesInAssembly()
         {
             PreTest();
 
             // Arrange & Act
             FluentMapper.Initialize(c => c.AddConvention<TestConvention>().ForEntitiesInAssembly(typeof(ConventionTests).GetTypeInfo().Assembly));
 
-            // Asert
-            Assert.True(FluentMapper.TypeConventions.ContainsKey(typeof(TestEntity)));
-            var map = FluentMapper.TypeConventions[typeof(TestEntity)];
+            // Assert
+            var conventions = FluentMapper.TypeConventions.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            foreach (var x in conventions)
+            {            
+                System.Console.WriteLine("Type: " + x.Key.ToString());
+            }
+            Assert.NotEmpty(conventions);
+            Assert.True(conventions.ContainsKey(typeof(TestEntity)));
+            var map = conventions[typeof(TestEntity)];
             Assert.True(map[0] is TestConvention);
         }
 #endif
