@@ -1,8 +1,8 @@
 ﻿{
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Dapper.FluentMap extension for Dommel support.",
   "authors": [ "Henk Mollema" ],
-  "copyright": "Copyright © Henk Mollema 2016",
+  "copyright": "Copyright © Henk Mollema 2017",
   "packOptions": {
     "licenseUrl": "https://github.com/henkmollema/Dapper-FluentMap/blob/master/LICENSE",
     "owners": [ "Henk Mollema" ],
@@ -12,7 +12,7 @@
 
   "dependencies": {
     "Dapper.FluentMap": "1.5.1",
-    "Dommel": "1.6.1"
+    "Dommel": "1.8.0"
   },
 
   "frameworks": {

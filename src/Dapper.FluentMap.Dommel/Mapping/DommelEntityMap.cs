@@ -22,7 +22,7 @@ namespace Dapper.FluentMap.Dommel.Mapping
         where TEntity : class
     {
         /// <summary>
-        /// Gets the <see cref="Dapper.FluentMap.Mapping.IPropertyMap"/> implementation for the current entity map.
+        /// Gets the <see cref="IPropertyMap"/> implementation for the current entity map.
         /// </summary>
         /// <param name="info">The information about the property.</param>
         /// <returns>An implementation of <see cref="Dapper.FluentMap.Mapping.IPropertyMap"/>.</returns>

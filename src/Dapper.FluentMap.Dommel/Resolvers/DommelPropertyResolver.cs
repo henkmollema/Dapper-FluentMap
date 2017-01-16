@@ -12,7 +12,7 @@ namespace Dapper.FluentMap.Dommel.Resolvers
     /// </summary>
     public class DommelPropertyResolver : DommelMapper.PropertyResolverBase
     {
-        /// <inheritdoc />
+        /// <inheritdoc/>
         protected override IEnumerable<PropertyInfo> FilterComplexTypes(IEnumerable<PropertyInfo> properties)
         {
             foreach (var propertyInfo in properties)
@@ -27,7 +27,7 @@ namespace Dapper.FluentMap.Dommel.Resolvers
             }
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public override IEnumerable<PropertyInfo> ResolveProperties(Type type)
         {
             IEntityMap entityMap;

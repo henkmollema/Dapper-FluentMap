@@ -12,35 +12,47 @@ namespace Dapper.FluentMap.Dommel.Resolvers
     /// </summary>
     public class DommelKeyPropertyResolver : DommelMapper.IKeyPropertyResolver
     {
-        /// <inheritdoc />
+        /// <inheritdoc/>
         public PropertyInfo ResolveKeyProperty(Type type)
         {
+            bool isIdentity;
+            return ResolveKeyProperty(type, out isIdentity);
+        }
+
+        /// <inheritdoc/>
+        public PropertyInfo ResolveKeyProperty(Type type, out bool isIdentity)
+        {
             IEntityMap entityMap;
-            if (FluentMapper.EntityMaps.TryGetValue(type, out entityMap))
+            if (!FluentMapper.EntityMaps.TryGetValue(type, out entityMap))
             {
-                var mapping = entityMap as IDommelEntityMap;
-                if (mapping != null)
+                return DommelMapper.Resolvers.Default.KeyPropertyResolver.ResolveKeyProperty(type, out isIdentity);
+            }
+
+            var mapping = entityMap as IDommelEntityMap;
+            if (mapping != null)
+            {
+                var keyPropertyMaps = entityMap.PropertyMaps.OfType<DommelPropertyMap>().Where(e => e.Key).ToList();
+
+                if (keyPropertyMaps.Count == 1)
                 {
-                    var keyPropertyMaps = entityMap.PropertyMaps.OfType<DommelPropertyMap>().Where(e => e.Key).ToList();
+                    var keyPropertyMap = keyPropertyMaps[0];
+                    isIdentity = keyPropertyMap.Identity;
+                    return keyPropertyMap.PropertyInfo;
+                }
 
-                    if (keyPropertyMaps.Count == 1)
-                    {
-                        return keyPropertyMaps[0].PropertyInfo;
-                    }
+                if (keyPropertyMaps.Count > 1)
+                {
+                    var msg = string.Format("Found multiple key properties on type '{0}'. This is not yet supported. The following key properties were found:{1}{2}",
+                                            type.FullName,
+                                            Environment.NewLine,
+                                            string.Join(Environment.NewLine, keyPropertyMaps.Select(t => t.PropertyInfo.Name)));
 
-                    if (keyPropertyMaps.Count > 1)
-                    {
-                        var msg = string.Format("Found multiple key properties on type '{0}'. This is not yet supported. The following key properties were found:{1}{2}",
-                            type.FullName,
-                            Environment.NewLine,
-                            string.Join(Environment.NewLine, keyPropertyMaps.Select(t => t.PropertyInfo.Name)));
-
-                        throw new Exception(msg);
-                    }
+                    throw new Exception(msg);
                 }
             }
 
-            return DommelMapper.Resolvers.Default.KeyPropertyResolver.ResolveKeyProperty(type);
+            // Fall back to the default mapping strategy.
+            return DommelMapper.Resolvers.Default.KeyPropertyResolver.ResolveKeyProperty(type, out isIdentity);
         }
     }
 }
