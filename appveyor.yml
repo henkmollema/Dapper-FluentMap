@@ -1,7 +1,8 @@
 init:
   - git config --global core.autocrlf true
 build_script:
-  - build.cmd verify
+  - ps: .\build.ps1
 clone_depth: 1
 test: off
 deploy: off
+os: Visual Studio 2017
