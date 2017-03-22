@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Description>Dapper.FluentMap extension for Dommel support.</Description>
     <Copyright>Copyright © Henk Mollema 2017</Copyright>
-    <VersionPrefix>1.4.4</VersionPrefix>
+    <VersionPrefix>1.4.5</VersionPrefix>
     <Authors>Henk Mollema</Authors>
     <TargetFrameworks>net45;net451;netstandard1.3</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
