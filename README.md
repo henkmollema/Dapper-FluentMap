@@ -147,8 +147,8 @@ You can configure Dapper.FluentMap.Dommel in the `FluentMapper.Initialize()` met
 
 ```csharp
 FluentMapper.Initialize(config =>
-					   {
-						   config.AddMap(new ProductMap());
-						   config.ForDommel();
-					   });
+						{
+							config.AddMap(new ProductMap());
+							config.ForDommel();
+						});
 ```
