@@ -4,6 +4,7 @@ using Dapper.FluentMap.Mapping;
 using Dapper.FluentMap.TypeMaps;
 using Xunit;
 
+[assembly: CollectionBehavior(DisableTestParallelization = true)]
 namespace Dapper.FluentMap.Tests
 {
     public class ManualMappingTests
