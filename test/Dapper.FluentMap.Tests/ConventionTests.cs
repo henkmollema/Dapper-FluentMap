@@ -1,37 +1,12 @@
 ﻿using System.Linq;
+using System.Reflection;
 using Dapper.FluentMap.Conventions;
 using Xunit;
-
-#if COREFX
-using System.Reflection;
-#endif
 
 namespace Dapper.FluentMap.Tests
 {
     public class ConventionTests
     {
-#if NET451
-        [Fact]
-        public void ShouldMapEntitiesInCurrentAssembly()
-        {
-            PreTest();
-
-            // Arrange & Act
-            FluentMapper.Initialize(c => c.AddConvention<TestConvention>().ForEntitiesInCurrentAssembly());
-
-            // Assert
-            var conventions = FluentMapper.TypeConventions.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-            foreach (var x in conventions)
-            {
-                System.Console.WriteLine("Type: " + x.Key.ToString());
-            }
-            Assert.NotEmpty(conventions);
-            Assert.True(conventions.ContainsKey(typeof(TestEntity)));
-            var map = conventions[typeof(TestEntity)];
-            Assert.True(map[0] is TestConvention);
-        }
-
-#elif COREFX
         [Fact]
         public void ShouldMapEntitiesInAssembly()
         {
@@ -51,7 +26,6 @@ namespace Dapper.FluentMap.Tests
             var map = conventions[typeof(TestEntity)];
             Assert.True(map[0] is TestConvention);
         }
-#endif
 
         private class TestConvention : Convention
         {
