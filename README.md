@@ -42,9 +42,9 @@ Column names are mapped case sensitive by default. You can change this by specif
 **Initialization:**
 ```csharp
 FluentMapper.Initialize(config =>
-					   {
-						   config.AddMap(new ProductMap());
-					   });
+    {
+       config.AddMap(new ProductMap());
+    });
 ```
 
 #### Convention based mapping
@@ -147,8 +147,8 @@ You can configure Dapper.FluentMap.Dommel in the `FluentMapper.Initialize()` met
 
 ```csharp
 FluentMapper.Initialize(config =>
-						{
-							config.AddMap(new ProductMap());
-							config.ForDommel();
-						});
+    {
+        config.AddMap(new ProductMap());
+        config.ForDommel();
+    });
 ```
