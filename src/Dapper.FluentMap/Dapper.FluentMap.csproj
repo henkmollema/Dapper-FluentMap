@@ -4,7 +4,7 @@
     <Copyright>Copyright © Henk Mollema 2017</Copyright>
     <VersionPrefix>1.5.2</VersionPrefix>
     <Authors>Henk Mollema</Authors>
-    <TargetFrameworks>net40;net45;net451;netstandard1.3</TargetFrameworks>
+    <TargetFrameworks>net45;net451;netstandard1.3</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageTags>c#;dapper;mapping;fluentmap</PackageTags>
     <PackageProjectUrl>https://github.com/henkmollema/Dapper-FluentMap</PackageProjectUrl>
