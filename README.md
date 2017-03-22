@@ -24,16 +24,16 @@ You can map property names manually using the [`EntityMap<TEntity>`](https://git
 ```csharp
 public class ProductMap : EntityMap<Product>
 {
-	public ProductMap()
-	{
-		// Map property 'Name' to column 'strName'.
-		Map(p => p.Name)
-			.ToColumn("strName");
-			
-		// Ignore the 'LastModified' property when mapping.
-		Map(p => p.LastModified)
-			.Ignore();
-	}
+    public ProductMap()
+    {
+        // Map property 'Name' to column 'strName'.
+        Map(p => p.Name)
+            .ToColumn("strName");
+            
+        // Ignore the 'LastModified' property when mapping.
+        Map(p => p.LastModified)
+            .Ignore();
+    }
 }
 ```
 
@@ -121,12 +121,12 @@ This class derives from `EntityMap<TEntity>` and allows you to map an entity to 
 ```csharp
 public class ProductMap : DommelEntityMap<TEntity>
 {
-	public ProductMap()
-	{
-		ToTable("tblProduct");		
-		
-		// ...
-	}
+    public ProductMap()
+    {
+        ToTable("tblProduct");
+        
+        // ...
+    }
 }
 ```
 
@@ -136,10 +136,10 @@ This class derives `PropertyMap<TEntity>` and allows you to specify the key prop
 ```csharp
 public class ProductMap : DommelEntityMap<TEntity>
 {
-	public ProductMap()
-	{
-		Map(p => p.Id).IsKey();
-	}
+    public ProductMap()
+    {
+        Map(p => p.Id).IsKey();
+    }
 }
 ```
 
