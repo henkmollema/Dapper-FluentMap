@@ -9,4 +9,14 @@ namespace Dapper.FluentMap.Tests
     {
         public string Name { get; set; }
     }
+
+    public class ValueObjectTestEntity
+    {
+        public EmailTestValueObject Email { get; set; }
+    }
+
+    public class EmailTestValueObject
+    {
+        public string Address { get; set; }
+    }
 }

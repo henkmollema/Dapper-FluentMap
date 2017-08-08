@@ -1,4 +1,6 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Dapper.FluentMap.Utils
@@ -31,11 +33,22 @@ namespace Dapper.FluentMap.Utils
                     case ExpressionType.MemberAccess:
                         var memberExpression = (MemberExpression)expr;
                         var baseMember = memberExpression.Member;
+                        Type paramType;
+
+                        while (!(memberExpression is null))
+                        {
+                            paramType = memberExpression.Type;
+                            if (paramType.GetMembers().Any(member => member.Name == baseMember.Name))
+                            {
+                                return paramType.GetMember(baseMember.Name).FirstOrDefault();
+                            }
+
+                            memberExpression = memberExpression.Expression as MemberExpression;
+                        }
 
                         // Make sure we get the property from the derived type.
-                        var paramType = lambda.Parameters[0].Type;
-                        var memberInfo = paramType.GetMember(baseMember.Name)[0];
-                        return memberInfo;
+                        paramType = lambda.Parameters.FirstOrDefault().Type;
+                        return paramType.GetMember(baseMember.Name).FirstOrDefault();
 
                     default:
                         return null;
