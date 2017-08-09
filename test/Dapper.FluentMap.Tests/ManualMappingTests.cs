@@ -138,6 +138,16 @@ namespace Dapper.FluentMap.Tests
             Assert.Equal(typeof(DerivedTestEntity), nameMap.PropertyInfo.DeclaringType);
         }
 
+        [Fact]
+        public void PropertyMapShouldMapValueObjectProperties()
+        {
+            PreTest();
+
+            var map = new ValueObjectMap();
+            var email = map.PropertyMaps.First();
+            Assert.Equal(typeof(EmailTestValueObject), email.PropertyInfo.DeclaringType);
+        }
+
         private static void PreTest()
         {
             FluentMapper.EntityMaps.Clear();
@@ -188,6 +198,14 @@ namespace Dapper.FluentMap.Tests
 
         private class EmptyMap : EntityMap<TestEntity>
         {
+        }
+
+        private class ValueObjectMap : EntityMap<ValueObjectTestEntity>
+        {
+            public ValueObjectMap()
+            {
+                Map(x => x.Email.Address).ToColumn("email");
+            }
         }
     }
 }
