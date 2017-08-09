@@ -47,7 +47,7 @@ namespace Dapper.FluentMap.Utils
                         }
 
                         // Make sure we get the property from the derived type.
-                        paramType = lambda.Parameters.[0].Type;
+                        paramType = lambda.Parameters[0].Type;
                         return paramType.GetMember(baseMember.Name)[0];
 
                     default:
