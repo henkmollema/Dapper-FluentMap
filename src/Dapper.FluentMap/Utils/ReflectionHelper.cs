@@ -35,12 +35,12 @@ namespace Dapper.FluentMap.Utils
                         var baseMember = memberExpression.Member;
                         Type paramType;
 
-                        while (!(memberExpression is null))
+                        while (memberExpression != null)
                         {
                             paramType = memberExpression.Type;
                             if (paramType.GetMembers().Any(member => member.Name == baseMember.Name))
                             {
-                                return paramType.GetMember(baseMember.Name).FirstOrDefault();
+                                return paramType.GetMember(baseMember.Name)[0];
                             }
 
                             memberExpression = memberExpression.Expression as MemberExpression;
@@ -48,7 +48,7 @@ namespace Dapper.FluentMap.Utils
 
                         // Make sure we get the property from the derived type.
                         paramType = lambda.Parameters.FirstOrDefault().Type;
-                        return paramType.GetMember(baseMember.Name).FirstOrDefault();
+                        return paramType.GetMember(baseMember.Name)[0];
 
                     default:
                         return null;
