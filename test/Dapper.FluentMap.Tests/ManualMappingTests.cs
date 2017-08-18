@@ -43,8 +43,7 @@ namespace Dapper.FluentMap.Tests
             var map = new MapWithOnePropertyMap();
 
             // Assert
-            Assert.NotEmpty(map.PropertyMaps);
-            Assert.Equal(1, map.PropertyMaps.Count);
+            Assert.Single(map.PropertyMaps);
         }
 
         [Fact]
@@ -101,7 +100,7 @@ namespace Dapper.FluentMap.Tests
             var entityMap = FluentMapper.EntityMaps.Single();
 
             // Assert
-            Assert.Equal(1, FluentMapper.EntityMaps.Count);
+            Assert.Single(FluentMapper.EntityMaps);
             Assert.Equal(typeof(TestEntity), entityMap.Key);
             Assert.IsType<MapWithOnePropertyMap>(entityMap.Value);
         }
