@@ -17,10 +17,6 @@ namespace Dapper.FluentMap.Tests
 
             // Assert
             var conventions = FluentMapper.TypeConventions.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-            foreach (var x in conventions)
-            {            
-                System.Console.WriteLine("Type: " + x.Key.ToString());
-            }
             Assert.NotEmpty(conventions);
             Assert.True(conventions.ContainsKey(typeof(TestEntity)));
             var map = conventions[typeof(TestEntity)];

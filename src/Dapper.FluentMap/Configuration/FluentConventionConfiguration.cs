@@ -40,7 +40,7 @@ namespace Dapper.FluentMap.Configuration
             return this;
         }
 
-#if !COREFX
+#if !NETSTANDARD1_3
         /// <summary>
         /// Configures the current convention for all the entities in current assembly filtered by the specified namespaces.
         /// </summary>
