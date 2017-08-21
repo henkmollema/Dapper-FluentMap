@@ -43,7 +43,11 @@ namespace Dapper.FluentMap.TypeMaps
                     // Find property map for current type and column name.
                     // todo: ReflectedType is unavailable on CoreFX
                     var maps = convention.PropertyMaps
+#if NETSTANDARD1_3
                                          .Where(map => map.PropertyInfo.DeclaringType == type &&
+#else
+                                         .Where(map => map.PropertyInfo.ReflectedType == type &&
+#endif
                                                        MatchColumnNames(map, columnName))
                                          .ToList();
 
