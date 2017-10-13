@@ -11,7 +11,7 @@ os:
   - osx
 osx_image: xcode8.2
 before_install:
-  - if test "$TRAVIS_OS_NAME" == "osx"; then brew update fi
+  - if test "$TRAVIS_OS_NAME" == "osx"; then brew update; fi
 before_script:
   - chmod +x ./build.sh
 script:
