@@ -9,7 +9,7 @@ Provides a simple API to fluently map POCO properties to database columns when u
 
 ### Introduction
 
-This [Dapper](https://github.com/StackExchange/dapper-dot-net) extension allows you to fluently congfigure the mapping between POCO properties and database columns. This keeps your POCO's clean of mapping attributes. The functionality is similar to [Entity Framework Fluent API](http://msdn.microsoft.com/nl-nl/data/jj591617.aspx). If you have any questions, suggestions or bugs, please don't hesitate to [contact me](mailto:henkmollema@gmail.com) or create an issue.
+This [Dapper](https://github.com/StackExchange/dapper-dot-net) extension allows you to fluently configure the mapping between POCO properties and database columns. This keeps your POCO's clean of mapping attributes. The functionality is similar to [Entity Framework Fluent API](http://msdn.microsoft.com/nl-nl/data/jj591617.aspx). If you have any questions, suggestions or bugs, please don't hesitate to [contact me](mailto:henkmollema@gmail.com) or create an issue.
 
 <hr>
 
