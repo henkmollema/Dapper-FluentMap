@@ -9,8 +9,9 @@ env:
 os:
   - linux
   - osx
-before_install:
-  - if test "$TRAVIS_OS_NAME" == "osx"; then brew update; fi
+branches:
+  only:
+    - master
 before_script:
   - chmod +x ./build.sh
 script:
