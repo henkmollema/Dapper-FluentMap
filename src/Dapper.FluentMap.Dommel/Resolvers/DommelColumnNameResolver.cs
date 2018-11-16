@@ -17,7 +17,12 @@ namespace Dapper.FluentMap.Dommel.Resolvers
             if (propertyInfo.DeclaringType != null)
             {
                 IEntityMap entityMap;
+#if NETSTANDARD1_3
                 if (FluentMapper.EntityMaps.TryGetValue(propertyInfo.DeclaringType, out entityMap))
+
+#else
+                if (FluentMapper.EntityMaps.TryGetValue(propertyInfo.ReflectedType, out entityMap))
+#endif
                 {
                     var mapping = entityMap as IDommelEntityMap;
                     if (mapping != null)

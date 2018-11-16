@@ -4,7 +4,7 @@
     <Copyright>Copyright © Henk Mollema 2017</Copyright>
     <VersionPrefix>1.5.0</VersionPrefix>
     <Authors>Henk Mollema</Authors>
-    <TargetFrameworks>net45;net451;netstandard1.3</TargetFrameworks>
+    <TargetFrameworks>net45;net451;netstandard1.3;netstandard2.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageTags>dapper;fluentmap;dommel</PackageTags>
     <PackageProjectUrl>https://github.com/henkmollema/Dapper-FluentMap</PackageProjectUrl>

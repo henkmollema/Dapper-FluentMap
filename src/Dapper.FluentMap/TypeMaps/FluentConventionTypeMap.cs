@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Dapper.FluentMap.Conventions;
 using Dapper.FluentMap.Mapping;
 
 namespace Dapper.FluentMap.TypeMaps
@@ -28,23 +26,26 @@ namespace Dapper.FluentMap.TypeMaps
         private static PropertyInfo GetPropertyInfo(Type type, string columnName)
         {
             var cacheKey = $"{type.FullName};{columnName}";
-
-            PropertyInfo info;
-            if (TypePropertyMapCache.TryGetValue(cacheKey, out info))
+            if (TypePropertyMapCache.TryGetValue(cacheKey, out var info))
             {
                 return info;
             }
 
-            IList<Convention> conventions;
-            if (FluentMapper.TypeConventions.TryGetValue(type, out conventions))
+            if (FluentMapper.TypeConventions.TryGetValue(type, out var conventions))
             {
                 foreach (var convention in conventions)
                 {
                     // Find property map for current type and column name.
-                    // todo: ReflectedType is unavailable on CoreFX
                     var maps = convention.PropertyMaps
+#if NETSTANDARD1_3
+                                         // HACK: ReflectedType isn't available on.NET Standard 1.3,
+                                         // this will cause issues when mapping derived entities.
                                          .Where(map => map.PropertyInfo.DeclaringType == type &&
                                                        MatchColumnNames(map, columnName))
+#else
+                                         .Where(map => map.PropertyInfo.ReflectedType == type &&
+                                                       MatchColumnNames(map, columnName))
+#endif
                                          .ToList();
 
                     if (maps.Count > 1)
