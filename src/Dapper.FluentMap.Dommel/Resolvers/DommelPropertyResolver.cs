@@ -2,38 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Dapper.FluentMap.Mapping;
-using Dommel;
+using static Dommel.DommelMapper;
 
 namespace Dapper.FluentMap.Dommel.Resolvers
 {
     /// <summary>
-    /// Implements the <see cref="DommelMapper.IPropertyResolver"/> interface by using the configured mapping.
+    /// Implements the <see cref="IPropertyResolver"/> interface by using the configured mapping.
     /// </summary>
-    public class DommelPropertyResolver : DommelMapper.PropertyResolverBase
+    public class DommelPropertyResolver : IPropertyResolver
     {
-        /// <inheritdoc/>
-        protected override IEnumerable<PropertyInfo> FilterComplexTypes(IEnumerable<PropertyInfo> properties)
-        {
-            foreach (var propertyInfo in properties)
-            {
-                var type = propertyInfo.PropertyType;
-                type = Nullable.GetUnderlyingType(type) ?? type;
-
-                if (type.GetTypeInfo().IsPrimitive || type.GetTypeInfo().IsEnum || PrimitiveTypes.Contains(type))
-                {
-                    yield return propertyInfo;
-                }
-            }
-        }
+        private static readonly DefaultPropertyResolver _defaultPropertyResolver = new DefaultPropertyResolver();
 
         /// <inheritdoc/>
-        public override IEnumerable<PropertyInfo> ResolveProperties(Type type)
+        public IEnumerable<PropertyInfo> ResolveProperties(Type type)
         {
-            IEntityMap entityMap;
-            if (FluentMapper.EntityMaps.TryGetValue(type, out entityMap))
+            if (FluentMapper.Configuration.EntityMaps.TryGetValue(type, out var entityMap))
             {
-                foreach (var property in FilterComplexTypes(type.GetProperties()))
+                foreach (var property in _defaultPropertyResolver.ResolveProperties(type))
                 {
                     // Determine whether the property should be ignored.
                     var propertyMap = entityMap.PropertyMaps.FirstOrDefault(p => p.PropertyInfo.Name == property.Name);
@@ -45,7 +30,7 @@ namespace Dapper.FluentMap.Dommel.Resolvers
             }
             else
             {
-                foreach (var property in DommelMapper.Resolvers.Default.PropertyResolver.ResolveProperties(type))
+                foreach (var property in _defaultPropertyResolver.ResolveProperties(type))
                 {
                     yield return property;
                 }

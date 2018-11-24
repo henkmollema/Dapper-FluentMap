@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Reflection;
 
 namespace Dapper.FluentMap.TypeMaps
@@ -10,10 +8,10 @@ namespace Dapper.FluentMap.TypeMaps
     /// </summary>
     public abstract class MultiTypeMap : SqlMapper.ITypeMap
     {
-        private readonly IEnumerable<SqlMapper.ITypeMap> _mappers;
+        private readonly SqlMapper.ITypeMap[] _mappers;
 
         /// <summary>
-        /// Initializes an instance of the <see cref="T:Dapper.FluentMap.TypeMaps.MultiTypeMap"/>
+        /// Initializes a new instance of the <see cref="MultiTypeMap"/>
         /// class with the specified Dapper type mappers.
         /// </summary>
         /// <param name="mappers">The type mapping strategies to be used when mapping.</param>
@@ -30,7 +28,6 @@ namespace Dapper.FluentMap.TypeMaps
                 try
                 {
                     var result = mapper.FindConstructor(names, types);
-
                     if (result != null)
                     {
                         return result;
@@ -77,7 +74,6 @@ namespace Dapper.FluentMap.TypeMaps
                 try
                 {
                     var result = mapper.GetConstructorParameter(constructor, columnName);
-
                     if (result != null)
                     {
                         return result;
@@ -115,10 +111,5 @@ namespace Dapper.FluentMap.TypeMaps
 
             return null;
         }
-
-        /// <summary>
-        /// Gets a cache for columns and properties.
-        /// </summary>
-        protected static ConcurrentDictionary<string, PropertyInfo> TypePropertyMapCache { get; } = new ConcurrentDictionary<string, PropertyInfo>();
     }
 }

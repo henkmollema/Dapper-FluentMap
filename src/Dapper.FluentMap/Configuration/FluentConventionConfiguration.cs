@@ -1,10 +1,10 @@
 ﻿using System;
-using System.ComponentModel;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using Dapper.FluentMap.Conventions;
 using Dapper.FluentMap.Mapping;
-using Dapper.FluentMap.Utils;
 
 namespace Dapper.FluentMap.Configuration
 {
@@ -13,6 +13,9 @@ namespace Dapper.FluentMap.Configuration
     /// </summary>
     public class FluentConventionConfiguration
     {
+        private class EntityMap : EntityMap<FluentConventionConfiguration> { }
+
+        private readonly Dictionary<Type, IEntityMap> _entityMaps = new Dictionary<Type, IEntityMap>();
         private readonly Convention _convention;
 
         /// <summary>
@@ -26,21 +29,22 @@ namespace Dapper.FluentMap.Configuration
         }
 
         /// <summary>
+        /// Gets a mapping of types and their <see cref="IEntityMap"/> for this convention.
+        /// </summary>
+        public IReadOnlyDictionary<Type, IEntityMap> EntityMaps => new ReadOnlyDictionary<Type, IEntityMap>(_entityMaps);
+
+        /// <summary>
         /// Configures the current covention for the specified entity type.
         /// </summary>
         /// <typeparam name="T">The type of the entity.</typeparam>
-        /// <returns>The current instance of <see cref="T:Dapper.FluentMap.Configuration.FluentConventionConfiguration"/>.</returns>
+        /// <returns>The current instance of <see cref="FluentConventionConfiguration"/>.</returns>
         public FluentConventionConfiguration ForEntity<T>()
         {
             var type = typeof(T);
-            MapProperties(type);
-
-            FluentMapper.TypeConventions.AddOrUpdate(type, _convention);
-            FluentMapper.AddConventionTypeMap<T>();
+            CreateEntityMap(type);
             return this;
         }
 
-#if !NETSTANDARD1_3
         /// <summary>
         /// Configures the current convention for all the entities in current assembly filtered by the specified namespaces.
         /// </summary>
@@ -48,7 +52,7 @@ namespace Dapper.FluentMap.Configuration
         /// An array of namespaces which filter the types in the current assembly.
         /// This parameter is optional.
         /// </param>
-        /// <returns>The current instance of <see cref="T:Dapper.FluentMap.Configuration.FluentConventionConfiguration"/>.</returns>
+        /// <returns>The current instance of <see cref="FluentConventionConfiguration"/>.</returns>
         public FluentConventionConfiguration ForEntitiesInCurrentAssembly(params string[] namespaces)
         {
             foreach (var type in Assembly.GetCallingAssembly().GetExportedTypes())
@@ -61,14 +65,11 @@ namespace Dapper.FluentMap.Configuration
                     continue;
                 }
 
-                MapProperties(type);
-                FluentMapper.TypeConventions.AddOrUpdate(type, _convention);
-                FluentMapper.AddConventionTypeMap(type);
+                CreateEntityMap(type);
             }
 
             return this;
         }
-#endif
 
         /// <summary>
         /// Configures the current convention for all entities in the specified assembly filtered by the specified namespaces.
@@ -78,7 +79,7 @@ namespace Dapper.FluentMap.Configuration
         /// An array of namespaces which filter the types in <paramref name="assembly"/>.
         /// This parameter is optional.
         /// </param>
-        /// <returns>The current instance of <see cref="T:Dapper.FluentMap.Configuration.FluentConventionConfiguration"/>.</returns>
+        /// <returns>The current instance of <see cref="FluentConventionConfiguration"/>.</returns>
         public FluentConventionConfiguration ForEntitiesInAssembly(Assembly assembly, params string[] namespaces)
         {
             foreach (var type in assembly.GetExportedTypes())
@@ -91,88 +92,60 @@ namespace Dapper.FluentMap.Configuration
                     continue;
                 }
 
-                MapProperties(type);
-                FluentMapper.TypeConventions.AddOrUpdate(type, _convention);
-                FluentMapper.AddConventionTypeMap(type);
+                CreateEntityMap(type);
             }
 
             return this;
         }
 
-        private void MapProperties(Type type)
+        private void CreateEntityMap(Type t)
         {
-            var properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            var entityMap = new EntityMap();
+            MapProperties(t, entityMap);
+            _entityMaps[t] = entityMap;
+        }
 
-            foreach (var property in properties)
+        private void MapProperties(Type type, IEntityMap entityMap)
+        {
+            foreach (var property in type.GetProperties())
             {
-                // Find the convention configurations for the convetion with either none or matching property predicates.
-                foreach (var config in _convention.ConventionConfigurations
-                                                  .Where(c => c.PropertyPredicates.Count <= 0 ||
-                                                              c.PropertyPredicates.All(e => e(property))))
+                foreach (var config in _convention.ConventionConfigurations)
                 {
+                    if (!config.PropertyPredicates.All(p => p(property)))
+                    {
+                        continue;
+                    }
+
+                    PropertyMap propertyMap;
                     if (!string.IsNullOrEmpty(config.PropertyConfiguration.ColumnName))
                     {
-                        AddConventionPropertyMap(
-                            property,
-                            config.PropertyConfiguration.ColumnName,
-                            config.PropertyConfiguration.CaseSensitive);
-                        break;
+                        propertyMap = new PropertyMap(property)
+                        {
+                            ColumnName = config.PropertyConfiguration.ColumnName
+                        };
+                    }
+                    else if (!string.IsNullOrEmpty(config.PropertyConfiguration.Prefix))
+                    {
+                        propertyMap = new PropertyMap(property)
+                        {
+                            ColumnName = config.PropertyConfiguration.Prefix + property.Name
+                        };
+                    }
+                    else if (config.PropertyConfiguration.PropertyTransformer != null)
+                    {
+                        propertyMap = new PropertyMap(property)
+                        {
+                            ColumnName = config.PropertyConfiguration.PropertyTransformer(property.Name)
+                        };
+                    }
+                    else
+                    {
+                        continue;
                     }
 
-                    if (!string.IsNullOrEmpty(config.PropertyConfiguration.Prefix))
-                    {
-                        AddConventionPropertyMap(
-                            property,
-                            config.PropertyConfiguration.Prefix + property.Name,
-                            config.PropertyConfiguration.CaseSensitive);
-                        break;
-                    }
-
-                    if (config.PropertyConfiguration.PropertyTransformer != null)
-                    {
-                        AddConventionPropertyMap(
-                            property,
-                            config.PropertyConfiguration.PropertyTransformer(property.Name),
-                            config.PropertyConfiguration.CaseSensitive);
-                    }
+                    entityMap.PropertyMaps.Add(propertyMap);
                 }
             }
         }
-
-        private void AddConventionPropertyMap(PropertyInfo property, string columnName, bool caseSensitive)
-        {
-            var map = new PropertyMap(property, columnName, caseSensitive);
-            _convention.PropertyMaps.Add(map);
-        }
-
-        #region EditorBrowsableStates
-        /// <inheritdoc/>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override string ToString()
-        {
-            return base.ToString();
-        }
-
-        /// <inheritdoc/>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
-
-        /// <inheritdoc/>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
-        /// <inheritdoc/>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public new Type GetType()
-        {
-            return base.GetType();
-        }
-        #endregion
     }
 }

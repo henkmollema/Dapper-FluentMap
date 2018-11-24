@@ -4,47 +4,49 @@ using Dapper.FluentMap.Mapping;
 namespace Dapper.FluentMap.Dommel.Mapping
 {
     /// <summary>
-    /// Represents mapping of a property for Dommel.
+    /// A Dommel <see cref="PropertyMap"/>.
     /// </summary>
-    public class DommelPropertyMap : PropertyMapBase<DommelPropertyMap>, IPropertyMap
+    public class DommelPropertyMap : PropertyMap
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DommelPropertyMap"/> class
-        /// with the specified <see cref="PropertyInfo"/> object.
+        /// Initializes a new instance of the <see cref="DommelPropertyMap"/> class.
         /// </summary>
-        /// <param name="info">The information about the property.</param>
-        public DommelPropertyMap(PropertyInfo info) : base(info)
+        /// <param name="propertyInfo">The property info to apply the mapping to.</param>
+        public DommelPropertyMap(PropertyInfo propertyInfo) : base(propertyInfo)
         {
         }
 
         /// <summary>
-        /// Gets a value indicating whether this property is a primary key.
+        /// Gets or sets a value indicating whether the current property is considered a key property.
         /// </summary>
-        public bool Key { get; private set; }
+        public bool Key { get; set; }
 
         /// <summary>
-        /// Gets a value indicating whether this primary key is an identity.
+        /// Marks the property as a key property.
         /// </summary>
-        public bool Identity { get; set; }
-
-        /// <summary>
-        /// Specifies the current property as key for the entity.
-        /// </summary>
-        /// <returns>The current instance of <see cref="DommelPropertyMap"/>.</returns>
         public DommelPropertyMap IsKey()
         {
             Key = true;
             return this;
         }
+    }
 
+    /// <summary>
+    /// Dommel extensions for <see cref="PropertyMap"/>.
+    /// </summary>
+    public static class PropertyMapExtensions
+    {
         /// <summary>
-        /// Specifies the current property as an identity.
+        /// Marks the property as a key property.
         /// </summary>
-        /// <returns>The current instance of <see cref="DommelPropertyMap"/>.</returns>
-        public DommelPropertyMap IsIdentity()
+        public static PropertyMap IsKey(this PropertyMap propertyMapping)
         {
-            Identity = true;
-            return this;
+            if (propertyMapping is DommelPropertyMap dommelPropertyMapping)
+            {
+                dommelPropertyMapping.IsKey();
+            }
+
+            return propertyMapping;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Dapper.FluentMap.Utils
     public static class ReflectionHelper
     {
         /// <summary>
-        /// Returns the <see cref="T:System.Reflection.MemberInfo"/> for the specified lamba expression.
+        /// Returns the <see cref="MemberInfo"/> instance for the specified lamba expression.
         /// </summary>
         /// <param name="lambda">A lamba expression containing a MemberExpression.</param>
         /// <returns>A <see cref="MemberInfo"/> object for the member in the specified lambda expression.</returns>

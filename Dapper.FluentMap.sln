@@ -1,22 +1,31 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26114.2
+VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{580E3446-6579-4414-9875-970849E635E5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{04C7C13D-7D23-42C4-9D6F-B76D94BCAA8C}"
 	ProjectSection(SolutionItems) = preProject
+		.appveyor.yml = .appveyor.yml
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		.travis.yml = .travis.yml
+		build.cmd = build.cmd
+		build.ps1 = build.ps1
+		build.sh = build.sh
 		NuGet.Config = NuGet.Config
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{742442F2-CAE7-4DC8-BD73-8C54C0005A53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper.FluentMap", "src\Dapper.FluentMap\Dapper.FluentMap.csproj", "{457E0B9B-F6A4-42C6-BFAE-6F8C71D1F435}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapper.FluentMap", "src\Dapper.FluentMap\Dapper.FluentMap.csproj", "{457E0B9B-F6A4-42C6-BFAE-6F8C71D1F435}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper.FluentMap.Tests", "test\Dapper.FluentMap.Tests\Dapper.FluentMap.Tests.csproj", "{8901F2FD-F98B-484B-A20A-7844A39C7458}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapper.FluentMap.Tests", "test\Dapper.FluentMap.Tests\Dapper.FluentMap.Tests.csproj", "{8901F2FD-F98B-484B-A20A-7844A39C7458}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper.FluentMap.Dommel", "src\Dapper.FluentMap.Dommel\Dapper.FluentMap.Dommel.csproj", "{E60B79F6-FE71-44E0-BE88-BFA269378EDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapper.FluentMap.Dommel", "src\Dapper.FluentMap.Dommel\Dapper.FluentMap.Dommel.csproj", "{DFA7FD72-5E38-4919-94E2-471C622F7DBC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapper.FluentMap.Dommel.Tests", "test\Dapper.FluentMap.Dommel.Tests\Dapper.FluentMap.Dommel.Tests.csproj", "{3C88A6E8-F90D-4F62-B49F-07E622F74F62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,10 +41,14 @@ Global
 		{8901F2FD-F98B-484B-A20A-7844A39C7458}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8901F2FD-F98B-484B-A20A-7844A39C7458}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8901F2FD-F98B-484B-A20A-7844A39C7458}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E60B79F6-FE71-44E0-BE88-BFA269378EDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E60B79F6-FE71-44E0-BE88-BFA269378EDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E60B79F6-FE71-44E0-BE88-BFA269378EDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E60B79F6-FE71-44E0-BE88-BFA269378EDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFA7FD72-5E38-4919-94E2-471C622F7DBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFA7FD72-5E38-4919-94E2-471C622F7DBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFA7FD72-5E38-4919-94E2-471C622F7DBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFA7FD72-5E38-4919-94E2-471C622F7DBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C88A6E8-F90D-4F62-B49F-07E622F74F62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C88A6E8-F90D-4F62-B49F-07E622F74F62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C88A6E8-F90D-4F62-B49F-07E622F74F62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C88A6E8-F90D-4F62-B49F-07E622F74F62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,6 +56,10 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{457E0B9B-F6A4-42C6-BFAE-6F8C71D1F435} = {580E3446-6579-4414-9875-970849E635E5}
 		{8901F2FD-F98B-484B-A20A-7844A39C7458} = {742442F2-CAE7-4DC8-BD73-8C54C0005A53}
-		{E60B79F6-FE71-44E0-BE88-BFA269378EDB} = {580E3446-6579-4414-9875-970849E635E5}
+		{DFA7FD72-5E38-4919-94E2-471C622F7DBC} = {580E3446-6579-4414-9875-970849E635E5}
+		{3C88A6E8-F90D-4F62-B49F-07E622F74F62} = {742442F2-CAE7-4DC8-BD73-8C54C0005A53}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E31A1D23-EDDB-4FCC-88D3-711433A5A0DA}
 	EndGlobalSection
 EndGlobal

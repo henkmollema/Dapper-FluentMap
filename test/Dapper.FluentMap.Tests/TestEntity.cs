@@ -3,6 +3,8 @@ namespace Dapper.FluentMap.Tests
     public class TestEntity
     {
         public int Id { get; set; }
+
+        public string Description { get; set; }
     }
 
     public class TestEntityWithNullable

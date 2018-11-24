@@ -1,6 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Reflection;
+using Dapper.FluentMap.Configuration;
 using Dapper.FluentMap.Conventions;
+using Dapper.FluentMap.Mapping;
+using Dapper.FluentMap.TypeMaps;
 using Xunit;
 
 namespace Dapper.FluentMap.Tests
@@ -9,9 +13,7 @@ namespace Dapper.FluentMap.Tests
     {
         public ConventionTests()
         {
-            // Clear configurations
-            FluentMapper.EntityMaps.Clear();
-            FluentMapper.TypeConventions.Clear();
+            FluentMapper.Configuration = null;
         }
 
         public class Bar
@@ -23,8 +25,11 @@ namespace Dapper.FluentMap.Tests
         public void DerivedProperties()
         {
             // Arrange
-            FluentMapper.Initialize(c => c.AddConvention<DerivedConvention>().ForEntity<DerivedTestEntity>());
-            var typeMap = SqlMapper.GetTypeMap(typeof(DerivedTestEntity));
+            var conventionConfig = new FluentConventionConfiguration(new DerivedConvention());
+            conventionConfig.ForEntity<DerivedTestEntity>();
+
+            SqlMapper.ITypeMap CreateTypMap(Type t) => new FluentTypeMap(t, conventionConfig.EntityMaps[t].Compile());
+            var typeMap = CreateTypMap(typeof(DerivedTestEntity));
 
             // Act
             var colName = typeMap.GetMember("colName");
@@ -41,16 +46,18 @@ namespace Dapper.FluentMap.Tests
         public void TwoEntitiesWithSamePropertyName()
         {
             // Arrange
-            FluentMapper.Initialize(c =>
-                c.AddConvention<DerivedConvention>()
-                 .ForEntity<DerivedTestEntity>()
-                 .ForEntity<Bar>());
+            var conventionConfig = new FluentConventionConfiguration(new DerivedConvention());
+            conventionConfig
+                .ForEntity<DerivedTestEntity>()
+                .ForEntity<Bar>();
 
-            var typeMapFoo = SqlMapper.GetTypeMap(typeof(DerivedTestEntity));
-            var typeMapBar = SqlMapper.GetTypeMap(typeof(Bar));
+            SqlMapper.ITypeMap CreateTypMap(Type t) => new FluentTypeMap(t, conventionConfig.EntityMaps[t].Compile());
+
+            var derivedTypeMap = CreateTypMap(typeof(DerivedTestEntity));
+            var typeMapBar = CreateTypMap(typeof(Bar));
 
             // Act
-            var colNameFoo = typeMapFoo.GetMember("colName");
+            var colNameFoo = derivedTypeMap.GetMember("colName");
             var colNameBar = typeMapBar.GetMember("colName");
 
             // Assert
@@ -63,23 +70,24 @@ namespace Dapper.FluentMap.Tests
         [Fact]
         public void ShouldMapEntitiesInAssembly()
         {
-            // Arrange & Act
-            FluentMapper.Initialize(c => c.AddConvention<TestConvention>().ForEntitiesInAssembly(typeof(ConventionTests).GetTypeInfo().Assembly));
+            // Arrange
+            var conventionConfig = new FluentConventionConfiguration(new TestConvention());
+
+            // Act
+            conventionConfig.ForEntitiesInAssembly(typeof(ConventionTests).Assembly);
 
             // Assert
-            var conventions = FluentMapper.TypeConventions.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
-            Assert.NotEmpty(conventions);
-            Assert.True(conventions.ContainsKey(typeof(TestEntity)));
-            var map = conventions[typeof(TestEntity)];
-            Assert.True(map[0] is TestConvention);
+            var entityMappings = conventionConfig.EntityMaps.ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            Assert.NotEmpty(entityMappings);
+            Assert.True(entityMappings.ContainsKey(typeof(TestEntity)));
         }
 
         private class TestConvention : Convention
         {
             public TestConvention()
             {
-                Properties<int>().
-                    Where(p => p.Name.ToLower() == "id")
+                Properties<int>()
+                    .Where(p => p.Name.ToLower() == "id")
                     .Configure(c => c.HasColumnName("autID"));
             }
         }

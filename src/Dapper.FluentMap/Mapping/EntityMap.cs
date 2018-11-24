@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -8,89 +9,79 @@ using Dapper.FluentMap.Utils;
 namespace Dapper.FluentMap.Mapping
 {
     /// <summary>
-    /// Represents a non-typed mapping of an entity.
+    ///
     /// </summary>
     public interface IEntityMap
     {
         /// <summary>
-        /// Gets the collection of mapped properties.
+        ///
         /// </summary>
-        IList<IPropertyMap> PropertyMaps { get; }
+        ICollection<PropertyMap> PropertyMaps { get; }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
+        IReadOnlyDictionary<string, PropertyInfo> Compile();
     }
 
     /// <summary>
-    /// Represents a typed mapping of an entity.
-    /// This serves as a marker interface for generic type inference.
+    /// Defines the mapping behavior of an entity.
     /// </summary>
-    /// <typeparam name="TEntity">The type of the entity to configure the mapping for.</typeparam>
-    public interface IEntityMap<TEntity> : IEntityMap
+    public class EntityMap<TEntity> : IEntityMap
     {
-    }
+        private readonly List<PropertyMap> _propertyMapping = new List<PropertyMap>();
 
-    /// <summary>
-    /// Serves as the base class for all entity mapping implementations.
-    /// </summary>
-    /// <typeparam name="TEntity">The type of the entity.</typeparam>
-    /// <typeparam name="TPropertyMap">The type of the property mapping.</typeparam>
-    public abstract class EntityMapBase<TEntity, TPropertyMap> : IEntityMap<TEntity>
-        where TPropertyMap : IPropertyMap
-    {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EntityMapBase{TEntity, TPropertyMap}"/> class.
+        /// Gets a collection of <see cref="PropertyMap"/> instances.
         /// </summary>
-        protected EntityMapBase()
+        public ICollection<PropertyMap> PropertyMaps => _propertyMapping;
+
+        /// <summary>
+        /// Gets or sets a value indicating this entity mapping is case-sensitive.
+        /// </summary>
+        public bool CaseSensitive { get; set; } = true;
+
+        /// <summary>
+        /// Marks the current entity mapping as case sensitive. By default <c>true</c>.
+        /// </summary>
+        public void IsCaseSensitive(bool caseSensitive) => CaseSensitive = caseSensitive;
+
+        /// <summary>
+        /// Compiles the current <see cref="IEntityMap"/> instance to a mapping
+        /// between column names and <see cref="PropertyInfo"/> instances.
+        /// </summary>
+        /// <returns>A <see cref="IReadOnlyDictionary{TKey, TValue}"/> which represents the mapping.</returns>
+        public IReadOnlyDictionary<string, PropertyInfo> Compile()
         {
-            PropertyMaps = new List<IPropertyMap>();
+            var mapping = PropertyMaps.ToDictionary(m => m.ColumnName, m => m.PropertyInfo, CaseSensitive ? StringComparer.Ordinal : StringComparer.OrdinalIgnoreCase);
+            return new ReadOnlyDictionary<string, PropertyInfo>(mapping);
         }
 
         /// <summary>
-        /// Gets the collection of mapped properties.
+        /// Creates a mapping builder for the property specified in the expression.
         /// </summary>
-        public IList<IPropertyMap> PropertyMaps { get; }
-
-        /// <summary>
-        /// Returns an instance of <typeparamref name="TPropertyMap"/> which can perform custom mapping
-        /// for the specified property on <typeparamref name="TEntity"/>.
-        /// </summary>
-        /// <param name="expression">Expression to the property on <typeparamref name="TEntity"/>.</param>
-        /// <returns>The created <see cref="T:Dapper.FluentMap.Mapping.PropertyMap"/> instance. This enables a fluent API.</returns>
-        /// <exception cref="T:System.Exception">when a duplicate mapping is provided.</exception>
-        protected TPropertyMap Map(Expression<Func<TEntity, object>> expression)
+        /// <param name="mapping">The expression which represents the property to map.</param>
+        /// <returns>A <see cref="PropertyMap"/> instance.</returns>
+        public PropertyMap Map(Expression<Func<TEntity, object>> mapping)
         {
-            var info = (PropertyInfo)ReflectionHelper.GetMemberInfo(expression);
-            var propertyMap = GetPropertyMap(info);
-            ThrowIfDuplicateMapping(propertyMap);
-            PropertyMaps.Add(propertyMap);
-            return propertyMap;
-        }
-
-        /// <summary>
-        /// When overridden in a derived class, gets the property mapping for the specified property.
-        /// </summary>
-        /// <param name="info">The <see cref="PropertyInfo"/> for the property.</param>
-        /// <returns>An instance of <typeparamref name="TPropertyMap"/>.</returns>
-        protected abstract TPropertyMap GetPropertyMap(PropertyInfo info);
-
-        private void ThrowIfDuplicateMapping(IPropertyMap map)
-        {
-            if (PropertyMaps.Any(p => p.PropertyInfo.Name == map.PropertyInfo.Name))
+            // Resolve property info from expression and guard against duplicate mappings.
+            var propertyInfo = (PropertyInfo)ReflectionHelper.GetMemberInfo(mapping);
+            if (PropertyMaps.Any(builder => builder.PropertyInfo == propertyInfo))
             {
-                throw new Exception($"Duplicate mapping detected. Property '{map.PropertyInfo.Name}' is already mapped to column '{map.ColumnName}'.");
+                throw new Exception($"Duplicate mapping detected. Property '{propertyInfo.Name}' is already mapped.");
             }
-        }
-    }
 
-    /// <summary>
-    /// Represents a typed mapping of an entity.
-    /// </summary>
-    /// <typeparam name="TEntity">The type of the entity to configure the mapping for.</typeparam>
-    public abstract class EntityMap<TEntity> : EntityMapBase<TEntity, PropertyMap>
-        where TEntity : class
-    {
-        /// <inheritdoc />
-        protected override PropertyMap GetPropertyMap(PropertyInfo info)
-        {
-            return new PropertyMap(info);
+            var propertyMappingBuilder = CreatePropertyMapping(propertyInfo);
+            PropertyMaps.Add(propertyMappingBuilder);
+            return propertyMappingBuilder;
         }
+
+        /// <summary>
+        /// Creates an instance of <see cref="PropertyMap"/> or a derived type using the specified <see cref="PropertyInfo"/>.
+        /// </summary>
+        /// <param name="propertyInfo">The property info.</param>
+        /// <returns>A <see cref="PropertyMap"/> (or derived) instance.</returns>
+        protected virtual PropertyMap CreatePropertyMapping(PropertyInfo propertyInfo) => new PropertyMap(propertyInfo);
     }
 }

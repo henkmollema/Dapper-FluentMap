@@ -4,55 +4,56 @@ using Dapper.FluentMap.Mapping;
 namespace Dapper.FluentMap.Dommel.Mapping
 {
     /// <summary>
-    /// Represents a non-typed mapping of an entity for Dommel.
+    /// A <see cref="IEntityMap"/> for Dommel.
     /// </summary>
     public interface IDommelEntityMap : IEntityMap
     {
         /// <summary>
-        /// Gets the table name for the current entity.
+        /// Gets or sets the name of the table of the entity.
         /// </summary>
-        string TableName { get; }
+        string TableName { get; set; }
     }
 
     /// <summary>
-    /// Represents the typed mapping of an entity for Dommel.
+    /// A <see cref="IEntityMap"/> for Dommel.
     /// </summary>
-    /// <typeparam name="TEntity">The type of an entity.</typeparam>
-    public abstract class DommelEntityMap<TEntity> : EntityMapBase<TEntity, DommelPropertyMap>, IDommelEntityMap
-        where TEntity : class
+    public class DommelEntityMap<TEntity> : EntityMap<TEntity>, IDommelEntityMap
     {
-        /// <summary>
-        /// Gets the <see cref="IPropertyMap"/> implementation for the current entity map.
-        /// </summary>
-        /// <param name="info">The information about the property.</param>
-        /// <returns>An implementation of <see cref="Dapper.FluentMap.Mapping.IPropertyMap"/>.</returns>
-        protected override DommelPropertyMap GetPropertyMap(PropertyInfo info)
-        {
-            return new DommelPropertyMap(info);
-        }
+        /// <inheritdoc />
+        protected override PropertyMap CreatePropertyMapping(PropertyInfo propertyInfo) => new DommelPropertyMap(propertyInfo);
+
+        /// <inheritdoc />
+        public string TableName { get; set; }
 
         /// <summary>
-        /// Gets the table name for this entity map.
+        /// Maps the current entity to the specified table name.
         /// </summary>
-        public string TableName { get; private set; }
-
-        /// <summary>
-        /// Sets the table name for the current entity.
-        /// </summary>
-        /// <param name="tableName">The name of the table in the database.</param>
-        protected void ToTable(string tableName)
+        /// <param name="tableName">The name of the table.</param>
+        public DommelEntityMap<TEntity> ToTable(string tableName)
         {
             TableName = tableName;
+            return this;
         }
+    }
 
+    /// <summary>
+    /// Dommel extensions for <see cref="EntityMap{TEntity}"/>.
+    /// </summary>
+    public static class EntityMapExtensions
+    {
         /// <summary>
-        /// Sets the table name for the current entity.
+        /// Maps the current entity to the specified table name.
         /// </summary>
-        /// <param name="tableName">The name of the table in the database.</param>
-        /// <param name="schemaName">The name of the table schema in the database.</param>
-        protected void ToTable(string tableName, string schemaName)
+        /// <param name="mapping">The <see cref="EntityMap{TEntity}"/> instance.</param>
+        /// <param name="tableName">The name of the table.</param>
+        public static EntityMap<TEntity> ToTable<TEntity>(this EntityMap<TEntity> mapping, string tableName)
         {
-            TableName = $"{schemaName}.{tableName}";
+            if (mapping is DommelEntityMap<TEntity> dommelMapping)
+            {
+                dommelMapping.ToTable(tableName);
+            }
+
+            return mapping;
         }
     }
 }
