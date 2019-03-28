@@ -42,9 +42,18 @@ namespace Dapper.FluentMap.Conventions
         /// <returns>A configuration object for the convention.</returns>
         protected PropertyConventionConfiguration Properties<T>()
         {
-            // Get the underlying type for a nullale type. (int? -> int)
-            var underlyingType = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
-            var config = new PropertyConventionConfiguration().Where(p => p.PropertyType == underlyingType);
+            var type = typeof(T);
+            PropertyConventionConfiguration config;
+            if (Nullable.GetUnderlyingType(type) != null)
+            {
+                // Convention defined for nullable type, match nullable properties
+                config = new PropertyConventionConfiguration().Where(p => p.PropertyType == type);
+            }
+            else
+            {
+                // Convention defined for non-nullable types, match both nullabel and non-nullable properties
+                config = new PropertyConventionConfiguration().Where(p => (Nullable.GetUnderlyingType(p.PropertyType) ?? p.PropertyType) == type);
+            }
             ConventionConfigurations.Add(config);
 
             return config;

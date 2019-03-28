@@ -38,6 +38,41 @@ namespace Dapper.FluentMap.Tests
         }
 
         [Fact]
+        public void NullableProperties()
+        {
+            // Arrange
+            FluentMapper.Initialize(c => c.AddConvention<NullableConvention>().ForEntity<TestEntity>());
+            var typeMap = SqlMapper.GetTypeMap(typeof(TestEntity));
+
+            // Act
+            var colValue = typeMap.GetMember("intId");
+            var colValueNotNull = typeMap.GetMember("intOtherId");
+
+            //Assert
+            Assert.NotNull(colValue);
+            Assert.NotNull(colValueNotNull);
+            Assert.Equal(typeof(TestEntity).GetProperty(nameof(TestEntity.Id)), colValue.Property);
+            Assert.Equal(typeof(TestEntity).GetProperty(nameof(TestEntity.OtherId)), colValueNotNull.Property);
+        }
+
+        [Fact]
+        public void ExplicitNullableProperties()
+        {
+            // Arrange
+            FluentMapper.Initialize(c => c.AddConvention<ExplicitNullableConvention>().ForEntity<TestEntityWithNullable>());
+            var typeMap = SqlMapper.GetTypeMap(typeof(TestEntityWithNullable));
+
+            // Act
+            var colValue = typeMap.GetMember("decValue");
+            var colValueNotNull = typeMap.GetMember("decValueNotNull");
+
+            //Assert
+            Assert.NotNull(colValue);
+            Assert.Null(colValueNotNull);
+            Assert.Equal(typeof(TestEntityWithNullable).GetProperty(nameof(TestEntityWithNullable.Value)), colValue.Property);
+        }
+
+        [Fact]
         public void TwoEntitiesWithSamePropertyName()
         {
             // Arrange
@@ -81,6 +116,24 @@ namespace Dapper.FluentMap.Tests
                 Properties<int>().
                     Where(p => p.Name.ToLower() == "id")
                     .Configure(c => c.HasColumnName("autID"));
+            }
+        }
+
+        private class NullableConvention : Convention
+        {
+            public NullableConvention()
+            {
+                Properties<int>()
+                    .Configure(c => c.HasPrefix("int"));
+            }
+        }
+
+        private class ExplicitNullableConvention : Convention
+        {
+            public ExplicitNullableConvention()
+            {
+                Properties<decimal?>()
+                    .Configure(c => c.HasPrefix("dec"));
             }
         }
 
