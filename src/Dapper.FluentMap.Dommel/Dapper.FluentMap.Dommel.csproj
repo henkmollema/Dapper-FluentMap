@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Description>Dapper.FluentMap extension for Dommel support.</Description>
     <Copyright>Copyright © Henk Mollema 2017</Copyright>
-    <VersionPrefix>1.6.0</VersionPrefix>
+    <VersionPrefix>1.7.0</VersionPrefix>
     <Authors>Henk Mollema</Authors>
     <TargetFrameworks>net451;netstandard1.3;netstandard2.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -12,7 +12,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dapper.FluentMap\Dapper.FluentMap.csproj" />
-    <PackageReference Include="Dapper" Version="1.50.5" />
-    <PackageReference Include="Dommel" Version="1.10.1" />
+    <PackageReference Include="Dapper" Version="1.60.1" />
+    <PackageReference Include="Dommel" Version="1.11.0" />
   </ItemGroup>
 </Project>
