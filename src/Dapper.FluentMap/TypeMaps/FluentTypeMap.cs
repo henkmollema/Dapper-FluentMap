@@ -48,6 +48,14 @@ namespace Dapper.FluentMap.TypeMaps
                         TypePropertyMapCache.TryAdd(cacheKey, propertyMap.PropertyInfo);
                         return propertyMap.PropertyInfo;
                     }
+#if !NETSTANDARD1_3
+                    else
+                    {
+                        var ignoredPropertyInfo = new IgnoredPropertyInfo();
+                        TypePropertyMapCache.TryAdd(cacheKey, ignoredPropertyInfo);
+                        return ignoredPropertyInfo;
+                    }
+#endif
                 }
             }
 

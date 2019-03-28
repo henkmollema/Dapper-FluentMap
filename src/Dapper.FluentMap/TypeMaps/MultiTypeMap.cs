@@ -103,6 +103,14 @@ namespace Dapper.FluentMap.TypeMaps
                     var result = mapper.GetMember(columnName);
                     if (result != null)
                     {
+#if !NETSTANDARD1_3
+                        if (result is IgnoredPropertyInfo)
+                        {
+                            // The property is explicitly ignored, 
+                            // return null to prevent falling back to default type map of Dapper.
+                            return null;
+                        }
+#endif
                         return result;
                     }
                 }
