@@ -10,6 +10,8 @@ namespace Dapper.FluentMap.Dommel.Resolvers
     /// </summary>
     public class DommelTableNameResolver : DommelMapper.ITableNameResolver
     {
+        private readonly DommelMapper.ITableNameResolver DefaultResolver = new DommelMapper.DefaultTableNameResolver();
+
         /// <inheritdoc />
         public string ResolveTableName(Type type)
         {
@@ -24,7 +26,7 @@ namespace Dapper.FluentMap.Dommel.Resolvers
                 }
             }
 
-            return DommelMapper.Resolvers.Default.TableNameResolver.ResolveTableName(type);
+            return DefaultResolver.ResolveTableName(type);
         }
     }
 }

@@ -12,47 +12,45 @@ namespace Dapper.FluentMap.Dommel.Resolvers
     /// </summary>
     public class DommelKeyPropertyResolver : DommelMapper.IKeyPropertyResolver
     {
-        /// <inheritdoc/>
-        public PropertyInfo ResolveKeyProperty(Type type)
-        {
-            bool isIdentity;
-            return ResolveKeyProperty(type, out isIdentity);
-        }
+        private readonly DommelMapper.IKeyPropertyResolver DefaultResolver = new DommelMapper.DefaultKeyPropertyResolver();
 
         /// <inheritdoc/>
-        public PropertyInfo ResolveKeyProperty(Type type, out bool isIdentity)
+        public KeyPropertyInfo[] ResolveKeyProperties(Type type)
         {
             IEntityMap entityMap;
             if (!FluentMapper.EntityMaps.TryGetValue(type, out entityMap))
             {
-                return DommelMapper.Resolvers.Default.KeyPropertyResolver.ResolveKeyProperty(type, out isIdentity);
+                return DefaultResolver.ResolveKeyProperties(type);
             }
 
             var mapping = entityMap as IDommelEntityMap;
             if (mapping != null)
             {
-                var keyPropertyMaps = entityMap.PropertyMaps.OfType<DommelPropertyMap>().Where(e => e.Key).ToList();
+                var allPropertyMaps = entityMap.PropertyMaps.OfType<DommelPropertyMap>();
+                var keyPropertyMaps = allPropertyMaps.Where(e => e.Key);
+                var keyPropertyInfos = keyPropertyMaps.Select(x => new KeyPropertyInfo(x.PropertyInfo)).ToArray();
 
-                if (keyPropertyMaps.Count == 1)
+                // Now make sure there aren't any missing key properties that weren't explicitly defined in the mapping.
+                try
                 {
-                    var keyPropertyMap = keyPropertyMaps[0];
-                    isIdentity = keyPropertyMap.Identity;
-                    return keyPropertyMap.PropertyInfo;
+                    // Make sure to exclude any keys that were defined in the dommel entity map and not marked as keys.
+                    var defaultKeyPropertyInfos = DefaultResolver.ResolveKeyProperties(type).Where(x => allPropertyMaps.Count(y => y.PropertyInfo.Equals(x.Property)) == 0);
+                    keyPropertyInfos = keyPropertyInfos.Union(defaultKeyPropertyInfos).ToArray();
+                } 
+                catch
+                {
+                    // There could be no default Ids found. This is okay as long as we found a custom one.
+                    if (keyPropertyInfos.Length == 0)
+                    {
+                        throw new InvalidOperationException($"Could not find the key properties for type '{type.FullName}'.");
+                    }
                 }
 
-                if (keyPropertyMaps.Count > 1)
-                {
-                    var msg = string.Format("Found multiple key properties on type '{0}'. This is not yet supported. The following key properties were found:{1}{2}",
-                                            type.FullName,
-                                            Environment.NewLine,
-                                            string.Join(Environment.NewLine, keyPropertyMaps.Select(t => t.PropertyInfo.Name)));
-
-                    throw new Exception(msg);
-                }
+                return keyPropertyInfos;
             }
 
             // Fall back to the default mapping strategy.
-            return DommelMapper.Resolvers.Default.KeyPropertyResolver.ResolveKeyProperty(type, out isIdentity);
+            return DefaultResolver.ResolveKeyProperties(type);
         }
     }
 }

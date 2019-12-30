@@ -11,6 +11,8 @@ namespace Dapper.FluentMap.Dommel.Resolvers
     /// </summary>
     public class DommelColumnNameResolver : DommelMapper.IColumnNameResolver
     {
+        private readonly DommelMapper.IColumnNameResolver DefaultResolver = new DommelMapper.DefaultColumnNameResolver();
+
         /// <inheritdoc/>
         public string ResolveColumnName(PropertyInfo propertyInfo)
         {
@@ -36,7 +38,7 @@ namespace Dapper.FluentMap.Dommel.Resolvers
                 }
             }
 
-            return DommelMapper.Resolvers.Default.ColumnNameResolver.ResolveColumnName(propertyInfo);
+            return DefaultResolver.ResolveColumnName(propertyInfo);
         }
     }
 }
