@@ -1,4 +1,4 @@
-namespace Dapper.FluentMap.Tests
+﻿namespace Dapper.FluentMap.Tests
 {
     public class TestEntity
     {

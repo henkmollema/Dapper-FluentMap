@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Dapper.FluentMap.Conventions;
+using Dapper.FluentMap.Mapping;
+using Dapper.FluentMap.Utils;
+using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using Dapper.FluentMap.Conventions;
-using Dapper.FluentMap.Mapping;
-using Dapper.FluentMap.Utils;
 
 namespace Dapper.FluentMap.Configuration
 {
@@ -14,6 +14,7 @@ namespace Dapper.FluentMap.Configuration
     public class FluentConventionConfiguration
     {
         private readonly Convention _convention;
+        private object convention;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FluentConventionConfiguration"/> class,
@@ -23,6 +24,11 @@ namespace Dapper.FluentMap.Configuration
         public FluentConventionConfiguration(Convention convention)
         {
             _convention = convention;
+        }
+
+        public FluentConventionConfiguration(object convention)
+        {
+            this.convention = convention;
         }
 
         /// <summary>

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Dapper.FluentMap.Mapping;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using Dapper.FluentMap.Mapping;
 
 namespace Dapper.FluentMap.Conventions
 {

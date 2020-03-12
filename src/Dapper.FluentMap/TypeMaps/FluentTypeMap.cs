@@ -1,7 +1,7 @@
+﻿using Dapper.FluentMap.Mapping;
 using System;
 using System.Linq;
 using System.Reflection;
-using Dapper.FluentMap.Mapping;
 
 namespace Dapper.FluentMap.TypeMaps
 {

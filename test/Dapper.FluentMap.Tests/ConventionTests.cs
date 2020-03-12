@@ -1,6 +1,7 @@
-﻿using System.Linq;
-using System.Reflection;
 using Dapper.FluentMap.Conventions;
+using System;
+using System.Linq;
+using System.Reflection;
 using Xunit;
 
 namespace Dapper.FluentMap.Tests

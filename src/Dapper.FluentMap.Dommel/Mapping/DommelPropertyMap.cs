@@ -1,5 +1,8 @@
-﻿using System.Reflection;
-using Dapper.FluentMap.Mapping;
+﻿using Dapper.FluentMap.Mapping;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Text;
 
 namespace Dapper.FluentMap.Dommel.Mapping
 {

@@ -1,5 +1,4 @@
-#if !NETSTANDARD1_3
-using System;
+﻿using System;
 using System.Globalization;
 using System.Reflection;
 
@@ -25,4 +24,3 @@ namespace Dapper.FluentMap.TypeMaps
         public override void SetValue(object obj, object value, BindingFlags invokeAttr, Binder binder, object[] index, CultureInfo culture) => throw new NotImplementedException();
     }
 }
-#endif

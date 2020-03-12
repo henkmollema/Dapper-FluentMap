@@ -1,8 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.ComponentModel;
-using Dapper.FluentMap.Conventions;
+﻿using Dapper.FluentMap.Conventions;
 using Dapper.FluentMap.Mapping;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
 
 namespace Dapper.FluentMap.Configuration
 {

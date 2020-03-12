@@ -1,17 +1,23 @@
-﻿using System.Linq;
-using System.Reflection;
-using Dapper.FluentMap.Dommel.Mapping;
+﻿using Dapper.FluentMap.Dommel.Mapping;
 using Dapper.FluentMap.Mapping;
 using Dommel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using static Dommel.DommelMapper;
 
 namespace Dapper.FluentMap.Dommel.Resolvers
 {
     /// <summary>
     /// Implements the <see cref="DommelMapper.IColumnNameResolver"/> interface by using the configured mapping.
     /// </summary>
-    public class DommelColumnNameResolver : DommelMapper.IColumnNameResolver
+    public class DommelColumnNameResolver : IColumnNameResolver
     {
         /// <inheritdoc/>
+
+        private DefaultColumnNameResolver _defaultColumnNameResolver = new DefaultColumnNameResolver();
         public string ResolveColumnName(PropertyInfo propertyInfo)
         {
             if (propertyInfo.DeclaringType != null)
@@ -24,7 +30,7 @@ namespace Dapper.FluentMap.Dommel.Resolvers
                 if (FluentMapper.EntityMaps.TryGetValue(propertyInfo.ReflectedType, out entityMap))
 #endif
                 {
-                    var mapping = entityMap as IDommelEntityMap;
+                    IDommelEntityMap mapping = entityMap as IDommelEntityMap;
                     if (mapping != null)
                     {
                         var propertyMaps = entityMap.PropertyMaps.Where(m => m.PropertyInfo.Name == propertyInfo.Name).ToList();
@@ -36,7 +42,7 @@ namespace Dapper.FluentMap.Dommel.Resolvers
                 }
             }
 
-            return DommelMapper.Resolvers.Default.ColumnNameResolver.ResolveColumnName(propertyInfo);
+            return _defaultColumnNameResolver.ResolveColumnName(propertyInfo);
         }
     }
 }

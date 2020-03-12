@@ -1,18 +1,23 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Version>2.0.30</Version>
+    <Authors>Henk Mollema, Pablo Andrés Schrank</Authors>
+    <Company>Henk Mollema</Company>
+    <Product>Dapper.FluentMap.Dommel</Product>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Dapper.FluentMap extension for Dommel support.</Description>
     <Copyright>Copyright © Henk Mollema 2017</Copyright>
-    <VersionPrefix>1.7.0</VersionPrefix>
-    <Authors>Henk Mollema</Authors>
-    <TargetFrameworks>net451;netstandard1.3;netstandard2.0</TargetFrameworks>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PackageTags>dapper;fluentmap;dommel</PackageTags>
-    <PackageProjectUrl>https://github.com/henkmollema/Dapper-FluentMap</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/henkmollema/Dapper-FluentMap/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.30" />
+    <PackageReference Include="Dommel" Version="2.0.0-beta6" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Dapper.FluentMap\Dapper.FluentMap.csproj" />
-    <PackageReference Include="Dapper" Version="1.60.6" />
-    <PackageReference Include="Dommel" Version="1.11.0" />
   </ItemGroup>
+
 </Project>

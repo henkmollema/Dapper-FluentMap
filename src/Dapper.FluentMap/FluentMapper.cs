@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using Dapper.FluentMap.Configuration;
+﻿using Dapper.FluentMap.Configuration;
 using Dapper.FluentMap.Conventions;
 using Dapper.FluentMap.Mapping;
 using Dapper.FluentMap.TypeMaps;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 namespace Dapper.FluentMap
 {

@@ -1,17 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using Dapper.FluentMap.Mapping;
+﻿using Dapper.FluentMap.Mapping;
 using Dommel;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Text;
+using System.Linq;
+using static Dommel.DommelMapper;
 
 namespace Dapper.FluentMap.Dommel.Resolvers
 {
     /// <summary>
     /// Implements the <see cref="DommelMapper.IPropertyResolver"/> interface by using the configured mapping.
     /// </summary>
-    public class DommelPropertyResolver : DommelMapper.PropertyResolverBase
+    public class DommelPropertyResolver : DefaultPropertyResolver
     {
+        private DefaultPropertyResolver _defaultPropertyResolver;
         /// <inheritdoc/>
         protected override IEnumerable<PropertyInfo> FilterComplexTypes(IEnumerable<PropertyInfo> properties)
         {
@@ -45,7 +48,7 @@ namespace Dapper.FluentMap.Dommel.Resolvers
             }
             else
             {
-                foreach (var property in DommelMapper.Resolvers.Default.PropertyResolver.ResolveProperties(type))
+                foreach (var property in _defaultPropertyResolver.ResolveProperties(type))
                 {
                     yield return property;
                 }

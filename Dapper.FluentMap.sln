@@ -1,22 +1,22 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26114.2
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{580E3446-6579-4414-9875-970849E635E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapper.FluentMap", "src\Dapper.FluentMap\Dapper.FluentMap.csproj", "{0A936C70-8EFE-4EE8-AEA7-07F10792739F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{04C7C13D-7D23-42C4-9D6F-B76D94BCAA8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapper.FluentMap.Dommel", "src\Dapper.FluentMap.Dommel\Dapper.FluentMap.Dommel.csproj", "{0208A1C1-10A1-4187-A533-2F9A94B1BD4B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{298DFA29-511A-4EC7-BEDD-61F2AADBAC08}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{9E187E9E-B160-4D37-A5DB-E645BC49EB68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper.FluentMap.Tests", "test\Dapper.FluentMap.Tests\Dapper.FluentMap.Tests.csproj", "{4E9AFBE9-86B3-4BBB-88E1-B8F8324F61DC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CFF3256E-B05C-4B54-AB1C-B1FE1E42F222}"
 	ProjectSection(SolutionItems) = preProject
 		NuGet.Config = NuGet.Config
 	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{742442F2-CAE7-4DC8-BD73-8C54C0005A53}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper.FluentMap", "src\Dapper.FluentMap\Dapper.FluentMap.csproj", "{457E0B9B-F6A4-42C6-BFAE-6F8C71D1F435}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper.FluentMap.Tests", "test\Dapper.FluentMap.Tests\Dapper.FluentMap.Tests.csproj", "{8901F2FD-F98B-484B-A20A-7844A39C7458}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper.FluentMap.Dommel", "src\Dapper.FluentMap.Dommel\Dapper.FluentMap.Dommel.csproj", "{E60B79F6-FE71-44E0-BE88-BFA269378EDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,25 +24,28 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{457E0B9B-F6A4-42C6-BFAE-6F8C71D1F435}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{457E0B9B-F6A4-42C6-BFAE-6F8C71D1F435}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{457E0B9B-F6A4-42C6-BFAE-6F8C71D1F435}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{457E0B9B-F6A4-42C6-BFAE-6F8C71D1F435}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8901F2FD-F98B-484B-A20A-7844A39C7458}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8901F2FD-F98B-484B-A20A-7844A39C7458}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8901F2FD-F98B-484B-A20A-7844A39C7458}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8901F2FD-F98B-484B-A20A-7844A39C7458}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E60B79F6-FE71-44E0-BE88-BFA269378EDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E60B79F6-FE71-44E0-BE88-BFA269378EDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E60B79F6-FE71-44E0-BE88-BFA269378EDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E60B79F6-FE71-44E0-BE88-BFA269378EDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A936C70-8EFE-4EE8-AEA7-07F10792739F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A936C70-8EFE-4EE8-AEA7-07F10792739F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A936C70-8EFE-4EE8-AEA7-07F10792739F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A936C70-8EFE-4EE8-AEA7-07F10792739F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0208A1C1-10A1-4187-A533-2F9A94B1BD4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0208A1C1-10A1-4187-A533-2F9A94B1BD4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0208A1C1-10A1-4187-A533-2F9A94B1BD4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0208A1C1-10A1-4187-A533-2F9A94B1BD4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E9AFBE9-86B3-4BBB-88E1-B8F8324F61DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E9AFBE9-86B3-4BBB-88E1-B8F8324F61DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E9AFBE9-86B3-4BBB-88E1-B8F8324F61DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E9AFBE9-86B3-4BBB-88E1-B8F8324F61DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{457E0B9B-F6A4-42C6-BFAE-6F8C71D1F435} = {580E3446-6579-4414-9875-970849E635E5}
-		{8901F2FD-F98B-484B-A20A-7844A39C7458} = {742442F2-CAE7-4DC8-BD73-8C54C0005A53}
-		{E60B79F6-FE71-44E0-BE88-BFA269378EDB} = {580E3446-6579-4414-9875-970849E635E5}
+		{0A936C70-8EFE-4EE8-AEA7-07F10792739F} = {298DFA29-511A-4EC7-BEDD-61F2AADBAC08}
+		{0208A1C1-10A1-4187-A533-2F9A94B1BD4B} = {298DFA29-511A-4EC7-BEDD-61F2AADBAC08}
+		{4E9AFBE9-86B3-4BBB-88E1-B8F8324F61DC} = {9E187E9E-B160-4D37-A5DB-E645BC49EB68}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ED1A4D54-CFBE-48B1-BDE3-FE9EB58A8F9F}
 	EndGlobalSection
 EndGlobal

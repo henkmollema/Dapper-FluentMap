@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Dapper.FluentMap.Utils;
+using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
-using Dapper.FluentMap.Utils;
+using System.Text;
 using Xunit;
 
 namespace Dapper.FluentMap.Tests
