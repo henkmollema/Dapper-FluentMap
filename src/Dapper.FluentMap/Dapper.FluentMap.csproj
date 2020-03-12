@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Henk Mollema, Pablo Andrés Schrank</Authors>
+    <Authors>Henk Mollema</Authors>
     <Company>Henk Mollema</Company>
     <Product>Dapper.FluentMap</Product>
     <Version>2.0.30</Version>
