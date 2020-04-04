@@ -4,7 +4,7 @@
     <Copyright>Copyright © Henk Mollema 2018</Copyright>
     <VersionPrefix>2.0.0-beta2</VersionPrefix>
     <Authors>Henk Mollema</Authors>
-    <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <WarningsAsErrors>true</WarningsAsErrors>
     <PackageTags>dapper;fluentmap;dommel</PackageTags>

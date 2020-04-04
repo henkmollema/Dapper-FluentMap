@@ -4,7 +4,7 @@
     <Copyright>Copyright © Henk Mollema 2018</Copyright>
     <VersionPrefix>2.0.0-beta2</VersionPrefix>
     <Authors>Henk Mollema</Authors>
-    <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <WarningsAsErrors>true</WarningsAsErrors>
     <PackageTags>c#;dapper;mapping;fluentmap</PackageTags>
@@ -12,6 +12,6 @@
     <PackageLicenseUrl>https://github.com/henkmollema/Dapper-FluentMap/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="1.50.5" />
+    <PackageReference Include="Dapper" Version="2.0.30" />
   </ItemGroup>
 </Project>
