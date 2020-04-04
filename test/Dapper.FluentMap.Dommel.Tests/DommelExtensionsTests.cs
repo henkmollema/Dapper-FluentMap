@@ -19,7 +19,9 @@ namespace Dapper.FluentMap.Dommel.Tests
                 builder.ToTable("test");
                 builder.Map(p => p.Id)
                     .ToColumn("id")
-                    .IsKey();
+                    .IsKey()
+                    .IsIdentity()
+                    .IsComputed();
             });
 
             // Assert
@@ -51,6 +53,8 @@ namespace Dapper.FluentMap.Dommel.Tests
             var dommelPropertyMapping = Assert.IsType<DommelPropertyMap>(propertyMapping);
             Assert.Equal("id", dommelPropertyMapping.ColumnName);
             Assert.True(dommelPropertyMapping.Key);
+            Assert.True(dommelPropertyMapping.Identity);
+            Assert.True(dommelPropertyMapping.Computed);
             Assert.Equal(typeof(TestEntity).GetProperty("Id"), dommelPropertyMapping.PropertyInfo);
         }
     }
@@ -62,7 +66,9 @@ namespace Dapper.FluentMap.Dommel.Tests
             ToTable("test");
             Map(p => p.Id)
                 .ToColumn("id")
-                .IsKey();
+                .IsKey()
+                .IsIdentity()
+                .IsComputed();
         }
     }
 

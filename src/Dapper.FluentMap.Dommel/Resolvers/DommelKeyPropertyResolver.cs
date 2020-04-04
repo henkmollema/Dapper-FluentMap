@@ -1,7 +1,9 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
 using Dapper.FluentMap.Dommel.Mapping;
+using Dommel;
 using static Dommel.DommelMapper;
 
 namespace Dapper.FluentMap.Dommel.Resolvers
@@ -14,29 +16,34 @@ namespace Dapper.FluentMap.Dommel.Resolvers
         private static readonly DefaultKeyPropertyResolver _defaultKeyPropertyResolver = new DefaultKeyPropertyResolver();
 
         /// <inheritdoc/>
-        public PropertyInfo[] ResolveKeyProperties(Type type) => ResolveKeyProperties(type, out var isIdentity);
-
-        /// <inheritdoc/>
-        public PropertyInfo[] ResolveKeyProperties(Type type, out bool isIdentity)
+        public KeyPropertyInfo[] ResolveKeyProperties(Type type)
         {
-            if (!FluentMapper.Configuration.EntityMaps.TryGetValue(type, out var entityMap))
+            if (FluentMapper.Configuration.EntityMaps.TryGetValue(type, out var entityMap))
             {
-                return _defaultKeyPropertyResolver.ResolveKeyProperties(type, out isIdentity);
-            }
-
-            if (entityMap is IDommelEntityMap dommelEntityMap)
-            {
-                isIdentity = true;
-                return entityMap
+                if (entityMap is IDommelEntityMap dommelEntityMap)
+                {
+                    return entityMap
                     .PropertyMaps
                     .OfType<DommelPropertyMap>()
                     .Where(m => m.Key)
-                    .Select(m => m.PropertyInfo)
+                    .Select(m =>
+                    {
+                        if (m.Identity)
+                        {
+                            return new KeyPropertyInfo(m.PropertyInfo, DatabaseGeneratedOption.Identity);
+                        }
+                        if (m.Computed)
+                        {
+                            return new KeyPropertyInfo(m.PropertyInfo, DatabaseGeneratedOption.Computed);
+                        }
+                        return new KeyPropertyInfo(m.PropertyInfo);
+                    })
                     .ToArray();
+                }
             }
 
             // Fall back to the default mapping strategy.
-            return _defaultKeyPropertyResolver.ResolveKeyProperties(type, out isIdentity);
+            return _defaultKeyPropertyResolver.ResolveKeyProperties(type);
         }
     }
 }
