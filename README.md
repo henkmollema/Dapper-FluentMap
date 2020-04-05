@@ -17,6 +17,7 @@ Using the .NET Core CLI:
 `dotnet add package Dapper.FluentMap`
 
 Using the NuGet Package Manager:
+
 `PM> Install-Package Dapper.FluentMap`
 
 ## Usage
@@ -44,7 +45,7 @@ Then add your entity map to the configuration.
 ```csharp
 FluentMapper.Initialize(config =>
 {
-	config.AddMap(new ProductMap());
+    config.AddMap(new ProductMap());
 });
 ```
 
@@ -53,7 +54,7 @@ You can also map your property names without the need of the [`EntityMap<TEntity
 ```csharp
 FluentMapper.Initialize(config =>
 {
-	config.Entity<Product>(builder =>
+    config.Entity<Product>(builder =>
     {
         builder.Map(p => p.Name).ToColumn("strName");
         builder.Map(p => p.LastModified).Ignore();
@@ -184,7 +185,7 @@ And for the inline configuration use `DommelEntity<TEntity>`:
 ```csharp
 FluentMapper.Initialize(config =>
 {
-	config.DommelEntity<Product>(builder =>
+    config.DommelEntity<Product>(builder =>
     {
         builder.Map(p => p.Name).ToColumn("strName");
         builder.Map(p => p.LastModified).Ignore();
