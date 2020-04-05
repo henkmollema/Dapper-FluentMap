@@ -9,16 +9,15 @@ Provides a simple API to fluently map POCO properties to database columns when u
 
 This [Dapper](https://github.com/StackExchange/dapper-dot-net) extension allows you to fluently configure the mapping between POCO properties and database columns. This keeps your POCO's clean of mapping attributes. The functionality is similar to [Entity Framework Fluent API](http://msdn.microsoft.com/nl-nl/data/jj591617.aspx). If you have any questions, suggestions or bugs, please don't hesitate to [contact me](mailto:henkmollema@gmail.com) or create an issue.
 
-<hr>
-
 ## Download
 Dapper.FluentMap is available on [NuGet](https://www.nuget.org/packages/Dapper.FluentMap).
 
 Using the .NET Core CLI:
-#### `dotnet add package Dapper.FluentMap`
+
+`dotnet add package Dapper.FluentMap`
 
 Using the NuGet Package Manager:
-#### `PM> Install-Package Dapper.FluentMap`
+`PM> Install-Package Dapper.FluentMap`
 
 ## Usage
 ### Configuration
@@ -131,9 +130,11 @@ Dommel contains a set of extensions methods providing easy CRUD operations using
 Dapper.FluentMap is available on [NuGet](https://www.nuget.org/packages/Dapper.FluentMap.Dommel).
 
 Using the .NET Core CLI:
+
 `dotnet add package Dapper.FluentMap.Dommel`
 
 Using the NuGet Package Manager:
+
 `PM> Install-Package Dapper.FluentMap.Dommel`
 
 #### Usage
