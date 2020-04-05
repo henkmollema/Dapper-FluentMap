@@ -1,25 +1,27 @@
 # Dapper.FluentMap 
 Provides a simple API to fluently map POCO properties to database columns when using Dapper. 
 
-<hr>
-
 | Windows | Linux/OSX | NuGet |
 | --- | --- | --- |
 | [![Windows Build status](https://ci.appveyor.com/api/projects/status/x6grw3cjuyud9c76?svg=true)](https://ci.appveyor.com/project/henkmollema/dapper-fluentmap) | [![Linux Build Status](https://travis-ci.org/henkmollema/Dapper-FluentMap.svg?branch=master)](https://travis-ci.org/henkmollema/Dapper-FluentMap) | [![NuGet Version](http://img.shields.io/nuget/v/Dapper.FluentMap.svg)](https://www.nuget.org/packages/Dapper.FluentMap/ "NuGet version") |
 
-### Introduction
+## Introduction
 
 This [Dapper](https://github.com/StackExchange/dapper-dot-net) extension allows you to fluently configure the mapping between POCO properties and database columns. This keeps your POCO's clean of mapping attributes. The functionality is similar to [Entity Framework Fluent API](http://msdn.microsoft.com/nl-nl/data/jj591617.aspx). If you have any questions, suggestions or bugs, please don't hesitate to [contact me](mailto:henkmollema@gmail.com) or create an issue.
 
 <hr>
 
-### Download
-[![Download Dapper.FluentMap on NuGet](http://i.imgur.com/Rs483do.png "Download Dapper.FluentMap on NuGet")](https://www.nuget.org/packages/Dapper.FluentMap)
+## Download
+Dapper.FluentMap is available on [NuGet](https://www.nuget.org/packages/Dapper.FluentMap).
 
-<hr>
+Using the .NET Core CLI:
+#### `dotnet add package Dapper.FluentMap`
 
-### Usage
-#### Manual mapping
+Using the NuGet Package Manager:
+#### `PM> Install-Package Dapper.FluentMap`
+
+## Usage
+### Configuration
 You can map property names manually using the [`EntityMap<TEntity>`](https://github.com/henkmollema/Dapper-FluentMap/blob/master/src/Dapper.FluentMap/Mapping/EntityMap.cs) class. When creating a derived class, the constructor gives you access to the `Map` method, allowing you to specify to which database column name a certain property of `TEntity` should map to.
 ```csharp
 public class ProductMap : EntityMap<Product>
@@ -39,15 +41,28 @@ public class ProductMap : EntityMap<Product>
 
 Column names are mapped case sensitive by default. You can change this by specifying the `caseSensitive` parameter in the `ToColumn()` method: `Map(p => p.Name).ToColumn("strName", caseSensitive: false)`.
 
-**Initialization:**
+Then add your entity map to the configuration.
 ```csharp
 FluentMapper.Initialize(config =>
-    {
-       config.AddMap(new ProductMap());
-    });
+{
+	config.AddMap(new ProductMap());
+});
 ```
 
-#### Convention based mapping
+### Inline Configuration
+You can also map your property names without the need of the [`EntityMap<TEntity>`](https://github.com/henkmollema/Dapper-FluentMap/blob/master/src/Dapper.FluentMap/Mapping/EntityMap.cs) class.
+```csharp
+FluentMapper.Initialize(config =>
+{
+	config.Entity<Product>(builder =>
+    {
+        builder.Map(p => p.Name).ToColumn("strName");
+        builder.Map(p => p.LastModified).Ignore();
+    });
+});
+```
+
+### Convention based mapping
 When you have a lot of entity types, creating manual mapping classes can become plumbing. If your column names adhere to some kind of naming convention, you might be better off by configuring a mapping convention.
 
 You can create a convention by creating a class which derives from the [`Convention`](https://github.com/henkmollema/Dapper-FluentMap/blob/master/src/Dapper.FluentMap/Conventions/Convention.cs) class. In the contructor you can configure the property conventions:
@@ -92,7 +107,7 @@ FluentMapper.Initialize(config =>
     });
 ```
 
-##### Transformations
+#### Transformations
 The convention API allows you to configure transformation of property names to database column names. An implementation would look like this:
 ```csharp
 public class PropertyTransformConvention : Convention
@@ -109,10 +124,17 @@ This configuration will map camel case property names to underscore seperated da
 
 <hr>
 
-### [Dommel](https://github.com/henkmollema/Dommel)
+### [Dommel](https://github.com/henkmollema/Dommel) Support
 Dommel contains a set of extensions methods providing easy CRUD operations using Dapper. One of the goals was to provide extension points for resolving table and column names. [Dapper.FluentMap.Dommel](https://github.com/henkmollema/Dapper-FluentMap/tree/master/src/Dapper.FluentMap.Dommel) implements certain interfaces of Dommel and uses the configured mapping. It also provides more mapping functionality.
 
-#### [`PM> Install-Package Dapper.FluentMap.Dommel`](https://www.nuget.org/packages/Dapper.FluentMap.Dommel)
+#### Download
+Dapper.FluentMap is available on [NuGet](https://www.nuget.org/packages/Dapper.FluentMap.Dommel).
+
+Using the .NET Core CLI:
+`dotnet add package Dapper.FluentMap.Dommel`
+
+Using the NuGet Package Manager:
+`PM> Install-Package Dapper.FluentMap.Dommel`
 
 #### Usage
 ##### `DommelEntityMap<TEntity>`
@@ -131,14 +153,18 @@ public class ProductMap : DommelEntityMap<TEntity>
 ```
 
 ##### `DommelPropertyMap<TEntity>`
-This class derives `PropertyMap<TEntity>` and allows you to specify the key property of an entity using the `IsKey` method:
+This class derives `PropertyMap<TEntity>` and allows you to:
+* Specify the key property of an entity using the `IsKey` method.
+* Specify the identity property of an entity using the `IsIdentity` method.
+* Specify the computed property of an entity using the `IsComputed` method.
 
 ```csharp
 public class ProductMap : DommelEntityMap<TEntity>
 {
     public ProductMap()
     {
-        Map(p => p.Id).IsKey();
+        Map(p => p.Id).IsKey().IsIdentity();
+        Map(p => p.PriceAfterTax).IsComputed();
     }
 }
 ```
@@ -147,8 +173,22 @@ You can configure Dapper.FluentMap.Dommel in the `FluentMapper.Initialize()` met
 
 ```csharp
 FluentMapper.Initialize(config =>
+{
+    config.AddMap(new ProductMap());
+    config.ForDommel();
+});
+```
+
+And for the inline configuration use `DommelEntity<TEntity>`:
+```csharp
+FluentMapper.Initialize(config =>
+{
+	config.DommelEntity<Product>(builder =>
     {
-        config.AddMap(new ProductMap());
-        config.ForDommel();
+        builder.Map(p => p.Name).ToColumn("strName");
+        builder.Map(p => p.LastModified).Ignore();
+        builder.ToTable("tblProduct");
     });
+    config.ForDommel();
+});
 ```
