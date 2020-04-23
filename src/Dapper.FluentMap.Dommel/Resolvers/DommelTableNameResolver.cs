@@ -1,5 +1,6 @@
 ﻿using System;
 using Dapper.FluentMap.Dommel.Mapping;
+using Dommel;
 using static Dommel.DommelMapper;
 
 namespace Dapper.FluentMap.Dommel.Resolvers

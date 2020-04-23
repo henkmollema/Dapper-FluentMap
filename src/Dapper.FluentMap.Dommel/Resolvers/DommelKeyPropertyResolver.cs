@@ -16,7 +16,7 @@ namespace Dapper.FluentMap.Dommel.Resolvers
         private static readonly DefaultKeyPropertyResolver _defaultKeyPropertyResolver = new DefaultKeyPropertyResolver();
 
         /// <inheritdoc/>
-        public KeyPropertyInfo[] ResolveKeyProperties(Type type)
+        public ColumnPropertyInfo[] ResolveKeyProperties(Type type)
         {
             if (FluentMapper.Configuration.EntityMaps.TryGetValue(type, out var entityMap))
             {
@@ -30,13 +30,13 @@ namespace Dapper.FluentMap.Dommel.Resolvers
                     {
                         if (m.Identity)
                         {
-                            return new KeyPropertyInfo(m.PropertyInfo, DatabaseGeneratedOption.Identity);
+                            return new ColumnPropertyInfo(m.PropertyInfo, DatabaseGeneratedOption.Identity);
                         }
                         if (m.Computed)
                         {
-                            return new KeyPropertyInfo(m.PropertyInfo, DatabaseGeneratedOption.Computed);
+                            return new ColumnPropertyInfo(m.PropertyInfo, DatabaseGeneratedOption.Computed);
                         }
-                        return new KeyPropertyInfo(m.PropertyInfo);
+                        return new ColumnPropertyInfo(m.PropertyInfo);
                     })
                     .ToArray();
                 }
