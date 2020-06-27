@@ -16,6 +16,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Dapper.FluentMap\Dapper.FluentMap.csproj" />
     <PackageReference Include="Dapper" Version="2.0.30" />
-    <PackageReference Include="Dommel" Version="2.0.0-beta6" />
+    <PackageReference Include="Dommel" Version="2.0.0" />
   </ItemGroup>
 </Project>
