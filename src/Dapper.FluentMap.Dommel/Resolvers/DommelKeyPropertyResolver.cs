@@ -8,14 +8,14 @@ using Dommel;
 namespace Dapper.FluentMap.Dommel.Resolvers
 {
     /// <summary>
-    /// Implements the <see cref="DommelMapper.IKeyPropertyResolver"/> interface by using the configured mapping.
+    /// Implements the <see cref="IKeyPropertyResolver"/> interface by using the configured mapping.
     /// </summary>
-    public class DommelKeyPropertyResolver : DommelMapper.IKeyPropertyResolver
+    public class DommelKeyPropertyResolver : IKeyPropertyResolver
     {
-        private readonly DommelMapper.IKeyPropertyResolver DefaultResolver = new DommelMapper.DefaultKeyPropertyResolver();
+        private readonly IKeyPropertyResolver DefaultResolver = new DefaultKeyPropertyResolver();
 
         /// <inheritdoc/>
-        public KeyPropertyInfo[] ResolveKeyProperties(Type type)
+        public ColumnPropertyInfo[] ResolveKeyProperties(Type type)
         {
             IEntityMap entityMap;
             if (!FluentMapper.EntityMaps.TryGetValue(type, out entityMap))
@@ -28,7 +28,7 @@ namespace Dapper.FluentMap.Dommel.Resolvers
             {
                 var allPropertyMaps = entityMap.PropertyMaps.OfType<DommelPropertyMap>();
                 var keyPropertyMaps = allPropertyMaps.Where(e => e.Key);
-                var keyPropertyInfos = keyPropertyMaps.Select(x => new KeyPropertyInfo(x.PropertyInfo)).ToArray();
+                var keyPropertyInfos = keyPropertyMaps.Select(x => new ColumnPropertyInfo(x.PropertyInfo)).ToArray();
 
                 // Now make sure there aren't any missing key properties that weren't explicitly defined in the mapping.
                 try

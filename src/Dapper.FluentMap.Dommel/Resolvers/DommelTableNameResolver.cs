@@ -6,11 +6,11 @@ using Dommel;
 namespace Dapper.FluentMap.Dommel.Resolvers
 {
     /// <summary>
-    /// Implements the <see cref="DommelMapper.ITableNameResolver"/> interface by using the configured mapping.
+    /// Implements the <see cref="ITableNameResolver"/> interface by using the configured mapping.
     /// </summary>
-    public class DommelTableNameResolver : DommelMapper.ITableNameResolver
+    public class DommelTableNameResolver : ITableNameResolver
     {
-        private readonly DommelMapper.ITableNameResolver DefaultResolver = new DommelMapper.DefaultTableNameResolver();
+        private readonly ITableNameResolver DefaultResolver = new DefaultTableNameResolver();
 
         /// <inheritdoc />
         public string ResolveTableName(Type type)

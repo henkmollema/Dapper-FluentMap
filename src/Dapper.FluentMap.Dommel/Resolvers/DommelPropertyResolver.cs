@@ -8,11 +8,11 @@ using Dommel;
 namespace Dapper.FluentMap.Dommel.Resolvers
 {
     /// <summary>
-    /// Implements the <see cref="DommelMapper.IPropertyResolver"/> interface by using the configured mapping.
+    /// Implements the <see cref="IPropertyResolver"/> interface by using the configured mapping.
     /// </summary>
-    public class DommelPropertyResolver : DommelMapper.DefaultPropertyResolver
+    public class DommelPropertyResolver : DefaultPropertyResolver
     {
-        private readonly DommelMapper.IPropertyResolver DefaultResolver = new DommelMapper.DefaultPropertyResolver();
+        private readonly IPropertyResolver DefaultResolver = new DefaultPropertyResolver();
 
         /// <inheritdoc/>
         protected override IEnumerable<PropertyInfo> FilterComplexTypes(IEnumerable<PropertyInfo> properties)
@@ -30,7 +30,7 @@ namespace Dapper.FluentMap.Dommel.Resolvers
         }
 
         /// <inheritdoc/>
-        public override IEnumerable<PropertyInfo> ResolveProperties(Type type)
+        public override IEnumerable<ColumnPropertyInfo> ResolveProperties(Type type)
         {
             IEntityMap entityMap;
             if (FluentMapper.EntityMaps.TryGetValue(type, out entityMap))
@@ -41,7 +41,7 @@ namespace Dapper.FluentMap.Dommel.Resolvers
                     var propertyMap = entityMap.PropertyMaps.FirstOrDefault(p => p.PropertyInfo.Name == property.Name);
                     if (propertyMap == null || !propertyMap.Ignored)
                     {
-                        yield return property;
+                        yield return new ColumnPropertyInfo(property);
                     }
                 }
             }
