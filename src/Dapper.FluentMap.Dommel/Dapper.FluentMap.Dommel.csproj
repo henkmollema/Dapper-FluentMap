@@ -11,7 +11,7 @@
     <PackageLicenseUrl>https://github.com/henkmollema/Dapper-FluentMap/blob/master/LICENSE</PackageLicenseUrl>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>
-    <Version>2.0.0-alpha2</Version>
+    <Version>2.0.0-alpha3</Version>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dapper.FluentMap\Dapper.FluentMap.csproj" />
