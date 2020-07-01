@@ -61,6 +61,37 @@ namespace Dapper.FluentMap.Dommel.Tests
             Assert.Single(keys);
         }
 
+        [Fact]
+        public void KeyPropertyIsGenerated()
+        {
+            PreTest();
+
+            FluentMapper.Initialize(c => c.AddMap(new MapSingleCustomIdPropertyMap()));
+
+            var type = typeof(DoubleIdEntity);
+            var keyResolver = new Dommel.Resolvers.DommelKeyPropertyResolver();
+            var keys = keyResolver.ResolveKeyProperties(type);
+
+            var key = keys.FirstOrDefault();
+            Assert.True(key.IsGenerated);
+        }
+
+        [Fact]
+        public void PropertyIsGenerated()
+        {
+            PreTest();
+
+            FluentMapper.Initialize(c => c.AddMap(new MapSingleCustomIdPropertyMap()));
+
+            var type = typeof(DoubleIdEntity);
+            var propertyResolver = new Dommel.Resolvers.DommelPropertyResolver();
+            var properties = propertyResolver.ResolveProperties(type);
+
+            var property = properties.Where(x => x.IsGenerated);
+            Assert.NotEmpty(property);
+
+        }
+
         private static void PreTest()
         {
             FluentMapper.EntityMaps.Clear();

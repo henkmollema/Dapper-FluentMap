@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Dapper.FluentMap.Dommel.Mapping;
 using Dapper.FluentMap.Mapping;
 using Dommel;
 
@@ -41,6 +42,11 @@ namespace Dapper.FluentMap.Dommel.Resolvers
                     var propertyMap = entityMap.PropertyMaps.FirstOrDefault(p => p.PropertyInfo.Name == property.Name);
                     if (propertyMap == null || !propertyMap.Ignored)
                     {
+                        var dommelPropertyMap = propertyMap as DommelPropertyMap;
+                        if (dommelPropertyMap != null)
+                        {
+                            yield return new ColumnPropertyInfo(property, isKey: dommelPropertyMap.Key);
+                        }
                         yield return new ColumnPropertyInfo(property);
                     }
                 }

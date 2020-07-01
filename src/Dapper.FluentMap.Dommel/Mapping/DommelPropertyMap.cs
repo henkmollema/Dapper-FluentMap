@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection;
 using Dapper.FluentMap.Mapping;
 
 namespace Dapper.FluentMap.Dommel.Mapping
@@ -15,6 +16,7 @@ namespace Dapper.FluentMap.Dommel.Mapping
         /// <param name="info">The information about the property.</param>
         public DommelPropertyMap(PropertyInfo info) : base(info)
         {
+            GeneratedOption = DatabaseGeneratedOption.None;
         }
 
         /// <summary>
@@ -26,6 +28,11 @@ namespace Dapper.FluentMap.Dommel.Mapping
         /// Gets a value indicating whether this primary key is an identity.
         /// </summary>
         public bool Identity { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating how the column is generated
+        /// </summary>
+        public DatabaseGeneratedOption GeneratedOption { get; set; }
 
         /// <summary>
         /// Specifies the current property as key for the entity.
@@ -44,6 +51,17 @@ namespace Dapper.FluentMap.Dommel.Mapping
         public DommelPropertyMap IsIdentity()
         {
             Identity = true;
+            return this;
+        }
+
+        /// <summary>
+        /// Specifies how the property is generated.
+        /// </summary>
+        /// <param name="option"></param>
+        /// <returns></returns>
+        public DommelPropertyMap SetGeneratedOption(DatabaseGeneratedOption option)
+        {
+            GeneratedOption = option;
             return this;
         }
     }

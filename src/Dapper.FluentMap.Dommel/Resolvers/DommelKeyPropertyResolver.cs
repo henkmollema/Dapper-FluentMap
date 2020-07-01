@@ -28,7 +28,7 @@ namespace Dapper.FluentMap.Dommel.Resolvers
             {
                 var allPropertyMaps = entityMap.PropertyMaps.OfType<DommelPropertyMap>();
                 var keyPropertyMaps = allPropertyMaps.Where(e => e.Key);
-                var keyPropertyInfos = keyPropertyMaps.Select(x => new ColumnPropertyInfo(x.PropertyInfo)).ToArray();
+                var keyPropertyInfos = keyPropertyMaps.Select(x => new ColumnPropertyInfo(x.PropertyInfo, isKey: true)).ToArray();
 
                 // Now make sure there aren't any missing key properties that weren't explicitly defined in the mapping.
                 try
