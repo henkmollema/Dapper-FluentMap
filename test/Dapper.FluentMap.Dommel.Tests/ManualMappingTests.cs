@@ -77,6 +77,7 @@ namespace Dapper.FluentMap.Dommel.Tests
         }
 
         [Fact]
+
         public void PropertyIsGenerated()
         {
             PreTest();
@@ -102,7 +103,7 @@ namespace Dapper.FluentMap.Dommel.Tests
         {
             public MapWithCustomIdPropertyMap()
             {
-                Map(p => p.CustomId).IsKey().ToColumn("customid");
+                Map(p => p.CustomId).ToColumn("customid").IsIdentity().IsKey();
             }
         }
 
