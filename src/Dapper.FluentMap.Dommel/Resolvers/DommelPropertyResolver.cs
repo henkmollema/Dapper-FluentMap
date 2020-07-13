@@ -47,7 +47,10 @@ namespace Dapper.FluentMap.Dommel.Resolvers
                         {
                             yield return new ColumnPropertyInfo(property, isKey: dommelPropertyMap.Key);
                         }
-                        yield return new ColumnPropertyInfo(property);
+                        else
+                        {
+                            yield return new ColumnPropertyInfo(property);
+                        }
                     }
                 }
             }
