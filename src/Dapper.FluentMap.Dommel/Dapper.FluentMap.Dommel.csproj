@@ -11,7 +11,7 @@
     <PackageLicenseUrl>https://github.com/henkmollema/Dapper-FluentMap/blob/master/LICENSE</PackageLicenseUrl>
     <AssemblyVersion>2.0.0.1</AssemblyVersion>
     <FileVersion>2.0.0.1</FileVersion>
-    <Version>2.0.0-alpha6</Version>
+    <Version>2.0.0-alpha7</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
