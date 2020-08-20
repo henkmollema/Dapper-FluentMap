@@ -10,7 +10,7 @@ namespace Dapper.FluentMap.Dommel.Resolvers
     /// </summary>
     public class DommelTableNameResolver : ITableNameResolver
     {
-        private readonly ITableNameResolver DefaultResolver = new DefaultTableNameResolver();
+        private static readonly ITableNameResolver DefaultResolver = new DefaultTableNameResolver();
 
         /// <inheritdoc />
         public string ResolveTableName(Type type)

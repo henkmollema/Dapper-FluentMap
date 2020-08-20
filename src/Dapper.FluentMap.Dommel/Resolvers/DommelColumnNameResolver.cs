@@ -11,7 +11,7 @@ namespace Dapper.FluentMap.Dommel.Resolvers
     /// </summary>
     public class DommelColumnNameResolver : IColumnNameResolver
     {
-        private readonly IColumnNameResolver DefaultResolver = new DefaultColumnNameResolver();
+        private static readonly IColumnNameResolver DefaultResolver = new DefaultColumnNameResolver();
 
         /// <inheritdoc/>
         public string ResolveColumnName(PropertyInfo propertyInfo)

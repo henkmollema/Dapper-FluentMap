@@ -16,7 +16,6 @@ namespace Dapper.FluentMap.Dommel.Mapping
         /// <param name="info">The information about the property.</param>
         public DommelPropertyMap(PropertyInfo info) : base(info)
         {
-            GeneratedOption = DatabaseGeneratedOption.None;
         }
 
         /// <summary>
@@ -32,7 +31,7 @@ namespace Dapper.FluentMap.Dommel.Mapping
         /// <summary>
         /// Gets a value indicating how the column is generated.
         /// </summary>
-        public DatabaseGeneratedOption GeneratedOption { get; set; }
+        public DatabaseGeneratedOption GeneratedOption { get; set; } = DatabaseGeneratedOption.None;
 
         /// <summary>
         /// Specifies the current property as key for the entity.
@@ -57,8 +56,6 @@ namespace Dapper.FluentMap.Dommel.Mapping
         /// <summary>
         /// Specifies how the property is generated.
         /// </summary>
-        /// <param name="option"></param>
-        /// <returns></returns>
         public DommelPropertyMap SetGeneratedOption(DatabaseGeneratedOption option)
         {
             GeneratedOption = option;

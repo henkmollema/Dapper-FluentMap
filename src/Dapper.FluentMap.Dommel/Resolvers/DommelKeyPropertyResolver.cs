@@ -12,7 +12,7 @@ namespace Dapper.FluentMap.Dommel.Resolvers
     /// </summary>
     public class DommelKeyPropertyResolver : IKeyPropertyResolver
     {
-        private readonly IKeyPropertyResolver DefaultResolver = new DefaultKeyPropertyResolver();
+        private static readonly IKeyPropertyResolver DefaultResolver = new DefaultKeyPropertyResolver();
 
         /// <inheritdoc/>
         public ColumnPropertyInfo[] ResolveKeyProperties(Type type)
@@ -27,8 +27,10 @@ namespace Dapper.FluentMap.Dommel.Resolvers
             if (mapping != null)
             {
                 var allPropertyMaps = entityMap.PropertyMaps.OfType<DommelPropertyMap>();
-                var keyPropertyMaps = allPropertyMaps.Where(e => e.Key);
-                var keyPropertyInfos = keyPropertyMaps.Select(x => new ColumnPropertyInfo(x.PropertyInfo, isKey: true)).ToArray();
+                var keyPropertyInfos = allPropertyMaps
+                     .Where(e => e.Key)
+                     .Select(x => new ColumnPropertyInfo(x.PropertyInfo, isKey: true))
+                     .ToArray();
 
                 // Now make sure there aren't any missing key properties that weren't explicitly defined in the mapping.
                 try
