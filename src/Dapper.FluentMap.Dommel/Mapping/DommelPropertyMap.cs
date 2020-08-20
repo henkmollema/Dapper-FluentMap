@@ -30,7 +30,7 @@ namespace Dapper.FluentMap.Dommel.Mapping
         public bool Identity { get; set; }
 
         /// <summary>
-        /// Gets a value indicating how the column is generated
+        /// Gets a value indicating how the column is generated.
         /// </summary>
         public DatabaseGeneratedOption GeneratedOption { get; set; }
 
