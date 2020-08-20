@@ -4,7 +4,7 @@
     <Copyright>Copyright © Henk Mollema 2017</Copyright>
     <VersionPrefix>2.0.0</VersionPrefix>
     <Authors>Henk Mollema</Authors>
-    <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageTags>dapper;fluentmap;dommel</PackageTags>
     <PackageProjectUrl>https://github.com/henkmollema/Dapper-FluentMap</PackageProjectUrl>
