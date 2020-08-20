@@ -13,7 +13,7 @@ namespace Dapper.FluentMap.Dommel.Resolvers
     /// </summary>
     public class DommelPropertyResolver : DefaultPropertyResolver
     {
-        private readonly IPropertyResolver DefaultResolver = new DefaultPropertyResolver();
+        private static readonly IPropertyResolver DefaultResolver = new DefaultPropertyResolver();
 
         /// <inheritdoc/>
         protected override IEnumerable<PropertyInfo> FilterComplexTypes(IEnumerable<PropertyInfo> properties)
