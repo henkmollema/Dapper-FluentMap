@@ -1,7 +1,6 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26114.2
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{580E3446-6579-4414-9875-970849E635E5}"
 EndProject
@@ -12,11 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{742442F2-CAE7-4DC8-BD73-8C54C0005A53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper.FluentMap", "src\Dapper.FluentMap\Dapper.FluentMap.csproj", "{457E0B9B-F6A4-42C6-BFAE-6F8C71D1F435}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapper.FluentMap", "src\Dapper.FluentMap\Dapper.FluentMap.csproj", "{457E0B9B-F6A4-42C6-BFAE-6F8C71D1F435}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper.FluentMap.Tests", "test\Dapper.FluentMap.Tests\Dapper.FluentMap.Tests.csproj", "{8901F2FD-F98B-484B-A20A-7844A39C7458}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapper.FluentMap.Tests", "test\Dapper.FluentMap.Tests\Dapper.FluentMap.Tests.csproj", "{8901F2FD-F98B-484B-A20A-7844A39C7458}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper.FluentMap.Dommel", "src\Dapper.FluentMap.Dommel\Dapper.FluentMap.Dommel.csproj", "{E60B79F6-FE71-44E0-BE88-BFA269378EDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dapper.FluentMap.Dommel", "src\Dapper.FluentMap.Dommel\Dapper.FluentMap.Dommel.csproj", "{E60B79F6-FE71-44E0-BE88-BFA269378EDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dapper.FluentMap.Dommel.Tests", "test\Dapper.FluentMap.Dommel.Tests\Dapper.FluentMap.Dommel.Tests.csproj", "{DFB62D87-9A74-40DF-A930-8F61A53E0F1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +37,10 @@ Global
 		{E60B79F6-FE71-44E0-BE88-BFA269378EDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E60B79F6-FE71-44E0-BE88-BFA269378EDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E60B79F6-FE71-44E0-BE88-BFA269378EDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFB62D87-9A74-40DF-A930-8F61A53E0F1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFB62D87-9A74-40DF-A930-8F61A53E0F1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFB62D87-9A74-40DF-A930-8F61A53E0F1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFB62D87-9A74-40DF-A930-8F61A53E0F1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,5 +49,9 @@ Global
 		{457E0B9B-F6A4-42C6-BFAE-6F8C71D1F435} = {580E3446-6579-4414-9875-970849E635E5}
 		{8901F2FD-F98B-484B-A20A-7844A39C7458} = {742442F2-CAE7-4DC8-BD73-8C54C0005A53}
 		{E60B79F6-FE71-44E0-BE88-BFA269378EDB} = {580E3446-6579-4414-9875-970849E635E5}
+		{DFB62D87-9A74-40DF-A930-8F61A53E0F1B} = {742442F2-CAE7-4DC8-BD73-8C54C0005A53}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {10834736-59FD-47FF-9344-096247DC48CD}
 	EndGlobalSection
 EndGlobal
