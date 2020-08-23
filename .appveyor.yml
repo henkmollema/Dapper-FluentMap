@@ -1,18 +1,11 @@
 version: '{build}'
 pull_requests:
   do_not_increment_build_number: true
-image: Visual Studio 2017
-init:
-  - git config --global core.autocrlf true
+image: Visual Studio 2019
 build_script:
-  - ps: .\build.ps1
-clone_depth: 1
+  - cmd: dotnet test
 test: off
-deploy: off
 environment:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
-  DOTNET_CLI_TELEMETRY_OPTOUT: 1
-  CI: true  
-branches:
-  only:
-    - master
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  CI: true
