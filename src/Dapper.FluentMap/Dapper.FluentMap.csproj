@@ -2,15 +2,15 @@
   <PropertyGroup>
     <Description>Simple API to fluently map POCO properties to database columns when using Dapper.</Description>
     <Copyright>Copyright © Henk Mollema 2017</Copyright>
-    <VersionPrefix>1.8.1</VersionPrefix>
+    <VersionPrefix>2.0.0</VersionPrefix>
     <Authors>Henk Mollema</Authors>
-    <TargetFrameworks>net451;netstandard1.3;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageTags>c#;dapper;mapping;fluentmap</PackageTags>
     <PackageProjectUrl>https://github.com/henkmollema/Dapper-FluentMap</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/henkmollema/Dapper-FluentMap/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="1.60.6" />
+    <PackageReference Include="Dapper" Version="2.0.35" />
   </ItemGroup>
 </Project>
