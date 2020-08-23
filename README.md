@@ -1,5 +1,5 @@
-# Dapper.FluentMap 
-Provides a simple API to fluently map POCO properties to database columns when using Dapper. 
+# Dapper.FluentMap
+Provides a simple API to fluently map POCO properties to database columns when using Dapper.
 
 <hr>
 
@@ -29,7 +29,7 @@ public class ProductMap : EntityMap<Product>
         // Map property 'Name' to column 'strName'.
         Map(p => p.Name)
             .ToColumn("strName");
-            
+
         // Ignore the 'LastModified' property when mapping.
         Map(p => p.LastModified)
             .Ignore();
@@ -124,7 +124,7 @@ public class ProductMap : DommelEntityMap<TEntity>
     public ProductMap()
     {
         ToTable("tblProduct");
-        
+
         // ...
     }
 }

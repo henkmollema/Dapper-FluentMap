@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>Dapper.FluentMap extension for Dommel support.</Description>
-    <Copyright>Copyright © Henk Mollema 2017</Copyright>
+    <Copyright>Copyright © Henk Mollema 2014</Copyright>
     <VersionPrefix>2.0.0</VersionPrefix>
     <Authors>Henk Mollema</Authors>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
