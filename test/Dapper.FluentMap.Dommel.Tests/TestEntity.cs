@@ -30,4 +30,10 @@ namespace Dapper.FluentMap.Dommel.Tests
     {
         public int Id { get; set; }
     }
+
+    public class CompositeKeyEntity
+    {
+        public int KeyPartOne { get; set; }
+        public int KeyPartTwo { get; set; }
+    }
 }

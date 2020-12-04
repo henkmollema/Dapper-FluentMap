@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
 using Dapper.FluentMap.Dommel.Mapping;
@@ -45,7 +46,7 @@ namespace Dapper.FluentMap.Dommel.Resolvers
                         var dommelPropertyMap = propertyMap as DommelPropertyMap;
                         if (dommelPropertyMap != null)
                         {
-                            yield return new ColumnPropertyInfo(property, isKey: dommelPropertyMap.Key);
+                            yield return new ColumnPropertyInfo(property, dommelPropertyMap.GeneratedOption ?? (dommelPropertyMap.Key ? DatabaseGeneratedOption.Identity : DatabaseGeneratedOption.None));
                         }
                         else
                         {
