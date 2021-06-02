@@ -31,7 +31,7 @@ namespace Dapper.FluentMap.Dommel.Mapping
         /// <summary>
         /// Gets a value indicating how the column is generated.
         /// </summary>
-        public DatabaseGeneratedOption GeneratedOption { get; set; } = DatabaseGeneratedOption.None;
+        public DatabaseGeneratedOption? GeneratedOption { get; set; }
 
         /// <summary>
         /// Specifies the current property as key for the entity.

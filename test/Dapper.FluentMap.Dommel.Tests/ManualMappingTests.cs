@@ -1,5 +1,6 @@
 using Dapper.FluentMap.Dommel.Mapping;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using Xunit;
 
@@ -93,6 +94,36 @@ namespace Dapper.FluentMap.Dommel.Tests
 
         }
 
+        [Fact]
+        public void EntityMapsToMultipleKeys()
+        {
+            PreTest();
+
+            FluentMapper.Initialize(c => c.AddMap(new MapCompositeKeyPropertyMap()));
+
+            var type = typeof(CompositeKeyEntity);
+            var keyResolver = new Dommel.Resolvers.DommelKeyPropertyResolver();
+            var keys = keyResolver.ResolveKeyProperties(type);
+
+            Assert.True(keys.Count() == 2);
+            Assert.All(keys, k => Assert.False(k.IsGenerated));
+        }
+
+        [Fact]
+
+        public void PropertiesAreNotGenerated()
+        {
+            PreTest();
+
+            FluentMapper.Initialize(c => c.AddMap(new MapCompositeKeyPropertyMap()));
+
+            var type = typeof(CompositeKeyEntity);
+            var propertyResolver = new Dommel.Resolvers.DommelPropertyResolver();
+            var properties = propertyResolver.ResolveProperties(type);
+
+            Assert.All(properties, p => Assert.False(p.IsGenerated));
+        }
+
         private static void PreTest()
         {
             FluentMapper.EntityMaps.Clear();
@@ -121,6 +152,15 @@ namespace Dapper.FluentMap.Dommel.Tests
             public MapSingleCustomIdDefaultKey()
             {
                 Map(p => p.CustomId).ToColumn("customid", false);
+            }
+        }
+
+        private class MapCompositeKeyPropertyMap : DommelEntityMap<CompositeKeyEntity>
+        {
+            public MapCompositeKeyPropertyMap()
+            {
+                Map(p => p.KeyPartOne).IsKey().SetGeneratedOption(DatabaseGeneratedOption.None);
+                Map(p => p.KeyPartTwo).IsKey().SetGeneratedOption(DatabaseGeneratedOption.None);
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
 using Dapper.FluentMap.Dommel.Mapping;
@@ -29,7 +30,7 @@ namespace Dapper.FluentMap.Dommel.Resolvers
                 var allPropertyMaps = entityMap.PropertyMaps.OfType<DommelPropertyMap>();
                 var keyPropertyInfos = allPropertyMaps
                      .Where(e => e.Key)
-                     .Select(x => new ColumnPropertyInfo(x.PropertyInfo, isKey: true))
+                     .Select(x => new ColumnPropertyInfo(x.PropertyInfo, x.GeneratedOption ?? (x.Key ? DatabaseGeneratedOption.Identity : DatabaseGeneratedOption.None)))
                      .ToArray();
 
                 // Now make sure there aren't any missing key properties that weren't explicitly defined in the mapping.
