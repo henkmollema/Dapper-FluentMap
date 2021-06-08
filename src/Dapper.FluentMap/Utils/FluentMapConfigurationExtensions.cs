@@ -19,16 +19,19 @@ namespace Dapper.FluentMap.Utils
         /// </summary>
         /// <param name="configuration">The <see cref="FluentMapConfiguration"/> instance.</param>
         /// <param name="assemblies">The assemblies to scan for entity maps.</param>
-        /// <exception cref="ArgumentNullException"></exception>
         public static void ApplyMapsFromAssemblies(this FluentMapConfiguration configuration,  params Assembly[] assemblies)
         {
             if (assemblies == null)
+            {
                 throw new ArgumentNullException(nameof(assemblies));
+            }
 
             var entityMapTypes = FindTypesImplementingIEntityMap(assemblies);
 
             if (!entityMapTypes.Any())
+            {
                 return;
+            }
 
             EnsureNoDuplicateMapping(entityMapTypes);
 
@@ -75,9 +78,11 @@ namespace Dapper.FluentMap.Utils
                                    $"Cannot find {nameof(configuration.AddMap)} method on {configuration.GetType().Name}");
 
             foreach (var entityMapType in entityMapTypes)
+            {
                 addMapMethod
                     .MakeGenericMethod(entityMapType.EntityMapInterface.GetGenericArguments())
                     .Invoke(configuration, new[] {Activator.CreateInstance(entityMapType.Type)});
+            }
         }
     }
 }
