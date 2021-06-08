@@ -8,7 +8,7 @@ using Dapper.FluentMap.Mapping;
 namespace Dapper.FluentMap.Utils
 {
     /// <summary>
-    /// Extension methods for <see cref="FluentMapConfiguration"/>
+    /// Extension methods for <see cref="FluentMapConfiguration"/>.
     /// </summary>
     public static class FluentMapConfigurationExtensions
     {
@@ -17,11 +17,10 @@ namespace Dapper.FluentMap.Utils
         /// and applies them to <see cref="FluentMapConfiguration"/>,
         /// by calling <see cref="FluentMapConfiguration.AddMap{TEntity}"/> and passing an instance of found type.
         /// </summary>
-        /// <param name="configuration">The <see cref="FluentMapConfiguration"/> instance</param>
-        /// <param name="assemblies">Assemblies</param>
+        /// <param name="configuration">The <see cref="FluentMapConfiguration"/> instance.</param>
+        /// <param name="assemblies">The assemblies to scan for entity maps.</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public static void ApplyMapsFromAssemblies(this FluentMapConfiguration configuration,
-            params Assembly[] assemblies)
+        public static void ApplyMapsFromAssemblies(this FluentMapConfiguration configuration,  params Assembly[] assemblies)
         {
             if (assemblies == null)
                 throw new ArgumentNullException(nameof(assemblies));
