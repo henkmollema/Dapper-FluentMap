@@ -104,7 +104,7 @@ namespace Dapper.FluentMap.TypeMaps
                     if (result != null)
                     {
 #if !NETSTANDARD1_3
-                        if (result is IgnoredPropertyInfo)
+                        if (result is IgnoredPropertyInfo || result.Property is IgnoredPropertyInfo)
                         {
                             // The property is explicitly ignored, 
                             // return null to prevent falling back to default type map of Dapper.
