@@ -1,3 +1,9 @@
+## 📦 Archived
+This repository is archived as I'm not using this library myself anymore and have no time maintaining it. Thanks for using it.
+
+<hr>
+
+
 # Dapper.FluentMap
 Provides a simple API to fluently map POCO properties to database columns when using Dapper.
 
